@@ -14,7 +14,17 @@ class CreateRepliesTable extends Migration
     public function up()
     {
         Schema::create('replies', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('text')->unique();
+            $table->string('type')->nullable();
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+            $table->integer('admin_id')->unsigned();
+            $table->foreign('admin_id')
+                ->references('id')->on('admins')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

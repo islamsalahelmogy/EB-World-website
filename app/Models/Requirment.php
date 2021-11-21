@@ -5,16 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Doctor extends Model
+class Requirment extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name','phone','gender','email'
+        'subject_id',
+        'requirment_id',
     ];
 
-    public function subjects()
-    {
-        return $this->hasMany('App\Models\Subject');
-    }
 }

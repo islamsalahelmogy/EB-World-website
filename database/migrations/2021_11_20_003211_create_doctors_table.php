@@ -14,7 +14,12 @@ class CreateDoctorsTable extends Migration
     public function up()
     {
         Schema::create('doctors', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('image')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('phone')->nullable();
             $table->timestamps();
         });
     }

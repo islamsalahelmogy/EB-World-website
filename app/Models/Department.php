@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Department extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name','cover','description'
+    ];
+
+    public function subjects()
+    {
+        return $this->hasMany('App\Models\Subject');
+    }
 }
