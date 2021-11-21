@@ -16,4 +16,8 @@ class Department extends Model
     {
         return $this->hasMany('App\Models\Subject');
     }
+    public function doctors()
+    {
+        return $this->hasMany('App\Models\Doctor');
+    }
 }
