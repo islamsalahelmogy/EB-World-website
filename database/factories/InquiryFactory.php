@@ -13,8 +13,12 @@ class InquiryFactory extends Factory
      */
     public function definition()
     {
+        $type=$this->faker->randomElement(['admin','user']);
         return [
-            //
+            'text' => $this->faker->randomElement(['هل توجد مواد اضافيه في قسم الرياضيات ؟','هل يمكنني ان التحق بقسم التاريخ ؟']),
+            'type' => $type,
+            'user_id' => $type=='user' ? $this->faker->numberBetween(1,10) :null,
+            'admin_id'=> $type=='admin' ? $this->faker->numberBetween(1,3) :null,
         ];
     }
 }

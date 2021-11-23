@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ReplySeeder extends Seeder
 {
@@ -13,6 +14,6 @@ class ReplySeeder extends Seeder
      */
     public function run()
     {
-        //
+       //
     }
 }

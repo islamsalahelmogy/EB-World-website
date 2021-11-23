@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Subject;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +14,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(10)->create();
+        \App\Models\Admin::factory(3)->create();
+        $this->call(DepartmentSeeder::class);
+        $this->call(LevelSeeder::class);
+        \App\Models\Doctor::factory(10)->create();
+        $this->call(SubjectSeeder::class);
+        \App\Models\Inquiry::factory(2)->create();
+        \App\Models\Reply::factory(4)->create();
     }
 }
