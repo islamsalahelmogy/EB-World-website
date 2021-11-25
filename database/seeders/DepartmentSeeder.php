@@ -16,23 +16,23 @@ class DepartmentSeeder extends Seeder
     {
         DB::table('departments')->insert([
             'name' => 'قسم الرياضيات',
-            'descripion' =>'يهتم بعلوم الرياضيات البحته والتطبيقية والخوارزميات '
+            'description' =>'يهتم بعلوم الرياضيات البحته والتطبيقية والخوارزميات '
         ]);
         DB::table('departments')->insert([
             'name' => 'قسم اللغة الانجليزية',
-            'descripion' =>' يهتم  باللغة الانجليزية '
+            'description' =>' يهتم  باللغة الانجليزية '
         ]);
         DB::table('departments')->insert([
             'name' => 'قسم العلوم ',
-            'descripion' =>' يهتم بالعلوم التطبيقيه وعلوم الطبيعة'
+            'description' =>' يهتم بالعلوم التطبيقيه وعلوم الطبيعة'
         ]);
         DB::table('departments')->insert([
             'name' => 'قسم الحاسبات ',
-            'descripion' =>'يهتم بعلوم الحاسب والبرمجة '
+            'description' =>'يهتم بعلوم الحاسب والبرمجة '
         ]);
         DB::table('departments')->insert([
             'name' => 'قسم التاريخ',
-            'descripion' =>'يهتم  بالتاريخ '
+            'description' =>'يهتم  بالتاريخ '
         ]);
     }
 }

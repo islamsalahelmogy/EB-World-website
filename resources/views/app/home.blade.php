@@ -54,66 +54,28 @@
         <h2 class="">جميع التخصصات</h2>
         <hr>
         <div class="row task-widget">
-            <div class="col-xl-3 col-md-12">
-                <div class="card">
-                    <div class="item-card">
-                        <div class="item-card-desc">
-                            <a href="javascript:void(0)"></a>
-                            <div class="item-card-img">
-                                <img src="{{asset('assets/images/media/21.jpg')}}" alt="img" class="">
+            @foreach ($departments as $d)
+                <div class="col-xl-3 col-md-12">
+                    <div class="card">
+                        <div class="item-card">
+                            <div class="item-card-desc">
+                                <a href="{{route('department',['id'=>$d->id])}}"></a>
+                                <div class="item-card-img">
+                                    @if ($d->cover != null)
+                                        <img src="{{asset('assets/images/data/departments/'.$d->id.'/'.$d->cover)}}" alt="img" class="">
+                                    @else
+                                        <img src="{{asset('assets/images/data/departments/default.jpg')}}" alt="img" class="">
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                        <div class="item-card-btn data-1">
-                            <a href="javascript:void(0)" class="h4 mb-0 text-white text-center">Business Manegement</a>
+                            <div class="item-card-btn data-1">
+                                <a href="{{route('department',['id'=>$d->id])}}" class="h4 mb-0 text-white text-center">{{$d->name}}</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-3  col-md-12">
-                <div class="card">
-                    <div class="item-card">
-                        <div class="item-card-desc">
-                            <a href="javascript:void(0)"></a>
-                            <div class="item-card-img">
-                                <img src="{{asset('assets/images/media/22.jpg')}}" alt="img" class="">
-                            </div>
-                        </div>
-                        <div class="item-card-btn data-1">
-                            <a href="javascript:void(0)" class="h4 mb-0 text-white text-center">Networking Classes </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3  col-md-12">
-                <div class="card">
-                    <div class="item-card">
-                        <div class="item-card-desc">
-                            <a href="javascript:void(0)"></a>
-                            <div class="item-card-img">
-                                <img src="{{asset('assets/images/media/25.jpg')}}" alt="img" class="">
-                            </div>
-                        </div>
-                        <div class="item-card-btn data-1">
-                            <a href="javascript:void(0)" class="h4 mb-0 text-white text-center">Security Hacking</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-3  col-md-12">
-                <div class="card">
-                    <div class="item-card">
-                        <div class="item-card-desc">
-                            <a href="javascript:void(0)"></a>
-                            <div class="item-card-img">
-                                <img src="{{asset('assets/images/media/19.jpg')}}" alt="img" class="">
-                            </div>
-                        </div>
-                        <div class="item-card-btn data-1">
-                            <a href="javascript:void(0)" class="h4 mb-0 text-white text-center">Beautician</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
+           
         </div>
         <hr>
     </section>
@@ -123,88 +85,96 @@
         <hr>
         <div class="row">
             <div class="col-lg-12">
-				{{-- if not greater than 5 --}}
-				<div class="row">
-					<div class="item text-center col-3">
-						<div class="card overflow-hidden">
-							<img src="{{asset('assets/images/trainers/6.jpg')}}" class="w-100" alt="img">
-							<div class="card-body text-center pt-5 pb-3 pe-5 ps-5">
-								<h4 class="fs-16 mt-0 mb-1 font-weight-semibold">name</h4>
-								<p class="mb-1">Department</p>
-							</div>
-							<div class="card-footer">
-								<div class="">
-									عدد المواد : 20
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				{{-- if  greater than 5 --}}
-                {{-- <div class="">
+				{{-- if not greater than 4   --}}
+                @if ($doctors->count() <= 4)
+                    <div class="row">
+                        @foreach ($doctors as $doc)
+                        <div class="item text-center col-3">
+                            <a href="{{route('doctor',['id'=>$doc->id])}}">
+                                <div class="card overflow-hidden">
+                                    @if ($doc->image != null)
+                                            <img src="{{asset('assets/images/data/doctors/'.$doc->id.'/'.$d->image)}}" alt="img" class="w-100">
+                                    @else
+                                        @if ($doc->gender == 'انثى')
+                                            <img src="{{asset('assets/images/data/doctors/female.jpg')}}" alt="img" class="w-100">
+                                        @else
+                                            <img src="{{asset('assets/images/data/doctors/male.jpg')}}" alt="img" class="w-100">
+                                        @endif
+                                    @endif
+                                    <div class="card-body text-center pt-5 pb-3 pe-5 ps-5">
+                                        <h4 class="fs-16 mt-0 mb-1 font-weight-semibold">{{$doc->name}}</h4>
+                                        <p class="mb-1"><a href="{{route('department',['id'=>$doc->department->id])}}">{{$doc->department->name}}</a></p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="">
+                                            عدد المواد : {{$doc->subjects->count()}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        @endforeach
+                    </div>
+                   
+                   
+                @else
+                {{-- if  greater than 4 --}}
+                <div class="">
                     <div class="owl-carousel classes-carousel-1">
-						<div class="item text-center">
-							<a href="">
-								<div class="card overflow-hidden">
-								
-									<img src="{{asset('assets/images/trainers/6.jpg')}}" class="w-100" alt="img">
-									<div class="card-body text-center pt-5 pb-3 pe-5 ps-5">
-										<h4 class="fs-16 mt-0 mb-1 font-weight-semibold">name</h4>
-										<p class="mb-1">Department</p>
-									</div>
-									<div class="card-footer">
-										<div class="">
-											total : 5 subjects
-										</div>
-									</div>
-								</div>
-							</a>
-							
-						</div>
-						<div class="item text-center">
-							<a href="">
-								<div class="card overflow-hidden">
-								
-									<img src="{{asset('assets/images/trainers/6.jpg')}}" class="w-100" alt="img">
-									<div class="card-body text-center pt-5 pb-3 pe-5 ps-5">
-										<h4 class="fs-16 mt-0 mb-1 font-weight-semibold">name</h4>
-										<p class="mb-1">Department</p>
-									</div>
-									<div class="card-footer">
-										<div class="">
-											total : 5 subjects
-										</div>
-									</div>
-								</div>
-							</a>
-						</div>
-						
-
-					</div>
-                </div> --}}
+                    @foreach ($doctors as $doc)
+                        <div class="item text-center">
+                            <a href="{{route('doctor',['id'=>$doc->id])}}">
+                                <div class="card overflow-hidden">
+                                    @if ($doc->image != null)
+                                            <img src="{{asset('assets/images/data/doctors/'.$doc->id.'/'.$d->image)}}" alt="img" class="w-100">
+                                    @else
+                                        @if ($doc->gender == 'انثى')
+                                            <img src="{{asset('assets/images/data/doctors/female.jpg')}}" alt="img" class="w-100">
+                                        @else
+                                            <img src="{{asset('assets/images/data/doctors/male.jpg')}}" alt="img" class="w-100">
+                                        @endif
+                                    @endif
+                                    <div class="card-body text-center pt-5 pb-3 pe-5 ps-5">
+                                        <h4 class="fs-16 mt-0 mb-1 font-weight-semibold">{{$doc->name}}</h4>
+                                        <p class="mb-1"><a href="{{route('department',['id'=>$doc->department->id])}}">{{$doc->department->name}}</a></p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="">
+                                            عدد المواد : {{$doc->subjects->count()}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
 		<hr>
     </section>
 	<section class="bg-transparent">
-			<div class="section-title">
-				<h2>الإستفسارت المضافة حديثاً</h2>
-			</div>
+			<h2>الإستفسارت المضافة حديثاً</h2>
+            <hr>
 			<div class="row">
-				<div class="col-xl-4 col-lg-4 col-md-6">
-					<div class="card overflow-hidden">
-						<div class="card-status card-status-left bg-second br-bs-7 br-ts-7"></div>
-						<div class="card-body">
-							<a href="blog-details.html" class="text-dark mt-1"><h3 class="font-weight-semibold fs-20">On other hand denounce</h3></a>
-							<div class="item7-card-desc d-flex mb-1 mt-3">
-								<a href="javascript:void(0)"><i class="fe fe-message-circle me-1 float-start mt-1"></i>4 ردود</a>
-								<a href="javascript:void(0)" class="ms-3"><i class="fe fe-calendar me-1 float-start mt-1"></i>Dec-03-2018</a>
-							</div>
-							<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip commodo consequat </p>
-							<a class="btn btn-primary btn-sm py-2 px-4" href="javascript:void(0)">للمزيد</a>
-						</div>
-					</div>
-				</div>
+                @foreach ($inquiries as $inq)
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="card overflow-hidden">
+                            <div class="card-status card-status-left bg-second br-bs-7 br-ts-7"></div>
+                            <div class="card-body">
+                                <h3 class="font-weight-semibold fs-20">@if($inq->type == 'admin'){{$inq->admin->name}}@else{{$inq->user->name}} @endif</h3>
+                                <div class="item7-card-desc d-flex mb-1 mt-3">
+                                    <span><i class="fe fe-message-circle me-1 float-start mt-1"></i>{{$inq->replies->count()}} ردود </span>
+                                    <span class="ms-3"><i class="fe fe-calendar me-1 float-start mt-1"></i>{{$inq->created_at->diffForHumans()}}</span>
+                                </div>
+                                <p class="line-clamp">{{$inq->text}}</p>
+                                <a class="btn btn-primary btn-sm py-2 px-4" href="javascript:void(0)">للمزيد</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+				
 				
 			</div>
 

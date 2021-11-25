@@ -25,4 +25,9 @@ class Reply extends Model
     {
         return $this->belongsTo('App\Models\Admin');
     }
+
+    public function Inquiry()
+    {
+        return $this->belongsTo('App\Models\Inquiry');
+    }
 }

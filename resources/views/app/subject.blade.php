@@ -15,29 +15,41 @@
             {{-- basic info about subject --}}
             <div class="card overflow-hidden">
                 <div class="card-body pb-0">
-                    <a href="javascript:void(0)" class="text-dark"><h2 class="font-weight-semibold mb-0">subject name</h2></a>
-                    <p class="lead-1">course code</p>
+                    <a href="javascript:void(0)" class="text-dark"><h2 class="font-weight-semibold mb-0">{{$subject->name}}</h2></a>
+                    <p class="lead-1">كود المادة : {{$subject->code}}</p>
                     <div class="product-slider">
                         <ul class="list-unstyled video-list-thumbs">
                             <li class="mb-0">
                                 <a class="class-video p-0" href="javascript:void(0)">
-                                    <img src="{{asset('assets/images/media/0-13.jpg')}}" alt="img" class="img-responsive  border br-7">
+                                    @if ($subject->cover != null)
+                                        <img src="{{asset('assets/images/data/subjects/'.$subject->id.'/'.$subject->cover)}}" alt="img" class="img-responsive  border br-7">
+                                    @else
+                                        <img src="{{asset('assets/images/data/subjects/default.jpg')}}" alt="img" class="img-responsive  border br-7">
+                                    @endif
                                 </a>
                             </li>
                         </ul>
                     </div>
                     <div class="item-card-text-bottom">
-                        <h4 class="mb-0">level</h4>
+                        <h4 class="mb-0">{{$subject->level->name}}</h4>
                     </div>
                 </div>
                 <div class="row details-1">
                     <div class="col-xl-4 col-lg-4 col-md-4 ">
                         <div class="card mb-0 border-0 shadow-none">
                             <div class="card-body d-flex pb-0 pb-md-5">
-                                <img src="{{asset('assets/images/users/female/20.jpg')}}" class="brround d-none d-md-flex avatar-md me-3" alt="user">
+                                @if ($subject->doctor->image != null)
+                                        <img src="{{asset('assets/images/data/doctors/'.$subject->doctor->id.'/'.$subject->doctor->image)}}" alt="img" class="brround d-none d-md-flex avatar-md me-3">
+                                @else
+                                    @if ($subject->doctor->gender == 'انثى')
+                                        <img src="{{asset('assets/images/data/doctors/female.jpg')}}" alt="img" class="brround d-none d-md-flex avatar-md me-3">
+                                    @else
+                                        <img src="{{asset('assets/images/data/doctors/male.jpg')}}" alt="img" class="brround d-none d-md-flex avatar-md me-3">
+                                    @endif
+                                @endif
                                 <div>
                                     <span class="icons fs-16 font-weight-semibold text-dark">دكتور المادة</span>
-                                    <a href="javascript:void(0)" class="icons h4 font-weight-semibold text-dark"><span class=" d-block">Name</span></a>
+                                    <a href="{{route('doctor',['id'=>$subject->doctor->id])}}" class="icons h4 font-weight-semibold text-dark"><span class=" d-block">{{$subject->doctor->name}}</span></a>
                                 </div>
                             </div>
                         </div>
@@ -47,7 +59,7 @@
                             <div class="card-body pb-0 pb-md-5">
                                 <div>
                                     <span class="icons fs-16 font-weight-semibold text-dark">القسم</span>
-                                    <a href="javascript:void(0)" class="icons h4 font-weight-semibold text-dark"><span class=" d-block">name</span></a>
+                                    <a href="{{route('department',['id'=>$subject->department->id])}}" class="icons h4 font-weight-semibold text-dark"><span class=" d-block">{{$subject->department->name}}</span></a>
                                 </div>
                             </div>
                         </div>
@@ -64,19 +76,18 @@
                     </div>
                 </div>
             </div>
-            {{-- details about coures description and pre_requirements --}}
+            {{-- details about coures description  --}}
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">الوصف</h3>
                 </div>
                 <div class="card-body">
                     <div class="mb-4 description">
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atcorrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
-                        <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoraliz the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble thena bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain.</p>
+                        <p>{{$subject->description}}</p>
                     </div>
                 </div>
             </div>
-
+            {{-- pre_requirements --}}
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">المواد المتطلبة للمادة</h3>

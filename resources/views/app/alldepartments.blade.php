@@ -15,21 +15,27 @@
         <div class="row">
             <div class="col-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="row">
-                    <div class="col-sm-12 col-lg-4 col-md-4">
-                        <a href="javascript:void(0)" class="item-card overflow-hidden">
-                            <div class="item-card-desc">
-                                <div class="card text-center overflow-hidden">
-                                    <div class="card-img">
-                                        <img src="{{asset('assets/images/media/14.jpg')}}" alt="img" class="cover-image">
-                                    </div>
-                                    <div class="item-card-text item-card-text-footer">
-                                        <h4 class="font-weight-semibold">Software Development</h4>
-                                        <span class="text-white-80"><strong class="fs-18 font-weight-bold text-white">عدد المواد : 50</strong></span>
+                    @foreach ($departments as $d)
+                        <div class="col-sm-12 col-lg-4 col-md-4">
+                            <a href="{{route('department',['id'=>$d->id])}}" class="item-card overflow-hidden">
+                                <div class="item-card-desc">
+                                    <div class="card text-center overflow-hidden">
+                                        <div class="card-img">
+                                            @if ($d->cover != null)
+                                                <img src="{{asset('assets/images/data/departments/'.$d->id.'/'.$d->cover)}}" alt="img" class="">
+                                            @else
+                                                <img src="{{asset('assets/images/data/departments/default.jpg')}}" alt="img" class="">
+                                            @endif                                        
+                                        </div>
+                                        <div class="item-card-text item-card-text-footer">
+                                            <h4 class="font-weight-semibold">{{$d->name}}</h4>
+                                            <span class="text-white-80"><strong class="fs-18 font-weight-bold text-white">عدد المواد : {{$d->subjects->count()}}</strong></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
+                            </a>
+                        </div>
+                    @endforeach
                     
                 </div>
             </div>
