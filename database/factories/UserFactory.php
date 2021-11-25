@@ -16,12 +16,11 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->firstNameFemale(),
+            'name' => $this->faker->firstNameFemale().' '.$this->faker->firstNameMale(),
             'email' => $this->faker->unique()->safeEmail(),
-            'image' => "user_default.png",
             'gender'=> 'انثي' ,
             'phone'=>$this->faker->phoneNumber(),
-            'department'=>$this->faker->randomElement(['قسم اللغة الانجليزية','قسم الحاسبات','قسم العلوم','قسم الرياضيات','قسم التاريخ','قسم الارشاد النفسي']),
+            'department'=>$this->faker->randomElement(['قسم اللغة الانجليزية','قسم الحاسبات','قسم العلوم','قسم الرياضيات','قسم التاريخ']),
             'level'=>$this->faker->randomElement(['اولي','ثانية','ثالثة','رابعة']),
             'email_verified_at' => now(),
             'password' => Hash::make('123456789'), // password

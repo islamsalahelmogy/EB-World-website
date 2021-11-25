@@ -16,6 +16,7 @@ class CreateSubjectsTable extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->text('description')->default('Details about subject');
             $table->string('code')->unique();
             $table->string('cover')->nullable();
             $table->integer('doctor_id')->unsigned();

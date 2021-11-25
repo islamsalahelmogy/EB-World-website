@@ -14,9 +14,8 @@ class DoctorFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->firstNameMale(),
+            'name' => $this->faker->firstNameMale().' '.$this->faker->firstNameMale(),
             'email' => $this->faker->unique()->safeEmail(),
-            'image' => "user_default.png",
             'gender'=>'ذكر',
             'phone'=>$this->faker->phoneNumber(),
             'department_id'=>$this->faker->numberBetween(1,5),

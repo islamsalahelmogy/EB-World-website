@@ -26,4 +26,9 @@ class Inquiry extends Model
     {
         return $this->belongsTo('App\Models\Admin');
     }
+
+    public function replies()
+    {
+        return $this->hasMany('App\Models\Reply','inquire_id');
+    }
 }

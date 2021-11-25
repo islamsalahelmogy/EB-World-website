@@ -24,8 +24,12 @@ Route::get('home/doctor','HomeController@show_doctor')->name('doctor');
 Route::get('home/department','HomeController@show_department')->name('department');
 Route::get('home/subject','HomeController@show_subject')->name('subject');
 Route::get('home/search','SearchController@search')->name('search');
+// for login and register
 Route::get('login','Auth\LoginController@showLogin')->name('show_login');
 Route::get('register','Auth\RegisterController@showRegister')->name('show_register');
+
+// for get message error 404
+Route::get('error','HomeController@getError')->name('error');
 
 
 

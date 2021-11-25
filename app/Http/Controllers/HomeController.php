@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
+use App\Models\Doctor;
+use App\Models\Inquiry;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     /* home page */
     public function index() {
-        return view('app.home'); 
+        $departments = Department::all();
+        $doctors = Doctor::all();
+        $inquiries = Inquiry::latest()->take(10)->get(); 
+        return view('app.home',compact('departments','doctors','inquiries')); 
     }
 
     /* inquire page */
@@ -18,16 +25,19 @@ class HomeController extends Controller
 
     /*all departments page */
     public function show_alldepartments() {
-        return view('app.alldepartments'); 
+        $departments = Department::all();
+        return view('app.alldepartments',compact('departments')); 
     }
     /* all subjects page  */
     public function show_allsubjects() {
-        return view('app.allsubjects'); 
+        $departments = Department::all();
+        return view('app.allsubjects',compact('departments')); 
     }
 
     /* all doctors page  */
     public function show_alldoctors() {
-        return view('app.alldoctors'); 
+        $doctors = Doctor::all();
+        return view('app.alldoctors',compact('doctors')); 
     }
 
     /* single doctor with subjects */
@@ -41,8 +51,19 @@ class HomeController extends Controller
     }
 
     /* content for subject */
-    public function show_subject() {
-        return view('app.subject'); 
+    public function show_subject(Request $r) {
+        if(is_numeric($r->id)) {
+            $subject = Subject::find($r->id);
+            return view('app.subject',compact('subject')); 
+        } else {
+            return redirect()->route('error');
+        }
+            
+        
+    }
+
+    public function getError() {
+        abort(404);
     }
 
    

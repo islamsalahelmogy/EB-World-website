@@ -17,4 +17,9 @@ class Doctor extends Model
     {
         return $this->hasMany('App\Models\Subject');
     }
+
+    public function department()
+    {
+        return $this->belongsTo('App\Models\Department');
+    }
 }

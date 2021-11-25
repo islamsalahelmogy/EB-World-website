@@ -14,4 +14,6 @@ class Requirment extends Model
         'requirment_id',
     ];
 
+    
+
 }
