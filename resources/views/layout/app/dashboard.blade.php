@@ -1,4 +1,8 @@
 @extends('layout.common.layout')
+@section('background')
+    <div class="cover-image bg-background-1" data-bs-image-src="{{asset('assets/images/banners/banner4.jpg')}}">
+@endsection
+
 @section('body')
     {{-- header --}}
     @hasSection ('landing')
@@ -14,11 +18,8 @@
         </div>
     </div>
     {{-- content --}}
-    <section>
-        <div class="container">
-            @yield('content')
-        </div>
-    </section>
+    
+        @yield('content')
     
     {{-- footer --}}
     @include('layout.common.footer')

@@ -24,6 +24,17 @@ Route::get('home/doctor','HomeController@show_doctor')->name('doctor');
 Route::get('home/department','HomeController@show_department')->name('department');
 Route::get('home/subject','HomeController@show_subject')->name('subject');
 Route::get('home/search','SearchController@search')->name('search');
+Route::get('login','Auth\LoginController@showLogin')->name('show_login');
+Route::get('register','Auth\RegisterController@showRegister')->name('show_register');
 
 
 
+// for auth user 
+Route::get('user/profile','User\UserController@index')->name('user.profile');
+Route::get('user/settings','User\UserController@settings')->name('user.settings');
+
+
+
+//for auth admin
+Route::get('admin/profile','Admin\ProfileController@index')->name('admin.profile');
+Route::get('admin/settings','Admin\ProfileController@settings')->name('admin.settings');

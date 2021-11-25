@@ -15,10 +15,13 @@
     </style>
 @endpush
 @push('breadcrumb')
+<div class="text-center text-white py-7">
+    <h1 class="">جميع الدكاترة</h1>
     <ol class="breadcrumb1 justify-content-center mt-5">
-        <li class="breadcrumb-item1"><a href="{{route('home')}}" class="text-white font-weight-bold fs-2"><i class="fe fe-home me-2 float-start mt-1"></i>Home</a></li>
-        <li class="breadcrumb-item1 active text-white font-weight-bold fs-3">All Doctors</li>
+        <li class="breadcrumb-item1"><a href="{{route('home')}}" class="text-white font-weight-bold fs-2"><i class="fe fe-home me-2 float-start mt-1"></i>الرئيسية</a></li>
+        <li class="breadcrumb-item1 active text-white font-weight-bold fs-3">الدكاترة</li>
     </ol>
+</div>
 @endpush
 
 @section('content')
@@ -35,10 +38,10 @@
                                     <h5 class="font-weight-semibold2 mb-1">name</h5>
                                     <p class="text-default">Department</p>
                                 </div>
-                                <a class="btn btn-outline-light btn-sm w-auto d-inline-block btn-subjects" href="javascript:void(0)">View Subjects</a>
+                                <a class="btn btn-outline-light btn-sm w-auto d-inline-block btn-subjects" href="javascript:void(0)">عرض المواد</a>
                             </div>
                             <div class="card-footer">
-                                total : 5 subject
+                                عدد المواد : 50
                             </div>
                         </div>
                     </div>

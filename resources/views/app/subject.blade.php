@@ -1,9 +1,12 @@
 @extends('layout.app.layout')
 @push('breadcrumb')
+<div class="text-center text-white py-7">
+    <h1 class="">المادة</h1>
     <ol class="breadcrumb1 justify-content-center mt-5">
-        <li class="breadcrumb-item1"><a href="{{route('home')}}" class="text-white font-weight-bold fs-2"><i class="fe fe-home me-2 float-start mt-1"></i>Home</a></li>
-        <li class="breadcrumb-item1 active text-white font-weight-bold fs-3">Specific Subject</li>
+        <li class="breadcrumb-item1"><a href="{{route('home')}}" class="text-white font-weight-bold fs-2"><i class="fe fe-home me-2 float-start mt-1"></i>الرئيسية</a></li>
+        <li class="breadcrumb-item1 active text-white font-weight-bold fs-3">المادة</li>
     </ol>
+</div>
 @endpush
 @section('content')
     <hr> 
@@ -33,7 +36,7 @@
                             <div class="card-body d-flex pb-0 pb-md-5">
                                 <img src="{{asset('assets/images/users/female/20.jpg')}}" class="brround d-none d-md-flex avatar-md me-3" alt="user">
                                 <div>
-                                    <span class="icons fs-16 font-weight-semibold text-dark">Doctor</span>
+                                    <span class="icons fs-16 font-weight-semibold text-dark">دكتور المادة</span>
                                     <a href="javascript:void(0)" class="icons h4 font-weight-semibold text-dark"><span class=" d-block">Name</span></a>
                                 </div>
                             </div>
@@ -43,7 +46,7 @@
                         <div class="card mb-0 border-0 shadow-none">
                             <div class="card-body pb-0 pb-md-5">
                                 <div>
-                                    <span class="icons fs-16 font-weight-semibold text-dark">Department</span>
+                                    <span class="icons fs-16 font-weight-semibold text-dark">القسم</span>
                                     <a href="javascript:void(0)" class="icons h4 font-weight-semibold text-dark"><span class=" d-block">name</span></a>
                                 </div>
                             </div>
@@ -53,7 +56,7 @@
                         <div class="card mb-0 border-0 shadow-none">
                             <div class="card-body pb-0 pb-md-5">
                                 <div>
-                                    <span class="icons fs-16 font-weight-semibold text-dark">Pre_request count</span>
+                                    <span class="icons fs-16 font-weight-semibold text-dark">عدد المواد المتطلبة</span>
                                     <a href="javascript:void(0)" class="icons h4 font-weight-semibold text-dark"><span class=" d-block">Count</span></a>
                                 </div>
                             </div>
@@ -64,7 +67,7 @@
             {{-- details about coures description and pre_requirements --}}
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Description</h3>
+                    <h3 class="card-title">الوصف</h3>
                 </div>
                 <div class="card-body">
                     <div class="mb-4 description">
@@ -76,15 +79,15 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Pre_requirement</h3>
+                    <h3 class="card-title">المواد المتطلبة للمادة</h3>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover text-center">
                         <tbody>
                             <thead class="table-dark">
                                 <tr>
-                                    <th><span class="fs-20 font-weight-bold text-white">Subject name</span></th>
-                                    <th><span class="fs-20 font-weight-bold text-white">Subject Code</span></th>
+                                    <th><span class="fs-20 font-weight-bold text-white">إسم المادة</span></th>
+                                    <th><span class="fs-20 font-weight-bold text-white">كود المادة</span></th>
                                 </tr>
                             </thead>
                             <tbody>

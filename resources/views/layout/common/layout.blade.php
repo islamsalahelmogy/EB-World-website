@@ -35,6 +35,9 @@
 		<!-- Color Skin css -->
 		<link id="theme" rel="stylesheet" type="text/css" media="all" href="{{asset('assets/color-skins-rtl/color.css')}}" />
 		<style>
+			.horizontalMenucontainer {
+				background-image: url('{{asset("assets/images/banners/pattern2.png")}}');
+			}
 			.line-clamp {
 				display: -webkit-box;
 				-webkit-line-clamp: 3;
@@ -42,6 +45,8 @@
 				overflow: hidden;
 				text-align: justify
 			}
+			
+			
 		</style>
 		@stack('css')
 	</head>

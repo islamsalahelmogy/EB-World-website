@@ -3,23 +3,55 @@
     <div class="recent-classes text-center mt-5">
         <a class="recent-course" href="{{route('alldepartments')}}">
             <i class="fa fa-university"></i>
-            <small>Departments</small>
+            <small>التخصصات</small>
         </a>
         <a class="recent-course" href="{{route('alldoctors')}}">
             <i class="fa fa-users"></i>
-            <small>Doctors</small>
+            <small>الدكاترة</small>
         </a>
         <a class="recent-course" href="{{route('allsubjects')}}">
             <i class="fa fa-book"></i>
-            <small>Subjects</small>
+            <small>المواد</small>
         </a>
     </div>
 @endpush
+@section('landing')
+    <div class="banner1 relative banner-top">
+        <!-- Carousel -->
+        <div class="owl-carousel bannner-owl-carousel slider slider-header ">
+            <div class="item cover-image" data-bs-image-src="" style="width: 100vw">
+                <img  alt="first slide" src="{{asset('assets/images/banners/slide-1.jpg')}}" >
+            </div>
+            <div class="item" style="width: 100vw">
+                <img  alt="first slide" src="{{asset('assets/images/banners/silde-2.jpg')}}" >
+            </div>
+            <div class="item" style="width: 100vw">
+                <img  alt="first slide" src="{{asset('assets/images/banners/slide-3.jpg')}}" >
+            </div>
+        </div>
+        <!--Topbar-->
+        <div class="header-main">
+            @auth
+                @include('layout.common.auth')
+            @endauth
+            @include('layout.common.header')
+            
+        </div>
+        <!--/Horizontal-main -->
+        <!--Section-->
+        @include('layout.common.header_content')
+
+        <!--/Section-->
+
+
+    </div>
+@endsection
+    
 @section('content')
     {{-- all department --}}
     <section>
         <hr class="border-0">
-        <h2 class="">Department</h2>
+        <h2 class="">جميع التخصصات</h2>
         <hr>
         <div class="row task-widget">
             <div class="col-xl-3 col-md-12">
@@ -87,7 +119,7 @@
     </section>
     {{-- all Doctors --}}
     <section>
-        <h2 class="">Doctors</h2>
+        <h2 class="">جميع الدكاترة</h2>
         <hr>
         <div class="row">
             <div class="col-lg-12">
@@ -102,7 +134,7 @@
 							</div>
 							<div class="card-footer">
 								<div class="">
-									total : 5 subjects
+									عدد المواد : 20
 								</div>
 							</div>
 						</div>
@@ -156,7 +188,7 @@
     </section>
 	<section class="bg-transparent">
 			<div class="section-title">
-				<h2>Inquires</h2>
+				<h2>الإستفسارت المضافة حديثاً</h2>
 			</div>
 			<div class="row">
 				<div class="col-xl-4 col-lg-4 col-md-6">
@@ -165,11 +197,11 @@
 						<div class="card-body">
 							<a href="blog-details.html" class="text-dark mt-1"><h3 class="font-weight-semibold fs-20">On other hand denounce</h3></a>
 							<div class="item7-card-desc d-flex mb-1 mt-3">
-								<a href="javascript:void(0)"><i class="fe fe-message-circle me-1 float-start mt-1"></i>4 comments</a>
+								<a href="javascript:void(0)"><i class="fe fe-message-circle me-1 float-start mt-1"></i>4 ردود</a>
 								<a href="javascript:void(0)" class="ms-3"><i class="fe fe-calendar me-1 float-start mt-1"></i>Dec-03-2018</a>
 							</div>
 							<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip commodo consequat </p>
-							<a class="btn btn-primary btn-sm py-2 px-4" href="javascript:void(0)">Read More</a>
+							<a class="btn btn-primary btn-sm py-2 px-4" href="javascript:void(0)">للمزيد</a>
 						</div>
 					</div>
 				</div>

@@ -1,9 +1,12 @@
 @extends('layout.app.layout')
 @push('breadcrumb')
+<div class="text-center text-white py-7">
+    <h1 class="">جميع التخصصات</h1>
     <ol class="breadcrumb1 justify-content-center mt-5">
-        <li class="breadcrumb-item1"><a href="{{route('home')}}" class="text-white font-weight-bold fs-2"><i class="fe fe-home me-2 float-start mt-1"></i>Home</a></li>
-        <li class="breadcrumb-item1 active text-white font-weight-bold fs-3">All Department</li>
+        <li class="breadcrumb-item1"><a href="{{route('home')}}" class="text-white font-weight-bold fs-2"><i class="fe fe-home me-2 float-start mt-1"></i>الرئيسية</a></li>
+        <li class="breadcrumb-item1 active text-white font-weight-bold fs-3">التخصصات</li>
     </ol>
+</div>
 @endpush
 
 @section('content')
@@ -21,7 +24,7 @@
                                     </div>
                                     <div class="item-card-text item-card-text-footer">
                                         <h4 class="font-weight-semibold">Software Development</h4>
-                                        <span class="text-white-80"><strong class="fs-18 font-weight-bold text-white">50</strong> subjects</span>
+                                        <span class="text-white-80"><strong class="fs-18 font-weight-bold text-white">عدد المواد : 50</strong></span>
                                     </div>
                                 </div>
                             </div>

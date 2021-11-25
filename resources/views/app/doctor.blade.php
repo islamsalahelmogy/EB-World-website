@@ -1,9 +1,12 @@
 @extends('layout.app.layout')
 @push('breadcrumb')
+<div class="text-center text-white py-7">
+    <h1 class="">الدكتور</h1>
     <ol class="breadcrumb1 justify-content-center mt-5">
-        <li class="breadcrumb-item1"><a href="{{route('home')}}" class="text-white font-weight-bold fs-2"><i class="fe fe-home me-2 float-start mt-1"></i>Home</a></li>
-        <li class="breadcrumb-item1 active text-white font-weight-bold fs-3">Specific Doctor</li>
+        <li class="breadcrumb-item1"><a href="{{route('home')}}" class="text-white font-weight-bold fs-2"><i class="fe fe-home me-2 float-start mt-1"></i>الرئيسية</a></li>
+        <li class="breadcrumb-item1 active text-white font-weight-bold fs-3">الدكتور</li>
     </ol>
+</div>
 @endpush
 @section('content')
     <section>
@@ -22,7 +25,7 @@
                                         <div class="user-wrap">
                                             <h3>Robert	McLean</h3>
                                             <h5 class="text-default mb-3">Department name</h5>
-                                            <h5 class="text-default mb-3">total subjects</h5>
+                                            <h5 class="text-default mb-3">عدد المواد : 10</h5>
 
                                         </div>
                                     </div>
@@ -42,7 +45,7 @@
                             </div>
                         </div>
                         <div class="item-all-text mt-2">
-                            <a class="btn btn-primary btn-pill px-6 fs-20" href="{{route('subject')}}">More</a>
+                            <a class="btn btn-primary btn-pill px-6 fs-20" href="{{route('subject')}}">عرض المادة</a>
                         </div>
                     </div>
                 </div>

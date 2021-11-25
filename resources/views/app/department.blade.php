@@ -1,9 +1,12 @@
 @extends('layout.app.layout')
 @push('breadcrumb')
+<div class="text-center text-white py-7">
+    <h1 class="">التخصص</h1>
     <ol class="breadcrumb1 justify-content-center mt-5">
-        <li class="breadcrumb-item1"><a href="{{route('home')}}" class="text-white font-weight-bold fs-2"><i class="fe fe-home me-2 float-start mt-1"></i>Home</a></li>
-        <li class="breadcrumb-item1 active text-white font-weight-bold fs-3">Specific Department</li>
+        <li class="breadcrumb-item1"><a href="{{route('home')}}" class="text-white font-weight-bold fs-2"><i class="fe fe-home me-2 float-start mt-1"></i>الرئيسية</a></li>
+        <li class="breadcrumb-item1 active text-white font-weight-bold fs-3">التخصص</li>
     </ol>
+</div>
 @endpush
 @section('content')
     <section>
@@ -22,7 +25,7 @@
                                             </div>
                                             <div class="user-wrap ">
                                                 <h3>Department name</h3>
-                                                <h6>Total : 5 subjects</h6>
+                                                <h6>عدد المواد : 20</h6>
                                                 <div class="mb-4 description line-clamp">
                                                     <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atcorrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
                                                     <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoraliz the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble thena bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain.</p>
@@ -39,8 +42,8 @@
                             <div class="tab-menu-heading">
                                 <div class="tabs-menu1">
                                     <ul class="nav">
-                                        <li class=""><a href="#tab-51" class="active" data-bs-toggle="tab">Doctors</a></li>
-                                        <li><a href="#tab-61" data-bs-toggle="tab" class="">Subjects</a></li>
+                                        <li class=""><a href="#tab-51" class="active" data-bs-toggle="tab">الدكاترة</a></li>
+                                        <li><a href="#tab-61" data-bs-toggle="tab" class="">المواد</a></li>
                                     </ul>
                                 </div>
                             </div>
