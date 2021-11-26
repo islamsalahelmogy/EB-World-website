@@ -26,14 +26,14 @@
                 <li aria-haspopup="true" ><a class="@if(Request::is('home/*') || Request::is('/')) active @endif" href="{{route('home')}}">الصفحة الرئيسية</a></li>
                 <li aria-haspopup="true"><a class="@if(Request::is('inquires')) active @endif" href="{{route('inquires')}}">الإستفسارات</a></li>
                 <li aria-haspopup="true" class="d-none"><a class="@if(Request::is('about_us')) active @endif" href="about.html">من نحن</a></li>
-                @guest
-                    <li aria-haspopup="true" class="p-0 mt-1">
-                        <span><a class="btn btn-primary" href="{{route('show_login')}}"><i class="fe fe-log-in me-1"></i>أدخل الأن</a></span>
-                    </li>
-                    <li aria-haspopup="true" class="p-0 mt-1 ms-3">
-                        <span><a class="btn btn-primary" href="{{route('show_register')}}"> <i class="fe fe-user me-1"></i> سجل الأن</a></span>
-                    </li>
-                @endguest
+                @unless(Auth::guard('admin')->check() || Auth::guard('user')->check())
+                        <li aria-haspopup="true" class="p-0 mt-1">
+                            <span><a class="btn btn-primary" href="{{route('show_login')}}"><i class="fe fe-log-in me-1"></i>أدخل الأن</a></span>
+                        </li>
+                        <li aria-haspopup="true" class="p-0 mt-1 ms-3">
+                            <span><a class="btn btn-primary" href="{{route('show_register')}}"> <i class="fe fe-user me-1"></i> سجل الأن</a></span>
+                        </li>
+                @endunless
                 
             </ul>
         </nav>

@@ -13,15 +13,27 @@
                             </div>
                         </li>
                         <li class="dropdown">
-                            <a href="javascript:void(0)" class="text-dark" data-bs-toggle="dropdown"><i class="fe fe-home me-1"></i><span>الإسم<i class="fe fe-chevron-down text-white ms-1"></i></span></a>
+                            <a href="javascript:void(0)" class="text-dark" data-bs-toggle="dropdown"><i class="fe fe-home me-1"></i><span>@auth('user'){{auth('user')->user()->name}} @endauth @auth('admin'){{auth('admin')->user()->name}} @endauth<i class="fe fe-chevron-down text-white ms-1"></i></span></a>
                             <div class="dropdown-menu dropdown-menu-start dropdown-menu-arrow">
                                 {{-- admin or user --}}
-                                <a href="mydash.html" class="dropdown-item" >
-                                    <i class="dropdown-icon icon icon-user"></i>الصفحة الشخصية
-                                </a>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i class="dropdown-icon icon icon-power"></i>خروج
-                                </a>
+                                @auth('admin')
+                                    <a href="{{route('admin.profile')}}" class="dropdown-item" >
+                                        <i class="dropdown-icon icon icon-user"></i>الصفحة الشخصية
+                                    </a>
+                                    <a class="dropdown-item" href="{{route('admin.logout')}}">
+                                        <i class="dropdown-icon icon icon-power"></i>خروج
+                                    </a>
+                                @endauth
+                                @auth('user')
+                                    <a href="{{route('user.profile')}}" class="dropdown-item" >
+                                        <i class="dropdown-icon icon icon-user"></i>الصفحة الشخصية
+                                    </a>
+                                    <a class="dropdown-item" href="{{route('user.logout')}}">
+                                        <i class="dropdown-icon icon icon-power"></i>خروج
+                                    </a>
+                                @endauth
+                                
+                                
                             </div>
                         </li>
                     </ul>

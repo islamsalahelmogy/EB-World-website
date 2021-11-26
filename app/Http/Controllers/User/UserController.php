@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -12,6 +13,7 @@ class UserController extends Controller
     }
 
     public function settings() {
-        return view('user.setting');
+        $departments = Department::all();
+        return view('user.setting',compact('departments'));
     }
 }

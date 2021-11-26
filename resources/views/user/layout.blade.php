@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-3 col-lg-12 col-md-12">
-                @include('admin.sidebar')
+                @include('user.sidebar')
             </div>
             <div class="col-xl-9 col-lg-12 col-md-12">
                 @yield('page')

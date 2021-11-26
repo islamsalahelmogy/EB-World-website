@@ -42,7 +42,7 @@
                                                     <input type="password" name="password_admin" class="border-dark" style="direction: ltr">
                                                 </div>
                                                 <div class="submit">
-                                                    <a class="btn btn-primary btn-block fs-16" href="">أدخل الآن</a>
+                                                    <input type="submit" class="btn btn-primary btn-block fs-16" value="أدخل الآن">
                                                 </div>
                                                 <div class="d-flex mb-0">
                                                     <p class="mb-0"><a href="" >هل نسيت كلمة السر؟</a></p>
@@ -72,7 +72,7 @@
                                                     <input type="password" name="password_user" class="border-dark" style="direction: ltr">
                                                 </div>
                                                 <div class="submit">
-                                                    <a class="btn btn-primary btn-block fs-16" href="">أدخل الآن</a>
+                                                    <input type="submit" class="btn btn-primary btn-block fs-16" value="أدخل الآن">
                                                 </div>
                                                 <div class="d-flex mb-0">
                                                     <p class="mb-0"><a href="" >هل نسيت كلمة السر؟</a></p>
@@ -92,3 +92,97 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(() => {
+
+            $('input').on('focus',(e) => {
+                var input = $(e.target)
+                if(input.hasClass('is-invalid')) {
+                    console.log(input);
+                    input.removeClass('is-invalid');
+                    $('#'+input.attr('name')).remove();
+                }
+                if($('span.invalid').length) {
+                    $('span.invalid').remove();
+                }
+            })
+
+            function messageError(errorName,message) {
+                $('input[name='+errorName+']').addClass('is-invalid');
+                    $('input[name='+errorName+']').parent().append(
+                        '<span id='+errorName+' class="invalid-feedback d-block px-2" role="alert">'+
+                                '<strong>'+message+'</strong>'+
+                        '</span>'
+                );
+            }
+            //user login
+            $('#login_user').submit((e) => {
+                e.preventDefault();
+                axios.post('{{ route('user.login') }}',$(e.target).serialize())
+                .then((res) => {
+                    var errors = res.data.errors;
+
+                    if(errors) {
+                        console.log(errors)
+                        if(errors.email_user){
+                            messageError('email_user',errors.email_user[0]);
+
+                        }
+                        if(errors.password_user){
+                            messageError('password_user',errors.password_user[0]);
+
+                        }
+                        if(errors.invalid_user){
+                            $(e.target).find('input[type="password"]').val('');
+                            $('#user_login').prepend(
+                                '<span class="invalid-feedback d-block px-2 invalid form-group" role="alert">'+
+                                        '<strong>'+errors.invalid_user[0]+'</strong>'+
+                                '</span>'
+                            );
+                        }
+                    }else{
+                        
+                        window.location.replace("{{ route("home") }}");
+                    
+                    }
+                })
+            })
+
+
+            $('#login_admin').submit((e) => {
+                e.preventDefault();
+                axios.post('{{ route('admin.login') }}',$(e.target).serialize())
+                .then((res) => {
+                    var errors = res.data.errors;
+
+                    if(errors) {
+                        console.log(errors)
+                        if(errors.email_admin){
+                            messageError('email_admin',errors.email_admin[0]);
+
+                        }
+                        if(errors.password_admin){
+                            messageError('password_admin',errors.password_admin[0]);
+
+                        }
+                        if(errors.invalid_admin){
+                            $(e.target).find('input[type="password"]').val('');
+                            $('#admin_login').prepend(
+                                '<span class="invalid-feedback d-block px-2 invalid form-group" role="alert">'+
+                                        '<strong>'+errors.invalid_admin[0]+'</strong>'+
+                                '</span>'
+                            );
+                        }
+                    }else{
+                        
+                        window.location.replace("{{ route("home") }}");
+                    
+                    }
+                })
+            })
+
+        })
+    </script>
+@endpush

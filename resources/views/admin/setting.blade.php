@@ -26,7 +26,7 @@
                                     <label class="form-label mb-0" id="examplenameInputname2">الإسم :</label>
                                 </div>
                                 <div class="col-md-9">
-                                    <input type="text" name="text" class="form-control form-text">
+                                    <input type="text" name="text" class="form-control form-text" value="{{auth('admin')->user()->name}}">
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                                     <label class="form-label mb-0" id="examplenameInputname2">الإيميل :</label>
                                 </div>
                                 <div class="col-md-9">
-                                    <input type="email" name="email" class="form-control form-text" style="direction: ltr">
+                                    <input type="email" name="email" class="form-control form-text" style="direction: ltr" value="{{auth('admin')->user()->email}}">
                                 </div>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <div class="input-group file-browser">
-                                        <input type="text" class="form-control bg-transparent border-end-0 browse-file valid" placeholder="إرفع ألصورة" readonly="" aria-invalid="false" value="colorful-logo-icons.png">
+                                        <input type="text" class="form-control bg-transparent border-end-0 browse-file valid" placeholder="إرفع ألصورة" readonly="" aria-invalid="false" value="@if(auth('admin')->user()->image != null) {{auth('admin')->user()->image}} @else male.jpg @endif">
                                         <label class="input-group-btn">
                                             <span class="btn btn-primary br-ts-0 br-bs-0">إرفع <input type="file" style="display: none;">
                                             </span>

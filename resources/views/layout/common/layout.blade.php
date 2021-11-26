@@ -71,6 +71,8 @@
 		<a href="#top" id="back-to-top" ><i class="fa fa-long-arrow-up"></i></a>
 
 		<!-- JQuery js-->
+		<script src="{{asset('js/app.js')}}"></script>
+
 		<script src="{{asset('assets/js/jquery.min.js')}}"></script>
 
 		<!-- Bootstrap js -->

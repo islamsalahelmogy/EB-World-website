@@ -26,7 +26,7 @@
                                     <label class="form-label mb-0" id="examplenameInputname2">الإسم :</label>
                                 </div>
                                 <div class="col-md-9">
-                                    <input type="text" name="text" class="form-control form-text">
+                                    <input type="text" name="text" class="form-control form-text" value="{{auth('user')->user()->name}}">
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                                     <label class="form-label mb-0" id="examplenameInputname2">الإيميل :</label>
                                 </div>
                                 <div class="col-md-9">
-                                    <input type="email" name="email" class="form-control form-text" style="direction: ltr">
+                                    <input type="email" name="email" class="form-control form-text" style="direction: ltr" value="{{auth('user')->user()->email}}">
                                 </div>
                             </div>
                         </div>
@@ -48,19 +48,19 @@
                                 <div class="col-md-9">
                                     <div class="form-controls-stacked d-md-flex">
                                         <label class="custom-control custom-radio me-4">
-                                            <input type="radio" class="custom-control-input" name="level" value="أولى" checked>
+                                            <input type="radio" class="custom-control-input" name="level" value="أولى" @if (auth('user')->user()->level == 'أولى') checked @endif>
                                             <span class="custom-control-label">أولى</span>
                                         </label>
                                         <label class="custom-control custom-radio me-4">
-                                            <input type="radio" class="custom-control-input" name="level" value="ثانية">
+                                            <input type="radio" class="custom-control-input" name="level" value="ثانية" @if (auth('user')->user()->level == 'ثانية') checked @endif>
                                             <span class="custom-control-label">ثانية</span>
                                         </label>
                                         <label class="custom-control custom-radio me-4">
-                                            <input type="radio" class="custom-control-input" name="level" value="ثالثة">
+                                            <input type="radio" class="custom-control-input" name="level" value="ثالثة" @if (auth('user')->user()->level == 'ثالثة') checked @endif>
                                             <span class="custom-control-label">ثالثة</span>
                                         </label>
                                         <label class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" name="level" value="رابعة">
+                                            <input type="radio" class="custom-control-input" name="level" value="رابعة" @if (auth('user')->user()->level == 'رابعة') checked @endif>
                                             <span class="custom-control-label">رابعة</span>
                                         </label>
                                     </div>
@@ -74,11 +74,9 @@
                                 </div>
                                 <div class="col-md-9">
                                     <select data-placeholder="إختار التخصص" class="form-control select2-show-search form-select languages">
-                                        <option value="0">إختر التخصص</option>
-                                        <option value="1">USD</option>
-                                        <option value="2">INR</option>
-                                        <option value="3">EUR</option>
-                                        <option value="4">GBP</option>
+                                        @foreach ($departments as $d)
+                                            <option value="{{$d->name}}" @if (auth('user')->user()->department == $d->name) checked @endif>{{$d->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -94,7 +92,17 @@
                                 </div>
                                 <div class="col-md-9">
                                     <div class="input-group file-browser">
-                                        <input type="text" class="form-control bg-transparent border-end-0 browse-file valid" placeholder="إرفع ألصورة" readonly="" aria-invalid="false" value="colorful-logo-icons.png">
+                                        <input type="text" class="form-control bg-transparent border-end-0 browse-file valid" placeholder="إرفع ألصورة" readonly="" aria-invalid="false"
+                                            @if (auth('user')->user()->image != null)
+                                            value="{{auth('user')->user()->image}}"
+                                            @else
+                                                @if (auth('user')->user()->gender == 'أنثى')
+                                                    value="female.jpg"
+                                                @else
+                                                    value="male.jpg"
+                                                @endif
+                                            @endif
+                                        >
                                         <label class="input-group-btn">
                                             <span class="btn btn-primary br-ts-0 br-bs-0">إرفع <input type="file" style="display: none;">
                                             </span>
