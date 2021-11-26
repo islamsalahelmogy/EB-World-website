@@ -6,10 +6,14 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="wideget-user-desc text-center">
                         <div class="wideget-user-img">
-                            <img class="brround" src="{{asset('assets/images/data/admins/male.jpg')}}" alt="img">
+                            @if (auth('admin')->user()->image != null)
+                                <img class="brround" src="{{asset('assets/images/data/admins/'.auth('admin')->user()->id.'/'.auth('admin')->user()->image)}}" alt="img">
+                            @else
+                                <img class="brround" src="{{asset('assets/images/data/admins/male.jpg')}}" alt="img">
+                            @endif
                         </div>
                         <div class="user-wrap wideget-user-info">
-                            <a href="javascript:void(0)"><h4 class="font-weight-semibold text-white">قص شوان</h4></a>
+                            <a href="javascript:void(0)"><h4 class="font-weight-semibold text-white">{{auth('admin')->user()->name}}</h4></a>
                         </div>
                     </div>
                 </div>
@@ -27,9 +31,11 @@
                         <a class="side-menu__item @if(Request::is('*dashboard')) active @endif" href=""><i class="side-menu__icon fe fe-bar-chart-2"></i><span class="side-menu__label">لوحة التحكم</span></a>
                     </li>
                     {{-- not show in admin who name is not master --}}
-                    <li>
-                        <a class="side-menu__item @if(Request::is('*admins*')) active @endif" href="{{route('admin.admins')}}"><i class="side-menu__icon fe fe-shield"></i><span class="side-menu__label">المسئولين</span></a>
-                    </li>
+                    @if (auth('admin')->user()->id == 1)
+                        <li>
+                            <a class="side-menu__item @if(Request::is('*admins*')) active @endif" href="{{route('admin.admins')}}"><i class="side-menu__icon fe fe-shield"></i><span class="side-menu__label">المسئولين</span></a>
+                        </li>
+                    @endif
                     <li>
                         <a class="side-menu__item @if(Request::is('*doctors*')) active @endif" href="{{route('admin.doctors')}}"><i class="side-menu__icon fe fe-users"></i><span class="side-menu__label">الدكاترة</span></a>
                     </li>
@@ -49,7 +55,7 @@
                         <a class="side-menu__item @if(Request::is('*settings*')) active @endif" href="{{route('admin.settings')}}"><i class="side-menu__icon fe fe-settings"></i><span class="side-menu__label">الإعدادات</span></a>
                     </li>
                     <li>
-                        <a class="side-menu__item" href="login.html"><i class="side-menu__icon fe fe-power"></i><span class="side-menu__label">خروج</span></a>
+                        <a class="side-menu__item" href="{{route('admin.logout')}}"><i class="side-menu__icon fe fe-power"></i><span class="side-menu__label">خروج</span></a>
                     </li>
                 </ul>
             </div>

@@ -19,9 +19,9 @@
 
         <!--Topbar-->
         <div class="header-main">
-            @auth
+            @if(Auth::guard('admin')->check() || Auth::guard('user')->check())
                 @include('layout.common.auth')
-            @endauth
+            @endif
             @include('layout.common.header')
         </div><!--/Horizontal-main -->
         <section>

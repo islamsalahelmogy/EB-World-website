@@ -24,44 +24,59 @@ Route::get('home/doctor','HomeController@show_doctor')->name('doctor');
 Route::get('home/department','HomeController@show_department')->name('department');
 Route::get('home/subject','HomeController@show_subject')->name('subject');
 Route::get('home/search','SearchController@search')->name('search');
+
+
+
 // for login and register
 Route::get('login','Auth\LoginController@showLogin')->name('show_login');
 Route::get('register','Auth\RegisterController@showRegister')->name('show_register');
+//make login,logout as admin
+Route::post('login/admin','Auth\LoginController@adminLogin')->name('admin.login');
+Route::get('logout/admin','Auth\LoginController@adminLogout')->name('admin.logout'); 
+
+//make login,logout as user
+Route::post('login/user','Auth\LoginController@userLogin')->name('user.login');
+Route::get('logout/user','Auth\LoginController@userLogout')->name('user.logout');
+
+
 
 // for get message error 404
 Route::get('error','HomeController@getError')->name('error');
 
+Route::group(['middleware' => 'auth:user'], function () { 
+    // for auth user 
+    Route::get('user/profile','User\UserController@index')->name('user.profile');
+    Route::get('user/settings','User\UserController@settings')->name('user.settings');
+});
 
 
-// for auth user 
-Route::get('user/profile','User\UserController@index')->name('user.profile');
-Route::get('user/settings','User\UserController@settings')->name('user.settings');
+
+Route::group(['middleware' => 'auth:admin'], function () { 
+
+    //for auth admin
+    Route::get('admin/profile','Admin\ProfileController@index')->name('admin.profile');
+    Route::get('admin/settings','Admin\ProfileController@settings')->name('admin.settings');
+
+    //for dashboard
+    Route::get('admin/admins','Admin\AdminController@index')->name('admin.admins');
+    //Route::get('admin/admins/show','Admin\AdminController@show')->name('admin.admins.show');
+    Route::get('admin/admins/edit','Admin\AdminController@edit')->name('admin.admins.edit');
+
+    Route::get('admin/doctors','Admin\DoctorController@index')->name('admin.doctors');
+    //Route::get('admin/doctors/show','Admin\DoctorController@show')->name('admin.doctors.show');
+    Route::get('admin/doctors/edit','Admin\DoctorController@edit')->name('admin.doctors.edit');
+
+    Route::get('admin/departments','Admin\DepartmentController@index')->name('admin.departments');
+    //Route::get('admin/departments/show','Admin\DepartmentController@show')->name('admin.departments.show');
+    Route::get('admin/departments/edit','Admin\DepartmentController@edit')->name('admin.departments.edit');
+
+    Route::get('admin/subjects','Admin\SubjectController@index')->name('admin.subjects');
+    //Route::get('admin/subjects/show','Admin\SubjectController@show')->name('admin.subjects.show');
+    Route::get('admin/subjects/edit','Admin\SubjectController@edit')->name('admin.subjects.edit');
+
+    Route::get('admin/levels','Admin\LevelController@index')->name('admin.levels');
+    //Route::get('admin/levels/show','Admin\LevelController@show')->name('admin.levels.show');
+    Route::get('admin/levels/edit','Admin\LevelController@edit')->name('admin.levels.edit');
 
 
-
-//for auth admin
-Route::get('admin/profile','Admin\ProfileController@index')->name('admin.profile');
-Route::get('admin/settings','Admin\ProfileController@settings')->name('admin.settings');
-
-//for dashboard
-Route::get('admin/admins','Admin\AdminController@index')->name('admin.admins');
-//Route::get('admin/admins/show','Admin\AdminController@show')->name('admin.admins.show');
-Route::get('admin/admins/edit','Admin\AdminController@edit')->name('admin.admins.edit');
-
-Route::get('admin/doctors','Admin\DoctorController@index')->name('admin.doctors');
-//Route::get('admin/doctors/show','Admin\DoctorController@show')->name('admin.doctors.show');
-Route::get('admin/doctors/edit','Admin\DoctorController@edit')->name('admin.doctors.edit');
-
-Route::get('admin/departments','Admin\DepartmentController@index')->name('admin.departments');
-//Route::get('admin/departments/show','Admin\DepartmentController@show')->name('admin.departments.show');
-Route::get('admin/departments/edit','Admin\DepartmentController@edit')->name('admin.departments.edit');
-
-Route::get('admin/subjects','Admin\SubjectController@index')->name('admin.subjects');
-//Route::get('admin/subjects/show','Admin\SubjectController@show')->name('admin.subjects.show');
-Route::get('admin/subjects/edit','Admin\SubjectController@edit')->name('admin.subjects.edit');
-
-Route::get('admin/levels','Admin\LevelController@index')->name('admin.levels');
-//Route::get('admin/levels/show','Admin\LevelController@show')->name('admin.levels.show');
-Route::get('admin/levels/edit','Admin\LevelController@edit')->name('admin.levels.edit');
-
-
+});

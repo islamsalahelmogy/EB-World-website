@@ -20,10 +20,8 @@
                     <h3 class="card-title mb-3 font-weight-bold">المعلومات الشخصية</h3>
                 </div>
                 <ul class="usertab-list">
-                    <li><a href="javascript:void(0)"><span class="font-weight-bold text-default-dark float-start">الإسم : </span> <span class="user-1">Jacob Smith</span></a></li>
-                    <li><a href="javascript:void(0)"><span class="font-weight-bold text-default-dark float-start">الإيميل : </span> <span class="user-1"> smithabgd.com</span></a></li>
-                    <li><a href="javascript:void(0)"><span class="font-weight-bold text-default-dark float-start">التخصص : </span> <span class="user-1"> English, German,Vehiclenish</span>.</a></li>
-                    <li><a href="javascript:void(0)"><span class="font-weight-bold text-default-dark float-start">السنة الدراسية : </span><span class="user-1"> 3</span></a></li>
+                    <li><a href="javascript:void(0)"><span class="font-weight-bold text-default-dark float-start">الإسم : </span> <span class="user-1 ms-2"> {{auth('admin')->user()->name}}</span></a></li>
+                    <li><a href="javascript:void(0)"><span class="font-weight-bold text-default-dark float-start">الإيميل : </span> <span class="user-1 ms-2"> {{auth('admin')->user()->email}}</span></a></li>
                 </ul>
             </div>
         </div>
