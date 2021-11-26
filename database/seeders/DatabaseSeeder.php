@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SubjectSeeder::class);
         \App\Models\Inquiry::factory(2)->create();
         \App\Models\Reply::factory(4)->create();
+        $this->call(RequirementSeeder::class);
     }
 }
