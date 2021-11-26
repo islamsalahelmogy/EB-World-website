@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\Doctor;
 use App\Models\Inquiry;
+use App\Models\Level;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 
@@ -41,13 +42,24 @@ class HomeController extends Controller
     }
 
     /* single doctor with subjects */
-    public function show_doctor() {
-        return view('app.doctor'); 
+    public function show_doctor(Request $r) {
+        if(is_numeric($r->id)) {
+            $doctor = Doctor::find($r->id);
+            return view('app.doctor',compact('doctor')); 
+        } else {
+            return redirect()->route('error');
+        }
     }
 
      /* single department with doctors and subjects */
-     public function show_department() {
-        return view('app.department'); 
+     public function show_department(Request $r) {
+        if(is_numeric($r->id)) {
+            $department = Department::find($r->id);
+            $levels = Level::all();
+            return view('app.department',compact('department','levels')); 
+        } else {
+            return redirect()->route('error');
+        }
     }
 
     /* content for subject */

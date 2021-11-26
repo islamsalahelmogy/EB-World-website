@@ -26,6 +26,11 @@
 		<!--Select2 css -->
 		<link href="{{asset('assets/plugins/select2/select2-rtl.css')}}" rel="stylesheet" />
 
+		<!-- Data table css -->
+		<link href="{{asset('assets/plugins/datatable/css/dataTables.bootstrap5-rtl.css')}}" rel="stylesheet" />
+		<link href="{{asset('assets/plugins/datatable/css/jquery.dataTables.min-rtl.css')}}" rel="stylesheet" />
+
+
 		<!-- Owl Theme css-->
 		<link href="{{asset('assets/plugins/owl-carousel/owl.carousel.css')}}" rel="stylesheet" />
 
@@ -95,6 +100,11 @@
 
 		<!--JQuery TouchSwipe js-->
 		<script src="{{asset('assets/js/jquery.touchSwipe.min.js')}}"></script>
+
+		<!-- Data tables -->
+		<script src="{{asset('assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
+		<script src="{{asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js')}}"></script>
+		<script src="{{asset('assets/js/datatable.js')}}"></script>
 
 		<!--Select2 js -->
 		<script src="{{asset('assets/plugins/select2/select2.full.min.js')}}"></script>

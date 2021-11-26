@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -15,7 +17,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        $admins = Admin::where('name','!=','master')->get();
+        return view('admin.admins.index',compact('admins'));
     }
 
     /**

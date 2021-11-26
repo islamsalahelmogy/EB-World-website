@@ -21,14 +21,17 @@
                                     <div class="row">
                                         <div class="wideget-user-desc col-lg-4 offset-lg-4 col-md-12">
                                             <div class="">
-                                                <img src="{{asset('assets/images/media/2.jpg')}}" alt="img" class="cover-image">
+                                                @if ($department->cover != null)
+                                                    <img src="{{asset('assets/images/data/departments/'.$department->id.'/'.$department->cover)}}" alt="img" class="cover-image">
+                                                @else
+                                                    <img src="{{asset('assets/images/data/departments/default.jpg')}}" alt="img" class="cover-image">
+                                                @endif
                                             </div>
                                             <div class="user-wrap ">
-                                                <h3>Department name</h3>
-                                                <h6>عدد المواد : 20</h6>
+                                                <h3>{{$department->name}}</h3>
+                                                <h6>عدد المواد : {{$department->subjects->count()}}</h6>
                                                 <div class="mb-4 description line-clamp">
-                                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atcorrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
-                                                    <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoraliz the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble thena bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain.</p>
+                                                    {{$department->description}}
                                                 </div>
                                             </div>
                                         </div>
@@ -57,21 +60,25 @@
                                 <div class="tab-pane active" id="tab-51">
                                     <div class="wideget-user-followers">
                                         {{-- tab for doctors --}}
-                                        <div class="media m-0 mt-0 ">
-                                            <img class="avatar brround avatar-md me-3" src="{{asset('assets/images/users/male/18.jpg')}}" alt="avatar-img">
-                                            <div class="media-body">
-                                                <a href="" class="font-weight-bold text-default-dark">John Paige</a>
-                                                <p class="text-muted ">johan@gmail.com</p>
+                                        @foreach ($department->doctors as $doc)
+                                            <div class="media m-0 mt-0 ">
+                                                @if ($doc->image != null)
+                                                    <img src="{{asset('assets/images/data/doctors/'.$doc->id.'/'.$doc->image)}}" alt="img" class="avatar brround avatar-md me-3">
+                                                @else
+                                                    @if ($doc->gender == 'انثى')
+                                                        <img src="{{asset('assets/images/data/doctors/female.jpg')}}" alt="img" class="avatar brround avatar-md me-3">
+                                                    @else
+                                                        <img src="{{asset('assets/images/data/doctors/male.jpg')}}" alt="img" class="avatar brround avatar-md me-3">
+                                                    @endif
+                                                @endif
+                                                <div class="media-body">
+                                                    <a href="{{route('doctor',['id'=>$doc->id])}}" class="font-weight-bold text-default-dark">{{$doc->name}}</a>
+                                                    <p class="text-muted ">{{$doc->email}}</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="media mt-2 ">
-                                            <img class="avatar brround avatar-md me-3" src="{{asset('assets/images/users/male/18.jpg')}}" alt="avatar-img">
-                                            <div class="media-body">
-                                                <a href="" class="font-weight-bold text-default-dark">John Paige</a>
-                                                <p class="text-muted ">johan@gmail.com</p>
-                                            </div>
-                                        </div>
+                                        @endforeach
                                         
+                                
                                     </div>
                                 </div>
                                 {{-- tab for levels with subjects --}}
@@ -82,8 +89,9 @@
                                                 <div class="tabs-menu1">
                                                     <ul class="nav">
                                                         {{-- foreach levels --}}
-                                                        <li class=""><a href="#tab-71" class="active" data-bs-toggle="tab">level</a></li>
-                                                        <li><a href="#tab-72" data-bs-toggle="tab" class="">level</a></li>
+                                                        @foreach ($levels as $lv)
+                                                            <li class=""><a href="#tab-{{$lv->id}}" class="@if($loop->iteration == 1)active @endif" data-bs-toggle="tab">{{$lv->name}}</a></li>
+                                                        @endforeach
                                                     </ul>
                                                 </div>
                                             </div>
@@ -94,45 +102,34 @@
                                             <div class="border-0">
                                                 <div class="tab-content">
                                                     {{-- foreach for tabs levels --}}
-                                                    <div class="tab-pane active" id="tab-71">
-                                                        <div class="row">
-                                                            {{-- foreach for subject --}}
-                                                            <div class="col-4">
-                                                                <div class="card">
-                                                                    <div class="item-all-card item-all-card2 text-dark item-hover-card p-5 d-flex">
-                                                                        <a href="javascript:void(0)" class="absolute-link"></a>
-                                                                        <div class="iteam-all-icon">
-                                                                            <i class="fe fe-book-open fs-25"></i>
+                                                    @foreach ($levels as $lv)
+                                                        <div class="tab-pane @if($loop->iteration == 1) active @endif" id="tab-{{$lv->id}}">
+                                                            <div class="row">
+                                                                {{-- foreach for subject --}}
+                                                                @foreach ($department->subjects as $s)
+                                                                    @if($lv->id == $s->level->id)
+                                                                        <div class="col-4">
+                                                                            <div class="card">
+                                                                            <a href="{{route('subject',['id'=>$s->id])}}" class="absolute-link">
+
+                                                                                <div class="item-all-card item-all-card2 text-dark item-hover-card p-5 d-flex">
+                                                                                        <div class="iteam-all-icon">
+                                                                                            <i class="fe fe-book-open fs-25"></i>
+                                                                                        </div>
+                                                                                        <div class="item-all-text mt-1 ms-3">
+                                                                                            <h5 class="mb-0 fs-18 font-weight-semibold">{{$s->name}}</h5>
+                                                                                            <p class="mt-2 mb-0 fs-16">كود المادة : {{$s->code}}</p>
+                                                                                        </div>
+                                                                                </div>
+                                                                            </a>
+
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="item-all-text mt-1 ms-3">
-                                                                            <h5 class="mb-0 fs-18 font-weight-semibold">Language</h5>
-                                                                            <p class="mt-2 mb-0 fs-16">Code : 45</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                    @endif
+                                                                @endforeach
                                                             </div>
                                                         </div>
-                                                       
-                                                    </div>
-                                                    <div class="tab-pane" id="tab-72">
-                                                        <div class="row">
-                                                            {{-- foreach for subject --}}
-                                                            <div class="col-4">
-                                                                <div class="card">
-                                                                    <div class="item-all-card item-all-card2 text-dark item-hover-card p-5 d-flex">
-                                                                        <a href="javascript:void(0)" class="absolute-link"></a>
-                                                                        <div class="iteam-all-icon">
-                                                                            <i class="fe fe-book-open fs-25"></i>
-                                                                        </div>
-                                                                        <div class="item-all-text mt-1 ms-3">
-                                                                            <h5 class="mb-0 fs-18 font-weight-semibold">Language</h5>
-                                                                            <p class="mt-2 mb-0 fs-16">Code : 55</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    @endforeach
                                                 </div>
                                             </div>
                                         </div>

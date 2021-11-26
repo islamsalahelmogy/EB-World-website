@@ -40,49 +40,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group ">
-                            <div class="row">
-                                <div class="col-md-2 d-flex align-items-center">
-                                    <label class="form-label mb-0">السنة الدراسية :</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <div class="form-controls-stacked d-md-flex">
-                                        <label class="custom-control custom-radio me-4">
-                                            <input type="radio" class="custom-control-input" name="level" value="أولى" checked>
-                                            <span class="custom-control-label">أولى</span>
-                                        </label>
-                                        <label class="custom-control custom-radio me-4">
-                                            <input type="radio" class="custom-control-input" name="level" value="ثانية">
-                                            <span class="custom-control-label">ثانية</span>
-                                        </label>
-                                        <label class="custom-control custom-radio me-4">
-                                            <input type="radio" class="custom-control-input" name="level" value="ثالثة">
-                                            <span class="custom-control-label">ثالثة</span>
-                                        </label>
-                                        <label class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" name="level" value="رابعة">
-                                            <span class="custom-control-label">رابعة</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <div class="row">
-                                <div class="col-md-2 d-flex align-items-center">
-                                    <label class="form-label mb-0" id="examplenameInputname2">التخصص :</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <select data-placeholder="إختار التخصص" class="form-control select2-show-search form-select languages">
-                                        <option value="0">إختر التخصص</option>
-                                        <option value="1">USD</option>
-                                        <option value="2">INR</option>
-                                        <option value="3">EUR</option>
-                                        <option value="4">GBP</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div> 
                     </form>
                 </div>
                 <div class="tab-pane" id="tab2">

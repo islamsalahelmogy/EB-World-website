@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Department;
 use App\Http\Requests\StoreDepartmentRequest;
@@ -15,7 +17,8 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        $departments = Department::all();
+        return view('admin.departments.index',compact('departments'));
     }
 
     /**
