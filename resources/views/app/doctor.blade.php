@@ -20,12 +20,20 @@
                                 <div class="col-lg-12 col-md-12">
                                     <div class="wideget-user-desc">
                                         <div class="wideget-user-img">
-                                            <img class="" src="{{asset('assets/images/users/male/23.jpg')}}" alt="img">
+                                            @if ($doctor->image != null)
+                                                <img src="{{asset('assets/images/data/doctors/'.$doctor->id.'/'.$doctor->image)}}" alt="img">
+                                            @else
+                                                @if ($doctor->gender == 'انثى')
+                                                    <img src="{{asset('assets/images/data/doctors/female.jpg')}}" alt="img">
+                                                @else
+                                                    <img src="{{asset('assets/images/data/doctors/male.jpg')}}" alt="img">
+                                                @endif
+                                            @endif
                                         </div>
                                         <div class="user-wrap">
-                                            <h3>Robert	McLean</h3>
-                                            <h5 class="text-default mb-3">Department name</h5>
-                                            <h5 class="text-default mb-3">عدد المواد : 10</h5>
+                                            <h3>{{$doctor->name}}</h3>
+                                            <h5 class="text-default mb-3">القسم : {{$doctor->department->name}}</h5>
+                                            <h5 class="text-default mb-3">عدد المواد : {{$doctor->subjects->count()}}</h5>
 
                                         </div>
                                     </div>
@@ -36,18 +44,25 @@
                 </div>
                 <div class="row text-center">
                     {{-- foreach subject  --}}
-                    <div class="col-lg-3 col-md-6 item-all-cat  ">
-                        <div class="item-all-card text-dark text-center card mb-5">
-                            <div class="iteam-all-icon">
-                                <img src="{{asset('assets/images/png/programmer.png')}}" class="imag-service" alt="Sales">
-                                <h3 class="text-body font-weight-bold mb-2 mt-5">Subject Name</h3>
-                                <h5 class="text-body font-weight-bold mb-2 mt-5">level</h5>
+                    @foreach ($doctor->subjects as $s)
+                        <div class="col-lg-3 col-md-6 item-all-cat  ">
+                            <div class="item-all-card text-dark text-center card mb-5">
+                                <div class="iteam-all-icon">
+                                    @if ($s->cover != null)
+                                        <img src="{{asset('assets/images/data/subjects/'.$s->id.'/'.$s->cover)}}" alt="img" class="imag-service">
+                                    @else
+                                        <img src="{{asset('assets/images/data/subjects/default.jpg')}}" alt="img" class="imag-service">
+                                    @endif
+                                    <h3 class="text-body font-weight-bold mb-2 mt-5">{{$s->name}}</h3>
+                                    <h5 class="text-body font-weight-bold mb-2 mt-5">{{$s->level->name}}</h5>
+                                </div>
+                            </div>
+                            <div class="item-all-text mt-2">
+                                <a class="btn btn-primary btn-pill px-6 fs-20" href="{{route('subject',['id'=>$s->id])}}">عرض المادة</a>
                             </div>
                         </div>
-                        <div class="item-all-text mt-2">
-                            <a class="btn btn-primary btn-pill px-6 fs-20" href="{{route('subject')}}">عرض المادة</a>
-                        </div>
-                    </div>
+                    @endforeach
+                    
                 </div>
             </div>
         </div>

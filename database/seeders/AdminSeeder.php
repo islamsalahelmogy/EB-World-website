@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
 
 class AdminSeeder extends Seeder
 {
@@ -13,6 +17,12 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('admins')->insert([
+            'name' => 'master',
+            'email' => 'master@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('123456789'), // password
+            'remember_token' => Str::random(10),
+        ]);
     }
 }

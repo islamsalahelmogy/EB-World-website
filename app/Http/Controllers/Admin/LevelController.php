@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Level;
 use App\Http\Requests\StoreLevelRequest;
@@ -15,7 +17,8 @@ class LevelController extends Controller
      */
     public function index()
     {
-        //
+        $levels = Level::all();
+        return view('admin.levels.index',compact('levels'));
     }
 
     /**

@@ -42,3 +42,26 @@ Route::get('user/settings','User\UserController@settings')->name('user.settings'
 //for auth admin
 Route::get('admin/profile','Admin\ProfileController@index')->name('admin.profile');
 Route::get('admin/settings','Admin\ProfileController@settings')->name('admin.settings');
+
+//for dashboard
+Route::get('admin/admins','Admin\AdminController@index')->name('admin.admins');
+//Route::get('admin/admins/show','Admin\AdminController@show')->name('admin.admins.show');
+Route::get('admin/admins/edit','Admin\AdminController@edit')->name('admin.admins.edit');
+
+Route::get('admin/doctors','Admin\DoctorController@index')->name('admin.doctors');
+//Route::get('admin/doctors/show','Admin\DoctorController@show')->name('admin.doctors.show');
+Route::get('admin/doctors/edit','Admin\DoctorController@edit')->name('admin.doctors.edit');
+
+Route::get('admin/departments','Admin\DepartmentController@index')->name('admin.departments');
+//Route::get('admin/departments/show','Admin\DepartmentController@show')->name('admin.departments.show');
+Route::get('admin/departments/edit','Admin\DepartmentController@edit')->name('admin.departments.edit');
+
+Route::get('admin/subjects','Admin\SubjectController@index')->name('admin.subjects');
+//Route::get('admin/subjects/show','Admin\SubjectController@show')->name('admin.subjects.show');
+Route::get('admin/subjects/edit','Admin\SubjectController@edit')->name('admin.subjects.edit');
+
+Route::get('admin/levels','Admin\LevelController@index')->name('admin.levels');
+//Route::get('admin/levels/show','Admin\LevelController@show')->name('admin.levels.show');
+Route::get('admin/levels/edit','Admin\LevelController@edit')->name('admin.levels.edit');
+
+
