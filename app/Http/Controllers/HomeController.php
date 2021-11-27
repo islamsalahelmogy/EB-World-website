@@ -21,7 +21,8 @@ class HomeController extends Controller
 
     /* inquire page */
     public function show_inquires() {
-        return view('app.inquires'); 
+        $inquiries = Inquiry::all();
+        return view('app.inquires',compact('inquiries')); 
     }
 
     /*all departments page */

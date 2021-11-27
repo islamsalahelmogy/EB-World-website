@@ -28,7 +28,7 @@
             <div class="app-sidebar__user clearfix">
                 <ul class="side-menu">
                     <li>
-                        <a class="side-menu__item @if(Request::is('*dashboard')) active @endif" href=""><i class="side-menu__icon fe fe-bar-chart-2"></i><span class="side-menu__label">لوحة التحكم</span></a>
+                        <a class="side-menu__item @if(Request::is('*dashboard')) active @endif" href="{{route('admin.dashboard')}}"><i class="side-menu__icon fe fe-bar-chart-2"></i><span class="side-menu__label">لوحة التحكم</span></a>
                     </li>
                     {{-- not show in admin who name is not master --}}
                     @if (auth('admin')->user()->id == 1)

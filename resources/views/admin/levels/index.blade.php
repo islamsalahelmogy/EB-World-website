@@ -58,6 +58,30 @@
                     </table>
                 </div>
                 <div class="tab-pane userprof-tab" id="tab2">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class=" m-b-20">
+                                <div class="card-header">
+                                    <h3 class="card-title">إضافة مستوى جديد</h3>
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label class="form-label" for="exampleInputEmail1">الإسم</label>
+                                            <input type="text" class="form-control" id="exampleInputname"  placeholder="الإسم">
+                                        </div>
+                                        
+                                        <div class="form-group mb-0">
+                                            <div class="checkbox checkbox-secondary">
+                                                <button type="submit" class="btn btn-primary ">أضف</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
                 </div>
             </div>
         </div>

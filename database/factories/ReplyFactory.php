@@ -14,13 +14,13 @@ class ReplyFactory extends Factory
      */
     public function definition()
     {
-        $type=$this->faker->randomElement(['admin','user']);
+        $type= 'admin';
         return [
             'text' => 'نعم يمكنك ',
             'type' => $type,
             'user_id' => $type=='user' ? $this->faker->numberBetween(1,10) :null,
             'admin_id' =>$type=='admin' ? $this->faker->numberBetween(1,3) :null,
-            'inquire_id'=>Inquiry::all()->random()->first()->id
+            'inquire_id'=>Inquiry::all()->random()->id
         ];
     }
 }

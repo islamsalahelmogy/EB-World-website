@@ -19,9 +19,12 @@
 
 		<!-- Style css -->
 		<link href="{{asset('assets/css-rtl/style.css')}}" rel="stylesheet" />
+		<link href="{{asset('assets/css-rtl/admin-custom.css')}}" rel="stylesheet" />
+
 
 		<!-- Font-awesome  css -->
 		<link href="{{asset('assets/css-rtl/icons.css')}}" rel="stylesheet"/>
+
 
 		<!--Select2 css -->
 		<link href="{{asset('assets/plugins/select2/select2-rtl.css')}}" rel="stylesheet" />
