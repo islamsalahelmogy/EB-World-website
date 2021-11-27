@@ -57,12 +57,51 @@
                                 </td>
                             </tr>
                             @endforeach
-                            
-                            
                         </tbody>
                     </table>
                 </div>
                 <div class="tab-pane userprof-tab" id="tab2">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class=" m-b-20">
+                                <div class="card-header">
+                                    <h3 class="card-title">إضافة قسم جديد</h3>
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label class="form-label" for="exampleInputEmail1">الإسم</label>
+                                            <input type="text" class="form-control" id="exampleInputname"  placeholder="الإسم">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">الوصف</label>
+                                            <textarea class="form-control" name="example-textarea-input" rows="4" placeholder="اكتب كل ما تريد عن القسم"></textarea>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <div class="form-label">صورة القسم</div>
+                                            <div class="control-group form-group">
+                                                <div class="input-group file-browser">
+                                                    <input type="text" class="form-control border-end-0 browse-file bg-transparent" placeholder="صورة القسم" readonly="">
+                                                    <label class="input-group-btn">
+                                                       <span class="btn btn-primary br-bs-0 br-ts-0">
+                                                        إرفع <input type="file" style="display: none;">
+                                                      </span>
+                                                   </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-0">
+                                            <div class="checkbox checkbox-secondary">
+                                                <button type="submit" class="btn btn-primary ">أضف</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
                 </div>
             </div>
         </div>

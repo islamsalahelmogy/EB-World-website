@@ -63,6 +63,85 @@
                     </table>
                 </div>
                 <div class="tab-pane userprof-tab" id="tab2">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class=" m-b-20">
+                                <div class="card-header">
+                                    <h3 class="card-title">إضافة قسم جديد</h3>
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label class="form-label" for="exampleInputEmail1">الإسم</label>
+                                            <input type="text" class="form-control" id="exampleInputname"  placeholder="الإسم">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="code">كود المادة</label>
+                                            <input type="text" class="form-control" id="code"  placeholder="كود المادة">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">الوصف</label>
+                                            <textarea class="form-control" name="example-textarea-input" rows="4" placeholder="اكتب كل ما تريد عن المادة"></textarea>
+                                        </div>
+                                        <div class="form-group  select2-lg">
+                                            <label class="form-label" for="departments">القسم</label>
+											<select name="departments" id="departments" class="form-control form-select select2">
+												<option value="0" selected="">إختر القسم</option>
+												@foreach ($departments as $d)
+                                                    <option value="{{$d->id}}" >{{$d->name}}</option>
+                                                @endforeach
+											</select>
+										</div>
+                                        <div class="form-group  select2-lg">
+                                            <label class="form-label" for="levels">المستوى</label>
+											<select name="levels" id="levels" class="form-control form-select select2">
+												<option value="0" selected="">إختر المستوى</option>
+												@foreach ($levels as $lv)
+                                                    <option value="{{$lv->id}}" >{{$lv->name}}</option>
+                                                @endforeach
+											</select>
+										</div>
+                                        <div class="form-group  select2-lg">
+                                            <label class="form-label" for="doctors">دكتور المادة</label>
+											<select name="doctors" id="doctors" class="form-control form-select select2">
+												<option value="0" selected="">إختر الدكتور</option>
+												@foreach ($doctors as $d)
+                                                    <option value="{{$d->id}}" >{{$d->name}}</option>
+                                                @endforeach
+											</select>
+										</div>
+                                        <div class="form-group">
+											<label class="form-label" for="pre_requirements">المواد المتطلبة</label>
+											<select class="form-control select2" id="pre_requirements" data-placeholder="اختر المواد المتطلبة" multiple>
+												@foreach ($subjects as $s)
+                                                    <option value="{{$s->id}}" >{{$s->name}}</option>
+                                                @endforeach
+											</select>
+										</div>
+                                        <div class="form-group">
+                                            <div class="form-label">صورة المادة</div>
+                                            <div class="control-group form-group">
+                                                <div class="input-group file-browser">
+                                                    <input type="text" class="form-control border-end-0 browse-file bg-transparent" placeholder="صورة المادة" readonly="">
+                                                    <label class="input-group-btn">
+                                                       <span class="btn btn-primary br-bs-0 br-ts-0">
+                                                        إرفع <input type="file" style="display: none;">
+                                                      </span>
+                                                   </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-0">
+                                            <div class="checkbox checkbox-secondary">
+                                                <button type="submit" class="btn btn-primary ">أضف</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
                 </div>
             </div>
         </div>

@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Subject;
 use App\Http\Requests\StoreSubjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
+use App\Models\Department;
+use App\Models\Doctor;
+use App\Models\Level;
 
 class SubjectController extends Controller
 {
@@ -18,7 +21,10 @@ class SubjectController extends Controller
     public function index()
     {
         $subjects = Subject::all();
-        return view('admin.subjects.index',compact('subjects'));
+        $doctors = Doctor::all();
+        $levels = Level::all();
+        $departments = Department::all();
+        return view('admin.subjects.index',compact('subjects','doctors','levels','departments'));
     }
 
     /**

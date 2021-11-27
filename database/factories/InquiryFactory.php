@@ -13,7 +13,7 @@ class InquiryFactory extends Factory
      */
     public function definition()
     {
-        $type=$this->faker->randomElement(['admin','user']);
+        $type= 'user';
         return [
             'text' => $this->faker->randomElement(['هل توجد مواد اضافيه في قسم الرياضيات ؟','هل يمكنني ان التحق بقسم التاريخ ؟']),
             'type' => $type,

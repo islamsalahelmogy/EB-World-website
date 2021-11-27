@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Doctor;
 use App\Http\Requests\StoreDoctorRequest;
 use App\Http\Requests\UpdateDoctorRequest;
+use App\Models\Department;
 
 class DoctorController extends Controller
 {
@@ -18,7 +19,8 @@ class DoctorController extends Controller
     public function index()
     {
         $doctors = Doctor::all();
-        return view('admin.doctors.index',compact('doctors'));
+        $departments = Department::all();
+        return view('admin.doctors.index',compact('doctors','departments'));
     }
 
     /**

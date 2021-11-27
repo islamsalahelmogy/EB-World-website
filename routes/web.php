@@ -58,6 +58,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('admin/settings','Admin\ProfileController@settings')->name('admin.settings');
 
     //for dashboard
+    Route::get('admin/dashboard','Admin\DashboardController@index')->name('admin.dashboard');
     Route::get('admin/admins','Admin\AdminController@index')->name('admin.admins');
     //Route::get('admin/admins/show','Admin\AdminController@show')->name('admin.admins.show');
     Route::get('admin/admins/edit','Admin\AdminController@edit')->name('admin.admins.edit');

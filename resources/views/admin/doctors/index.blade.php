@@ -67,6 +67,75 @@
                     </table>
                 </div>
                 <div class="tab-pane userprof-tab" id="tab2">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class=" m-b-20">
+                                <div class="card-header">
+                                    <h3 class="card-title">إضافة دكتور جديد</h3>
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label class="form-label" for="exampleInputEmail1">الإسم</label>
+                                            <input type="text" class="form-control" id="exampleInputname"  placeholder="الإسم">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="exampleInputEmail1">الإيميل</label>
+                                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="الإيميل">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="exampleInputPassword1">الموبايل</label>
+                                            <input type="Number" class="form-control" id="exampleInputnumber" placeholder="الموبايل">
+                                        </div>
+                                        <div class="form-group ">
+                                           
+                                            <label class="form-label">الجنس</label>
+                                        
+                                            <div class="form-controls-stacked d-md-flex">
+                                                <label class="custom-control custom-radio me-4">
+                                                    <input type="radio" class="custom-control-input" name="gender" value="ّذكر" checked>
+                                                    <span class="custom-control-label">ذكر</span>
+                                                </label>
+                                                <label class="custom-control custom-radio">
+                                                    <input type="radio" class="custom-control-input" name="gender" value="أنثى">
+                                                    <span class="custom-control-label">أنثى</span>
+                                                </label>
+                                            </div>
+                        
+                                        </div>
+                                        <div class="form-group  select2-lg">
+                                            <label class="form-label" for="options">القسم</label>
+											<select name="options" id="options" class="form-control form-select select2">
+												<option value="0" selected="">إختر القسم</option>
+												@foreach ($departments as $d)
+                                                    <option value="{{$d->id}}" >{{$d->name}}</option>
+                                                @endforeach
+											</select>
+										</div>
+                                        <div class="form-group">
+                                            <div class="form-label">الصورة الشخصية</div>
+                                            <div class="control-group form-group">
+                                                <div class="input-group file-browser">
+                                                    <input type="text" class="form-control border-end-0 browse-file bg-transparent" placeholder="الصورة الشخصية" readonly="">
+                                                    <label class="input-group-btn">
+                                                       <span class="btn btn-primary br-bs-0 br-ts-0">
+                                                        إرفع <input type="file" style="display: none;">
+                                                      </span>
+                                                   </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-0">
+                                            <div class="checkbox checkbox-secondary">
+                                                <button type="submit" class="btn btn-primary ">أضف</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
                 </div>
             </div>
         </div>
