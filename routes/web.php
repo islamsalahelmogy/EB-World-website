@@ -23,13 +23,16 @@ Route::get('home/all/doctors','HomeController@show_alldoctors')->name('alldoctor
 Route::get('home/doctor','HomeController@show_doctor')->name('doctor');
 Route::get('home/department','HomeController@show_department')->name('department');
 Route::get('home/subject','HomeController@show_subject')->name('subject');
-Route::get('home/search','SearchController@search')->name('search');
+Route::post('home/search','SearchController@search')->name('search');
+Route::get('home/search/result','SearchController@result')->name('result');
+
 
 
 
 // for login and register
 Route::get('login','Auth\LoginController@showLogin')->name('show_login');
 Route::get('register','Auth\RegisterController@showRegister')->name('show_register');
+
 //make login,logout as admin
 Route::post('login/admin','Auth\LoginController@adminLogin')->name('admin.login');
 Route::get('logout/admin','Auth\LoginController@adminLogout')->name('admin.logout'); 
@@ -37,6 +40,9 @@ Route::get('logout/admin','Auth\LoginController@adminLogout')->name('admin.logou
 //make login,logout as user
 Route::post('login/user','Auth\LoginController@userLogin')->name('user.login');
 Route::get('logout/user','Auth\LoginController@userLogout')->name('user.logout');
+
+//make register for user
+Route::post('register/user','Auth\RegisterController@register')->name('user.register');
 
 
 

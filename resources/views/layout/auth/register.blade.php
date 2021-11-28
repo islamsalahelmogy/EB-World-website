@@ -20,14 +20,14 @@
                     </div>
                     <div class="single-page customerpage">
                         <div class="wrapper wrapper2 box-shadow-0">
-                            <form id="register" class="" tabindex="500">
+                            <form id="register_user" class="" tabindex="500">
                                 <div class="name">
                                     <label>الإسم</label>
                                     <input type="text" name="name" class="border-dark">
                                 </div>
                                 <div class="mail">
                                     <label>الإيميل</label>
-                                    <input type="email" name="mail" class="border-dark" style="direction: ltr">
+                                    <input type="email" name="email" class="border-dark" style="direction: ltr">
                                 </div>
                                 <div class="form-group ">
                                     <div class="row">
@@ -58,7 +58,7 @@
                                 </div>
 
                                 <div class="submit">
-                                    <a class="btn btn-primary btn-block" href="javascript:void(0)">سجل الآن</a>
+                                    <input type="submit" class="btn btn-primary btn-block" value=" سجل الآن">
                                 </div>
                                 <p class="text-dark mb-0 ms-auto"> لديك حساب<a href="login.html" class="text-primary ms-1">أدخل الآن</a></p>
 
@@ -71,3 +71,65 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(() => {
+
+            $('input').on('focus',(e) => {
+                var input = $(e.target)
+                if(input.hasClass('is-invalid')) {
+                    console.log(input);
+                    input.removeClass('is-invalid');
+                    $('#'+input.attr('name')).remove();
+                }
+                if($('span.invalid').length) {
+                    $('span.invalid').remove();
+                }
+            })
+
+            function messageError(errorName,message) {
+                $('input[name='+errorName+']').addClass('is-invalid');
+                    $('input[name='+errorName+']').parent().append(
+                        '<span id='+errorName+' class="invalid-feedback d-block px-2" role="alert">'+
+                                '<strong>'+message+'</strong>'+
+                        '</span>'
+                );
+            }
+            //user login
+            $('#register_user').submit((e) => {
+                e.preventDefault();
+                axios.post('{{ route('user.register') }}',$(e.target).serialize())
+                .then((res) => {
+                    var errors = res.data.errors;
+
+                    if(errors) {
+                        console.log(errors)
+                        if(errors.name){
+                            messageError('name',errors.name[0]);
+
+                        }
+                        if(errors.email){
+                            messageError('email',errors.email[0]);
+
+                        }
+                        if(errors.password){
+                            messageError('password',errors.password[0]);
+
+                        }
+
+                        if(errors.confirm_password){
+                            messageError('confirm_password',errors.confirm_password[0]);
+
+                        }
+                    }else{
+                        
+                        window.location.replace("{{ route("home") }}");
+                    
+                    } 
+                }) 
+            })
+
+        })
+    </script>
+@endpush
