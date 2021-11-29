@@ -15,7 +15,7 @@
                                     <input type="text" name="search" class="form-control input-lg br-te-md-0 br-be-md-0" id="text4" placeholder="إبحث عن ما تريد">
                                 </div>
                                 <div class="form-group col-xl-3 col-lg-3 col-md-12 select2-lg  mb-0 bg-white">
-                                    <select name="type" class="form-control select2 border-bottom-0 select2-hidden-accessible" data-placeholder="Select Type" tabindex="-1" aria-hidden="true">
+                                    <select name="type" id="searchType" class="form-control select2 border-bottom-0 select2-hidden-accessible" data-placeholder="Select Type" tabindex="-1" aria-hidden="true">
                                         <optgroup>
                                             <option value="subject">المادة</option>
                                             <option value="doctor">الدكتور</option>
@@ -44,15 +44,12 @@
             //search
             $('#search').submit((e) => {
                 e.preventDefault();
-                if( $('input[name="search"]').val() != ''){
-                    axios.post('{{ route('search') }}',$(e.target).serialize())
-                     .then((res) => {    
-                         console.log(res);
-                         let url="{{ route('result','data') }} ";
-                         url=url.replace('data',{'data': res.data});
-                     window.location.replace(url);
-                }) 
-
+                var search = $('input[name="search"]').val();
+                //console.log(type);
+                if( search != ''){
+                    var base = '{!! route('search') !!}';
+                    var url = base+'?'+$(e.target).serialize();
+                    window.location.replace(url);
                 }
                 
             })
