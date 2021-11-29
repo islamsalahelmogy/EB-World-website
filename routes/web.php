@@ -23,8 +23,7 @@ Route::get('home/all/doctors','HomeController@show_alldoctors')->name('alldoctor
 Route::get('home/doctor','HomeController@show_doctor')->name('doctor');
 Route::get('home/department','HomeController@show_department')->name('department');
 Route::get('home/subject','HomeController@show_subject')->name('subject');
-Route::post('home/search','SearchController@search')->name('search');
-Route::get('home/search/result','SearchController@result')->name('result');
+Route::get('home/search','SearchController@search')->name('search');
 
 
 

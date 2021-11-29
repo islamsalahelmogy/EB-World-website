@@ -25,7 +25,13 @@
 @endpush
 
 @section('content')
-   @if($type == 'doctors')
-    @include('common.doctors')
+   @if($type == 'doctor')
+        @if($doctors->count() > 0)
+            @include('common.doctors')
+        @endif
+   @else
+        @if($subjects->count() > 0)
+            @include('common.subjects')
+        @endif
    @endif
 @endsection

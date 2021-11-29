@@ -10,19 +10,29 @@ class SearchController extends Controller
 {
     /* search for subject or doctor */
     public function search(Request $request) {
-        $type=$request->type;
+        //dd($request->all());
+        $type = $request->type;
         if($request->type == "subject"){
             $subjects =Subject::where('name','like', '%'.$request->search .'%')->get();
-            return response()->json(['subjects'=>$subjects,'type'=>$type]);
+            //dd($subjects);
+            $departments = [];
+            foreach($subjects as $s) {
+                if($departments == []) {
+                    array_push($departments,$s->department);
+                } else {
+                    if(! in_array($s->department , $departments)) {
+                        array_push($departments,$s->department);
+                    }
+                }
+            }
+            return view('app.search',compact('type','subjects','departments'));
         }
-        else{
+        else if($request->type == "doctor"){
             $doctors =Doctor::where('name','like', '%'.$request->search .'%')->get();
-            return response()->json(['doctors'=>$doctors,'type'=>$type]);
+            return view('app.search',compact('type','doctors'));
+
         }
     }
 
-    public  function result(Request $request)
-    {
-        dd($request->all());
-    }
+    
 }

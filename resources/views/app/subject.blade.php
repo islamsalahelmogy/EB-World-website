@@ -69,7 +69,7 @@
                             <div class="card-body pb-0 pb-md-5">
                                 <div>
                                     <span class="icons fs-16 font-weight-semibold text-dark">عدد المواد المتطلبة</span>
-                                    <a href="javascript:void(0)" class="icons h4 font-weight-semibold text-dark"><span class=" d-block">Count</span></a>
+                                    <a href="javascript:void(0)" class="icons h4 font-weight-semibold text-dark"><span class=" d-block">{{$subject->requirments->count()}}</span></a>
                                 </div>
                             </div>
                         </div>
@@ -103,10 +103,13 @@
                             </thead>
                             <tbody>
                                 {{-- foreach for subject --}}
-                                <tr onclick="window.location='{{route('subject')}}'" style='cursor: pointer;'>
-                                    <td><span class="fs-14 font-weight-bold text-default-dark">Subject name</span></td>
-                                    <td><span class="fs-14 font-weight-bold text-default-dark">Subject Code</span></td>
-                                </tr>
+                                @foreach ($subject->requirments as $r)
+                                    <tr onclick="window.location='{{route('subject',['id'=>$r->id])}}'" style='cursor: pointer;'>
+                                        <td><span class="fs-14 font-weight-bold text-default-dark">{{$r->name}}</span></td>
+                                        <td><span class="fs-14 font-weight-bold text-default-dark">{{$r->code}}</span></td>
+                                    </tr>
+                                @endforeach
+                               
                             </tbody>
 
                             
