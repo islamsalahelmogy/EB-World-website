@@ -43,6 +43,11 @@ Route::get('logout/user','Auth\LoginController@userLogout')->name('user.logout')
 //make register for user
 Route::post('register/user','Auth\RegisterController@register')->name('user.register');
 
+//change password for admin and user
+Route::get('reset_password','Auth\LoginController@showResetPassword')->name('show_reset_password');
+Route::post('change_password','Auth\LoginController@changePassword')->name('change_password');
+
+
 
 
 // for get message error 404
