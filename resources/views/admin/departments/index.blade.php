@@ -1,21 +1,21 @@
 @extends('admin.layout')
 @push('breadcrumb')
 <div class="text-center text-white py-7">
-    <h1 class="">لوحة تحكم الأقسام</h1>
+    <h1 class="">لوحة تحكم التخصصات</h1>
 </div>
 @endpush
 
 @section('page')
 <div class="card mb-0">
     <div class="card-header">
-        <h3 class="card-title">الأقسام</h3>
+        <h3 class="card-title">التخصصات</h3>
     </div>
     <div class="card-body">
         <div class="ads-tabs">
             <div class="tabs-menus">
                 <ul class="nav panel-tabs">
-                    <li class="me-3"><a href="#tab1" class="active" data-bs-toggle="tab">جميع الأقسام</a></li>
-                    <li><a href="#tab2" data-bs-toggle="tab">إضافة قسم جديد</a></li>
+                    <li class="me-3"><a href="#tab1" class="active" data-bs-toggle="tab">التخصصات</a></li>
+                    <li><a href="#tab2" data-bs-toggle="tab">إضافة تخصص جديد</a></li>
                 </ul>
             </div>
             <div class="tab-content">
@@ -23,7 +23,7 @@
                     <table class="data-table-example table table-bordered table-hover mb-0 text-nowrap">
                         <thead>
                             <tr>
-                                <th>القسم</th>
+                                <th>التخصص</th>
                                 <th >إعدادات</th>
                             </tr>
                         </thead>
@@ -65,7 +65,7 @@
                         <div class="col-xl-12">
                             <div class=" m-b-20">
                                 <div class="card-header">
-                                    <h3 class="card-title">إضافة قسم جديد</h3>
+                                    <h3 class="card-title">إضافة تخصص جديد</h3>
                                 </div>
                                 <div class="card-body">
                                     <form>
@@ -75,14 +75,14 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">الوصف</label>
-                                            <textarea class="form-control" name="example-textarea-input" rows="4" placeholder="اكتب كل ما تريد عن القسم"></textarea>
+                                            <textarea class="form-control" name="example-textarea-input" rows="4" placeholder="اكتب كل ما تريد عن التخصص"></textarea>
                                         </div>
                                         
                                         <div class="form-group">
-                                            <div class="form-label">صورة القسم</div>
+                                            <div class="form-label">صورة التخصص</div>
                                             <div class="control-group form-group">
                                                 <div class="input-group file-browser">
-                                                    <input type="text" class="form-control border-end-0 browse-file bg-transparent" placeholder="صورة القسم" readonly="">
+                                                    <input type="text" class="form-control border-end-0 browse-file bg-transparent" placeholder="صورة التخصص" readonly="">
                                                     <label class="input-group-btn">
                                                        <span class="btn btn-primary br-bs-0 br-ts-0">
                                                         إرفع <input type="file" style="display: none;">

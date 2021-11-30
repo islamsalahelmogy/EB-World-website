@@ -29,7 +29,7 @@
             <div class="col-xl-4 col-md-6">
                 <div class="item-all-card bg-success">
                     <a href="javascript:void(0)"></a>
-                    <h5 class="text-white">عدد الدكاترة</h5>
+                    <h5 class="text-white">عدد أعضاء هيئة التدريس</h5>
                     <div class="d-flex">
                         <div class="iteam-all-icon">
                             <i><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3" fill="none"/><circle cx="12" cy="10" r="3" fill="none"/><circle cx="12" cy="12" r="10" fill="none"/></svg></i>
@@ -43,7 +43,7 @@
             <div class="col-xl-4 col-md-6">
                 <div class="item-all-card bg-danger">
                     <a href="javascript:void(0)"></a>
-                    <h5 class="text-white">عدد الأقسام</h5>
+                    <h5 class="text-white">عدد التخصصات</h5>
                     <div class="d-flex">
                         <div class="iteam-all-icon">
                             <i><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" fill="none"></rect><rect x="14" y="3" width="7" height="7" fill="none"></rect><rect x="14" y="14" width="7" height="7" fill="none"></rect><rect x="3" y="14" width="7" height="7" fill="none"></rect></svg></i>
@@ -104,7 +104,7 @@
             <div class="col-lg-12">
                 <div class="card detial-table">
                     <div class="card-header">
-                        <h3 class="card-title">جميع المواد</h3>
+                        <h3 class="card-title"> المواد</h3>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -113,9 +113,9 @@
                                     <tr>
                                         <th>#</th>
                                         <th>المادة</th>
-                                        <th>القسم</th>
+                                        <th>التخصص</th>
                                         <th>المستوى</th>
-                                        <th>الدكتور</th>
+                                        <th>دكتور المادة</th>
                                     </tr>
                                 </thead>
                                 <tbody>
