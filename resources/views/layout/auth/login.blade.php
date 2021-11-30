@@ -1,10 +1,10 @@
 @extends('layout.app.layout')
 @push('breadcrumb')
 <div class="text-center text-white py-7">
-    <h1 class="">دخول</h1>
+    <h1 class="">تسجيل الدخول</h1>
     <ol class="breadcrumb1 justify-content-center mt-5">
         <li class="breadcrumb-item1"><a href="{{route('home')}}" class="text-white font-weight-bold fs-2"><i class="fe fe-home me-2 float-start mt-1"></i>الرئيسية</a></li>
-        <li class="breadcrumb-item1 active text-white font-weight-bold fs-3">دخول</li>
+        <li class="breadcrumb-item1 active text-white font-weight-bold fs-3">تسجيل الدخول</li>
     </ol>
 </div>
 @endpush
@@ -28,7 +28,7 @@
                             <div class="card">
                                 <div class="card-body p-6">
                                     <div class="mb-6">
-                                        <h5 class="fs-25 font-weight-semibold">دخول</h5>
+                                        <h5 class="fs-25 font-weight-semibold">تسجيل الدخول</h5>
                                     </div>
                                     <div class="single-page customerpage">
                                         <div class="wrapper wrapper2 box-shadow-0">
@@ -42,7 +42,7 @@
                                                     <input type="password" name="password_admin" class="border-dark" style="direction: ltr">
                                                 </div>
                                                 <div class="submit">
-                                                    <input type="submit" class="btn btn-primary btn-block fs-16" value="أدخل الآن">
+                                                    <input type="submit" class="btn btn-primary btn-block fs-16" value="سجل الآن">
                                                 </div>
                                                 <div class="d-flex mb-0">
                                                     <p class="mb-0"><a href="{{route('show_reset_password',['type'=>'مسئول'])}}" >هل نسيت كلمة السر؟</a></p>
@@ -58,7 +58,7 @@
                             <div class="card">
                                 <div class="card-body p-6">
                                     <div class="mb-6">
-                                        <h5 class="fs-25 font-weight-semibold">دخول</h5>
+                                        <h5 class="fs-25 font-weight-semibold">تسجيل الدخول</h5>
                                     </div>
                                     <div class="single-page customerpage">
                                         <div class="wrapper wrapper2 box-shadow-0">
@@ -72,11 +72,11 @@
                                                     <input type="password" name="password_user" class="border-dark" style="direction: ltr">
                                                 </div>
                                                 <div class="submit">
-                                                    <input type="submit" class="btn btn-primary btn-block fs-16" value="أدخل الآن">
+                                                    <input type="submit" class="btn btn-primary btn-block fs-16" value="سجل الآن">
                                                 </div>
                                                 <div class="d-flex mb-0">
                                                     <p class="mb-0"><a href="{{route('show_reset_password',['type'=>'طالب'])}}" >هل نسيت كلمة السر؟</a></p>
-                                                    <p class="text-dark mb-0 ms-auto"> ليس لديك حساب<a href="{{route('show_register')}}" class="text-primary ms-1">سجل الآن</a></p>
+                                                    <p class="text-dark mb-0 ms-auto"> ليس لديك حساب<a href="{{route('show_register')}}" class="text-primary ms-1">إنشئ حساب الأن</a></p>
 
                                                 </div>
                                             </form>

@@ -1,10 +1,10 @@
 @extends('layout.app.layout')
 @push('breadcrumb')
 <div class="text-center text-white py-7">
-    <h1 class="">المادة</h1>
+    <h1 class="">المواد</h1>
     <ol class="breadcrumb1 justify-content-center mt-5">
         <li class="breadcrumb-item1"><a href="{{route('home')}}" class="text-white font-weight-bold fs-2"><i class="fe fe-home me-2 float-start mt-1"></i>الرئيسية</a></li>
-        <li class="breadcrumb-item1 active text-white font-weight-bold fs-3">المادة</li>
+        <li class="breadcrumb-item1 active text-white font-weight-bold fs-3">المواد</li>
     </ol>
 </div>
 @endpush
@@ -58,7 +58,7 @@
                         <div class="card mb-0 border-0 shadow-none">
                             <div class="card-body pb-0 pb-md-5">
                                 <div>
-                                    <span class="icons fs-16 font-weight-semibold text-dark">القسم</span>
+                                    <span class="icons fs-16 font-weight-semibold text-dark">التخصص</span>
                                     <a href="{{route('department',['id'=>$subject->department->id])}}" class="icons h4 font-weight-semibold text-dark"><span class=" d-block">{{$subject->department->name}}</span></a>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@
             {{-- pre_requirements --}}
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">المواد المتطلبة للمادة</h3>
+                    <h3 class="card-title">المواد المتطلبة</h3>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover text-center">

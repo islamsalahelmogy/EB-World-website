@@ -45,7 +45,7 @@
                             <div class="tab-menu-heading">
                                 <div class="tabs-menu1">
                                     <ul class="nav">
-                                        <li class=""><a href="#tab-51" class="active" data-bs-toggle="tab">الدكاترة</a></li>
+                                        <li class=""><a href="#tab-51" class="active" data-bs-toggle="tab">أعضاء هيئة التدريس</a></li>
                                         <li><a href="#tab-61" data-bs-toggle="tab" class="">المواد</a></li>
                                     </ul>
                                 </div>

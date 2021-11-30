@@ -4,7 +4,7 @@
     <h1 class="">تغيير كلمة السر</h1>
     <ol class="breadcrumb1 justify-content-center mt-5">
         <li class="breadcrumb-item1"><a href="{{route('home')}}" class="text-white font-weight-bold fs-2"><i class="fe fe-home me-2 float-start mt-1"></i>الرئيسية</a></li>
-        <li class="breadcrumb-item1 text-white font-weight-bold fs-3"><a href="{{route('show_login')}}" class="text-white font-weight-bold fs-2">الدخول</a></li>
+        <li class="breadcrumb-item1 text-white font-weight-bold fs-3"><a href="{{route('show_login')}}" class="text-white font-weight-bold fs-2">تسجيل الدخول</a></li>
         <li class="breadcrumb-item1 active text-white font-weight-bold fs-3">تغيير كلمة السر</li>
     </ol>
 </div>

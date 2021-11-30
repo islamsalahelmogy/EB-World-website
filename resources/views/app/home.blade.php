@@ -7,7 +7,7 @@
         </a>
         <a class="recent-course" href="{{route('alldoctors')}}">
             <i class="fa fa-users"></i>
-            <small>الدكاترة</small>
+            <small>أعضاء هيئة التدريس</small>
         </a>
         <a class="recent-course" href="{{route('allsubjects')}}">
             <i class="fa fa-book"></i>
@@ -51,7 +51,7 @@
     {{-- all department --}}
     <section>
         <hr class="border-0">
-        <h2 class="">جميع التخصصات</h2>
+        <h2 class="">التخصصات</h2>
         <hr>
         <div class="row task-widget">
             @foreach ($departments as $d)
@@ -81,7 +81,7 @@
     </section>
     {{-- all Doctors --}}
     <section>
-        <h2 class="">جميع الدكاترة</h2>
+        <h2 class="">أعضاء هيئة التدريس</h2>
         <hr>
         <div class="row">
             <div class="col-lg-12">
