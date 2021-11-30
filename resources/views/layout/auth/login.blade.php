@@ -45,7 +45,7 @@
                                                     <input type="submit" class="btn btn-primary btn-block fs-16" value="أدخل الآن">
                                                 </div>
                                                 <div class="d-flex mb-0">
-                                                    <p class="mb-0"><a href="" >هل نسيت كلمة السر؟</a></p>
+                                                    <p class="mb-0"><a href="{{route('show_reset_password',['type'=>'مسئول'])}}" >هل نسيت كلمة السر؟</a></p>
                                                 </div>
                                             </form>
                                         </div>
@@ -75,7 +75,7 @@
                                                     <input type="submit" class="btn btn-primary btn-block fs-16" value="أدخل الآن">
                                                 </div>
                                                 <div class="d-flex mb-0">
-                                                    <p class="mb-0"><a href="" >هل نسيت كلمة السر؟</a></p>
+                                                    <p class="mb-0"><a href="{{route('show_reset_password',['type'=>'طالب'])}}" >هل نسيت كلمة السر؟</a></p>
                                                     <p class="text-dark mb-0 ms-auto"> ليس لديك حساب<a href="{{route('show_register')}}" class="text-primary ms-1">سجل الآن</a></p>
 
                                                 </div>

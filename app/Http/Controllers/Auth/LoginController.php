@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
@@ -118,6 +121,46 @@ class LoginController extends Controller
         $request->session()->flush();
         $request->session()->regenerate();
         return redirect('/');
+    }
+
+
+
+    public function showResetPassword(Request $r) {
+        $type = $r->type;
+        return view('layout.auth.reset_password',compact('type'));
+    } 
+
+
+    public function changePassword(Request $r) {
+
+
+        $validator = Validator::make($r->all(),[
+            'email'   => $r->type == 'مسئول' ? 'required|email|exists:admins,email' : 'required|email|exists:users,email',
+            'password' => ['required', 'string', 'min:8'],
+            'confirm_password' => ['required', 'string', 'min:8','same:password']
+        ],[
+            'required' => 'ممنوع ترك الحقل فارغاَ',
+            'min' => 'لابد ان يكون الحقل مكون على الاقل من 8 خانات',
+            'email' => 'هذا الإيميل غير صحيح',
+            'exists' => 'هذا الايميل غير مسجل فى الموقع',
+            'same'=> 'كلمة السر غير مطابقة '
+
+        ]);
+        if($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        }
+
+        if($r->type == 'مسئول') {
+            $admin = Admin::where('email',$r->email)->first();
+            $admin->password = Hash::make($r->password);
+            $admin->save();
+        } else {
+            $user = User::where('email',$r->email)->first();
+            $user->password = Hash::make($r->password);
+            $user->save();
+        }
+
+        return redirect()->route('show_login');
     }
 
 
