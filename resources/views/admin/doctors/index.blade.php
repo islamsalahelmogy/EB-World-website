@@ -1,21 +1,21 @@
 @extends('admin.layout')
 @push('breadcrumb')
 <div class="text-center text-white py-7">
-    <h1 class="">لوحة تحكم الدكاترة</h1>
+    <h1 class="">لوحة تحكم أعضاء هيئة التدريس</h1>
 </div>
 @endpush
 
 @section('page')
 <div class="card mb-0">
     <div class="card-header">
-        <h3 class="card-title">الدكاترة</h3>
+        <h3 class="card-title">أعضاء هيئة التدريس</h3>
     </div>
     <div class="card-body">
         <div class="ads-tabs">
             <div class="tabs-menus">
                 <ul class="nav panel-tabs">
-                    <li class="me-3"><a href="#tab1" class="active" data-bs-toggle="tab">جميع الدكاترة</a></li>
-                    <li><a href="#tab2" data-bs-toggle="tab"> إضافة دكتور جديد</a></li>
+                    <li class="me-3"><a href="#tab1" class="active" data-bs-toggle="tab">أعضاء هيئة التدريس</a></li>
+                    <li><a href="#tab2" data-bs-toggle="tab"> إضافة عضو جديد</a></li>
                 </ul>
             </div>
             <div class="tab-content">
@@ -23,7 +23,7 @@
                     <table class="data-table-example table table-bordered table-hover mb-0 text-nowrap">
                         <thead>
                             <tr>
-                                <th>الدكتور</th>
+                                <th>عضور هيئة التدريس</th>
                                 <th >إعدادات</th>
                             </tr>
                         </thead>
@@ -71,7 +71,7 @@
                         <div class="col-xl-12">
                             <div class=" m-b-20">
                                 <div class="card-header">
-                                    <h3 class="card-title">إضافة دكتور جديد</h3>
+                                    <h3 class="card-title">إضافة عضو هيئة تدريس جديد</h3>
                                 </div>
                                 <div class="card-body">
                                     <form>
@@ -104,9 +104,9 @@
                         
                                         </div>
                                         <div class="form-group  select2-lg">
-                                            <label class="form-label" for="options">القسم</label>
+                                            <label class="form-label" for="options">التخصص</label>
 											<select name="options" id="options" class="form-control form-select select2">
-												<option value="0" selected="">إختر القسم</option>
+												<option value="0" selected="">إختر التخصص</option>
 												@foreach ($departments as $d)
                                                     <option value="{{$d->id}}" >{{$d->name}}</option>
                                                 @endforeach

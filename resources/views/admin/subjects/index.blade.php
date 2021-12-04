@@ -14,7 +14,7 @@
         <div class="ads-tabs">
             <div class="tabs-menus">
                 <ul class="nav panel-tabs">
-                    <li class="me-3"><a href="#tab1" class="active" data-bs-toggle="tab">جميع المواد</a></li>
+                    <li class="me-3"><a href="#tab1" class="active" data-bs-toggle="tab"> المواد</a></li>
                     <li><a href="#tab2" data-bs-toggle="tab">إضافة مادة جديد</a></li>
                 </ul>
             </div>
@@ -67,7 +67,7 @@
                         <div class="col-xl-12">
                             <div class=" m-b-20">
                                 <div class="card-header">
-                                    <h3 class="card-title">إضافة قسم جديد</h3>
+                                    <h3 class="card-title">إضافة مادة جديدة</h3>
                                 </div>
                                 <div class="card-body">
                                     <form>
@@ -84,9 +84,9 @@
                                             <textarea class="form-control" name="example-textarea-input" rows="4" placeholder="اكتب كل ما تريد عن المادة"></textarea>
                                         </div>
                                         <div class="form-group  select2-lg">
-                                            <label class="form-label" for="departments">القسم</label>
+                                            <label class="form-label" for="departments">التخصص</label>
 											<select name="departments" id="departments" class="form-control form-select select2">
-												<option value="0" selected="">إختر القسم</option>
+												<option value="0" selected="">إختر التخصص</option>
 												@foreach ($departments as $d)
                                                     <option value="{{$d->id}}" >{{$d->name}}</option>
                                                 @endforeach

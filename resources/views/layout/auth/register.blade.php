@@ -1,10 +1,10 @@
 @extends('layout.app.layout')
 @push('breadcrumb')
 <div class="text-center text-white py-7">
-    <h1 class="">تسجيل دخول</h1>
+    <h1 class="">إنشاء حساب</h1>
     <ol class="breadcrumb1 justify-content-center mt-5">
         <li class="breadcrumb-item1"><a href="{{route('home')}}" class="text-white font-weight-bold fs-2"><i class="fe fe-home me-2 float-start mt-1"></i>الرئيسية</a></li>
-        <li class="breadcrumb-item1 active text-white font-weight-bold fs-3">تسجيل دخول</li>
+        <li class="breadcrumb-item1 active text-white font-weight-bold fs-3">إنشاء حساب</li>
     </ol>
 </div>
 @endpush
@@ -16,7 +16,7 @@
             <div class="card">
                 <div class="card-body p-6">
                     <div class="mb-6">
-                        <h5 class="fs-25 font-weight-semibold">تسجيل دخول للطالب</h5>
+                        <h5 class="fs-25 font-weight-semibold">إنشاء حساب جديد للطالب</h5>
                     </div>
                     <div class="single-page customerpage">
                         <div class="wrapper wrapper2 box-shadow-0">
@@ -58,9 +58,9 @@
                                 </div>
 
                                 <div class="submit">
-                                    <input type="submit" class="btn btn-primary btn-block" value=" سجل الآن">
+                                    <input type="submit" class="btn btn-primary btn-block" value="إنشئ حساب الآن">
                                 </div>
-                                <p class="text-dark mb-0 ms-auto"> لديك حساب<a href="{{route('show_login')}}" class="text-primary ms-1">أدخل الآن</a></p>
+                                <p class="text-dark mb-0 ms-auto"> لديك حساب<a href="{{route('show_login')}}" class="text-primary ms-1">سجل الآن</a></p>
 
                             </form>
                         </div>
