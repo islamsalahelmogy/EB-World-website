@@ -22,8 +22,8 @@
                 <ul class="usertab-list">
                     <li><a href="javascript:void(0)"><span class="font-weight-bold text-default-dark float-start">الإسم : </span> <span class="user-1 ms-2"> {{auth('user')->user()->name}}</span></a></li>
                     <li><a href="javascript:void(0)"><span class="font-weight-bold text-default-dark float-start">الإيميل : </span> <span class="user-1 ms-2"> {{auth('user')->user()->email}}</span></a></li>
-                     <li><a href="javascript:void(0)"><span class="font-weight-bold text-default-dark float-start">التخصص : </span> <span class="user-1 ms-2"> {{auth('user')->user()->department}}</span>.</a></li>
-                    <li><a href="javascript:void(0)"><span class="font-weight-bold text-default-dark float-start">السنة الدراسية : </span><span class="user-1 ms-2">{{auth('user')->user()->level}}</span></a></li>
+                    <li><a href="javascript:void(0)"><span class="font-weight-bold text-default-dark float-start">التخصص : </span> <span class="user-1 ms-2"> @if(auth('user')->user()->department != null) {{auth('user')->user()->department}} @else لايوجد @endif</span></a></li>
+                    <li><a href="javascript:void(0)"><span class="font-weight-bold text-default-dark float-start">السنة الدراسية : </span><span class="user-1 ms-2">@if(auth('user')->user()->level != null) {{auth('user')->user()->level}} @else لايوجد @endif</span></a></li>
                 </ul>
             </div>
         </div>

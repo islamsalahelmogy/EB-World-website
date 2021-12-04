@@ -17,26 +17,26 @@
 
 @endpush
 @section('content')
-<hr>
 <div class="container">
-    <div class="row">
-        <div class="d-block mx-auto col-lg-8 col-md-12">
-            <div class="card mb-lg-0">
-                <div class="card-header">
-                    <h3 class="card-title">أضف إستفسارك</h3>
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <textarea class="form-control" name="example-textarea-input" rows="6" placeholder="إستفسر عن ما تريد"></textarea>
+    @if(Auth::guard('admin')->check() || Auth::guard('user')->check())
+        <hr>
+        <div class="row">
+            <div class="d-block mx-auto col-lg-8 col-md-12">
+                <div class="card mb-lg-0">
+                    <div class="card-header">
+                        <h3 class="card-title">أضف إستفسارك</h3>
                     </div>
-                    <a href="javascript:void(0)" class="btn btn-primary">أضف</a>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <textarea class="form-control" name="example-textarea-input" rows="6" placeholder="إستفسر عن ما تريد"></textarea>
+                        </div>
+                        <a href="javascript:void(0)" class="btn btn-primary">أضف</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<hr>
-<div class="container">
+    @endif
+    <hr>
     <h1 class="text-center mb-5">جميع الإستفسارات</h1>
     <div class="row inquiries">
         @foreach ($inquiries as $inq)
@@ -89,56 +89,59 @@
                 </div>
                 <div class="card-body">
                     @foreach ($inq->replies as $r)
-                    <div class="media mt-0 p-5 border br-7 review-media">
-                        <div class="d-flex me-3">
-                            <a href="javascript:void(0)">
-                                @if ($r->type == 'admin')
-                                    @if ($r->admin->image != null)
-                                        <img class="media-object brround avatar-lg" alt="64x64" src="{{asset('assets/images/data/admins/'.$inq->r->id.'/'.$inq->r->image)}}">
-                                    @else
-                                        <img class="media-object brround avatar-lg" alt="64x64" src="{{asset('assets/images/data/admins/male.jpg')}}">
-                                    @endif
-                                @else
-                                    @if ($r->user->image != null)
-                                        <img class="media-object brround avatar-lg" alt="64x64" src="{{asset('assets/images/data/users/'.$r->user->id.'/'.$inq->r->image)}}">
-                                    @else
-                                        @if ($r->user->gender == 'ذكر')
-                                            <img class="media-object brround avatar-lg" alt="64x64" src="{{asset('assets/images/data/users/male.jpg')}}">
+                        <div class="media mt-0 p-5 border br-7 review-media">
+                            <div class="d-flex me-3">
+                                <a href="javascript:void(0)">
+                                    @if ($r->type == 'admin')
+                                        @if ($r->admin->image != null)
+                                            <img class="media-object brround avatar-lg" alt="64x64" src="{{asset('assets/images/data/admins/'.$inq->r->id.'/'.$inq->r->image)}}">
                                         @else
-                                            <img class="media-object brround avatar-lg" alt="64x64" src="{{asset('assets/images/data/users/female.jpg')}}">
+                                            <img class="media-object brround avatar-lg" alt="64x64" src="{{asset('assets/images/data/admins/male.jpg')}}">
+                                        @endif
+                                    @else
+                                        @if ($r->user->image != null)
+                                            <img class="media-object brround avatar-lg" alt="64x64" src="{{asset('assets/images/data/users/'.$r->user->id.'/'.$inq->r->image)}}">
+                                        @else
+                                            @if ($r->user->gender == 'ذكر')
+                                                <img class="media-object brround avatar-lg" alt="64x64" src="{{asset('assets/images/data/users/male.jpg')}}">
+                                            @else
+                                                <img class="media-object brround avatar-lg" alt="64x64" src="{{asset('assets/images/data/users/female.jpg')}}">
+                                            @endif
                                         @endif
                                     @endif
-                                @endif
-                            </a>
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="mt-0 mb-1 font-weight-semibold">@if ($r->type == 'admin')
+                                    {{$r->admin->name}}
+                                @else
+                                    {{$r->user->name}}
+                                @endif</h4>
+                                <small class="text-muted fs-14">
+                                    <i class="fa fa-clock-o"></i>  {{$inq->created_at->diffForHumans()}}
+                                </small>
+                                <p class="font-13 fs-15 mb-2 mt-2">
+                                    {{$r->text}}
+                                </p>
+                            </div>
                         </div>
-                        <div class="media-body">
-                            <h4 class="mt-0 mb-1 font-weight-semibold">@if ($r->type == 'admin')
-                                {{$r->admin->name}}
-                            @else
-                                {{$r->user->name}}
-                            @endif</h4>
-                            <small class="text-muted fs-14">
-                                <i class="fa fa-clock-o"></i>  {{$inq->created_at->diffForHumans()}}
-                            </small>
-                            <p class="font-13 fs-15 mb-2 mt-2">
-                                {{$r->text}}
-                            </p>
-                        </div>
-                    </div>
                     @endforeach
+                    
                 </div>
             </div>
-            <div class="card mb-lg-0">
-                <div class="card-header">
-                    <h3 class="card-title">أضف إجابة</h3>
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <textarea class="form-control" name="example-textarea-input" rows="6" placeholder="إكتب إجابتك"></textarea>
+            @if(Auth::guard('admin')->check() || Auth::guard('user')->check())
+                <div class="card mb-lg-0">
+                    <div class="card-header">
+                        <h3 class="card-title">أضف إجابة</h3>
                     </div>
-                    <a href="javascript:void(0)" class="btn btn-primary">أضف</a>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <textarea class="form-control" name="example-textarea-input" rows="6" placeholder="إكتب إجابتك"></textarea>
+                        </div>
+                        <a href="javascript:void(0)" class="btn btn-primary">أضف</a>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
         @endforeach
         

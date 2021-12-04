@@ -71,7 +71,7 @@
         
     
 		<!-- Back to top -->
-		{{-- <a href="#top" id="back-to-top" ><i class="fa fa-long-arrow-up"></i></a> --}}
+		<a href="#top" id="back-to-top" ><i class="fa fa-long-arrow-up"></i></a>
 
 		<!-- JQuery js-->
 		<script src="{{asset('js/app.js')}}"></script>

@@ -119,36 +119,36 @@
                    
                 @else
                 {{-- if  greater than 4 --}}
-                <div class="">
-                    <div class="owl-carousel classes-carousel-1">
-                    @foreach ($doctors as $doc)
-                        <div class="item text-center">
-                            <a href="{{route('doctor',['id'=>$doc->id])}}">
-                                <div class="card overflow-hidden">
-                                    @if ($doc->image != null)
-                                            <img src="{{asset('assets/images/data/doctors/'.$doc->id.'/'.$d->image)}}" alt="img" class="w-100">
-                                    @else
-                                        @if ($doc->gender == 'انثى')
-                                            <img src="{{asset('assets/images/data/doctors/female.jpg')}}" alt="img" class="w-100">
+                    <div class="">
+                        <div class="owl-carousel classes-carousel-1">
+                        @foreach ($doctors as $doc)
+                            <div class="item text-center">
+                                <a href="{{route('doctor',['id'=>$doc->id])}}">
+                                    <div class="card overflow-hidden">
+                                        @if ($doc->image != null)
+                                                <img src="{{asset('assets/images/data/doctors/'.$doc->id.'/'.$d->image)}}" alt="img" class="w-100">
                                         @else
-                                            <img src="{{asset('assets/images/data/doctors/male.jpg')}}" alt="img" class="w-100">
+                                            @if ($doc->gender == 'انثى')
+                                                <img src="{{asset('assets/images/data/doctors/female.jpg')}}" alt="img" class="w-100">
+                                            @else
+                                                <img src="{{asset('assets/images/data/doctors/male.jpg')}}" alt="img" class="w-100">
+                                            @endif
                                         @endif
-                                    @endif
-                                    <div class="card-body text-center pt-5 pb-3 pe-5 ps-5">
-                                        <h4 class="fs-16 mt-0 mb-1 font-weight-semibold">{{$doc->name}}</h4>
-                                        <p class="mb-1"><a href="{{route('department',['id'=>$doc->department->id])}}">{{$doc->department->name}}</a></p>
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="">
-                                            عدد المواد : {{$doc->subjects->count()}}
+                                        <div class="card-body text-center pt-5 pb-3 pe-5 ps-5">
+                                            <h4 class="fs-16 mt-0 mb-1 font-weight-semibold">{{$doc->name}}</h4>
+                                            <p class="mb-1"><a href="{{route('department',['id'=>$doc->department->id])}}">{{$doc->department->name}}</a></p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="">
+                                                عدد المواد : {{$doc->subjects->count()}}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
+                        @endforeach
                         </div>
-                    @endforeach
                     </div>
-                </div>
                 @endif
             </div>
         </div>
