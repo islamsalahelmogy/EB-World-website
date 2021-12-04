@@ -26,7 +26,7 @@
                                     <label class="form-label mb-0" id="examplenameInputname2">الإسم :</label>
                                 </div>
                                 <div class="col-md-9">
-                                    <input type="text" name="text" class="form-control form-text" value="{{auth('user')->user()->name}}">
+                                    <input type="text" name="name" class="form-control form-text" value="{{auth('user')->user()->name}}">
                                 </div>
                             </div>
                         </div>
@@ -73,7 +73,8 @@
                                     <label class="form-label mb-0" id="examplenameInputname2">التخصص :</label>
                                 </div>
                                 <div class="col-md-9">
-                                    <select data-placeholder="إختار التخصص" class="form-control select2-show-search form-select languages">
+                                    <select data-placeholder="إختار التخصص" class="form-control select2-show-search form-select languages" name="department">
+                                    <option value="0">اختر التخصص</option>
                                         @foreach ($departments as $d)
                                             <option value="{{$d->name}}" @if (auth('user')->user()->department == $d->name) checked @endif>{{$d->name}}</option>
                                         @endforeach
@@ -81,10 +82,14 @@
                                 </div>
                             </div>
                         </div> 
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="حفظ التغييرات"> 
+                        </div>
                     </form>
                 </div>
                 <div class="tab-pane" id="tab2">
-                    <form class="form-horizontal" id="image">
+                    <form class="form-horizontal" id="form_image" enctype="multipart/form-data" >
+    
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-2 d-flex align-items-center" >
@@ -104,17 +109,21 @@
                                             @endif
                                         >
                                         <label class="input-group-btn">
-                                            <span class="btn btn-primary br-ts-0 br-bs-0">إرفع <input type="file" style="display: none;">
+                                            <span class="btn btn-primary br-ts-0 br-bs-0">إرفع <input type="file" name="image" style="display: none;">
                                             </span>
                                         </label>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="حفظ التغييرات">
+                        </div>
                     </form>
                 </div>
                 <div class="tab-pane" id="tab3">
-                    <form class="form-horizontal" id="passwd">
+                    <form class="form-horizontal" id="pass">
                        <div class="form-group ">
                             <div class="row">
                                 <div class="col-md-3 d-flex align-items-center">
@@ -135,13 +144,126 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="حفظ التغييرات"> 
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <div class="card-footer">
+    {{-- <div class="card-footer">
         <a href="javascript:void(0)" class="btn btn-primary">Save Changes</a>
-    </div>
+    </div> --}}
 </div>
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(() => {
+
+            $('input').on('focus',(e) => {
+                var input = $(e.target)
+                if(input.hasClass('is-invalid')) {
+                    console.log(input);
+                    input.removeClass('is-invalid');
+                    $('#'+input.attr('name')).remove();
+                }
+                if($('span.invalid').length) {
+                    $('span.invalid').remove();
+                }
+            })
+
+            function messageError(errorName,message) {
+                $('input[name='+errorName+']').addClass('is-invalid');
+                    $('input[name='+errorName+']').parent().append(
+                        '<span id='+errorName+' class="invalid-feedback d-block px-2" role="alert">'+
+                                '<strong>'+message+'</strong>'+
+                        '</span>'
+                );
+            }
+            //user login
+            $('#basic').submit((e) => {
+                e.preventDefault();
+                axios.post('{{ route('user.basic.update') }}',$(e.target).serialize())
+                .then((res) => {
+                    var errors = res.data.errors;
+
+                    if(errors) {
+                        console.log(errors)
+                        if(errors.name){
+                            messageError('name',errors.name[0]);
+
+                        }
+                        if(errors.email){
+                            messageError('email',errors.email[0]);
+
+                        }
+
+                         if(errors.level){
+                            messageError('level',errors.level[0]);
+
+                        }
+                         if(errors.department){
+                            messageError('department',errors.department[0]);
+
+                        }
+
+                    }else{
+                        
+                        window.location.replace("{{ route("user.profile") }}");
+                    
+                    } 
+                }) 
+            })
+
+            $('#form_image').submit((e) => {
+                e.preventDefault();
+                console.log($(':file').val());
+                axios.post('{{ route('user.image.update') }}',$(e.target).serialize())
+                .then((res) => {
+                    var errors = res.data.errors;
+
+                    if(errors) {
+                        console.log(errors)
+                        if(errors.name){
+                            messageError('image',errors.image[0]);
+
+                        }
+                    }else{
+                       // window.location.replace("{{ route("user.profile") }}");
+                    
+                    } 
+                }) 
+            })
+
+            $('#pass').submit((e) => {
+                e.preventDefault();
+                axios.post('{{ route('user.pass.update') }}',$(e.target).serialize())
+                .then((res) => {
+                    var errors = res.data.errors;
+
+                    if(errors) {
+                        console.log(errors)
+            
+                        if(errors.new_password){
+                            messageError('new_password',errors.new_password[0]);
+
+                        }
+
+                        if(errors.confirm_password){
+                            messageError('confirm_password',errors.confirm_password[0]);
+
+                        }
+                    }else{
+                        
+                        window.location.replace("{{ route("user.profile") }}");
+                    
+                    } 
+                }) 
+            })
+
+        })
+    </script>
+@endpush

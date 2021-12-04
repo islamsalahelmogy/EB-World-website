@@ -57,6 +57,9 @@ Route::group(['middleware' => 'auth:user'], function () {
     // for auth user 
     Route::get('user/profile','User\UserController@index')->name('user.profile');
     Route::get('user/settings','User\UserController@settings')->name('user.settings');
+    Route::post('user/update/basic','User\UserController@updateBasic')->name('user.basic.update');
+    Route::post('user/update/image','User\UserController@updateImage')->name('user.image.update');
+    Route::post('user/update/pass','User\UserController@changePassword')->name('user.pass.update');
 });
 
 
@@ -66,6 +69,9 @@ Route::group(['middleware' => 'auth:admin'], function () {
     //for auth admin
     Route::get('admin/profile','Admin\ProfileController@index')->name('admin.profile');
     Route::get('admin/settings','Admin\ProfileController@settings')->name('admin.settings');
+    Route::post('admin/update/basic','Admin\ProfileController@updateBasic')->name('admin.basic.update');
+    Route::post('admin/update/image','Admin\ProfileController@updateImage')->name('admin.image.update');
+    Route::post('admin/update/pass','Admin\ProfileController@changePassword')->name('admin.pass.update');
 
     //for dashboard
     Route::get('admin/dashboard','Admin\DashboardController@index')->name('admin.dashboard');
