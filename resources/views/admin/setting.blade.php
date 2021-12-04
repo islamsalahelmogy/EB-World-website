@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <div class="input-group file-browser">
-                                        <input type="text" class="form-control bg-transparent border-end-0 browse-file valid" placeholder="إرفع ألصورة" readonly="" aria-invalid="false" value="@if(auth('admin')->user()->image != null) {{auth('admin')->user()->image}} @else male.jpg @endif">
+                                        <input type="text" name="text" class="form-control bg-transparent border-end-0 browse-file valid" placeholder="إرفع الصورة" readonly="" aria-invalid="false" value="@if(auth('admin')->user()->image != null) {{auth('admin')->user()->image}} @else male.jpg @endif">
                                         <label class="input-group-btn">
                                             <span class="btn btn-primary br-ts-0 br-bs-0">إرفع <input type="file" name="image" style="display: none;">
                                             </span>
@@ -158,19 +158,25 @@
             })
             $('#form_image').submit((e) => {
                 e.preventDefault();
-                console.log($(':file').val());
-                axios.post('{{ route('admin.image.update') }}',$(e.target).serialize())
+                var file = $(':file').get(0);
+                var image = new FormData();
+                image.append('image',file.files[0]);
+                console.log(image);
+                axios.post('{{ route('admin.image.update') }}',image,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
+                })
                 .then((res) => {
                     var errors = res.data.errors;
-
                     if(errors) {
                         console.log(errors)
-                        if(errors.name){
-                            messageError('image',errors.image[0]);
+                        if(errors.image){
+                            messageError('text',errors.image[0]);
 
                         }
                     }else{
-                       // window.location.replace("{{ route("user.profile") }}");
+                       window.location.replace("{{ route("admin.profile") }}");
                     
                     } 
                 })

@@ -43,35 +43,38 @@ class ProfileController extends Controller
 
     public function updateImage(Request $request)
     {
-        /*dd($request->all());
-        if ($request->hasFile('image')) {
-        $Validator = validator::make($request->all(),[
-            'image' => 'required','image','mimes:jpeg,png,jpg,svg','max:2048',
-        ],[
-            'required' => 'ممنوع ترك الحقل فارغاَ',
-            'mimetypes' => 'لا بد ان يكون نوع الملف mp4 او mkv'
-        ]);
-        if($Validator->fails()){
-            return Redirect::back()->withErrors($Validator)->withInput($request->all());
-        }
+        
 
-            $userId = Auth::user()->id;
-            $file = $request->file('image');
-            if (is_dir(public_path('public\assets\images\data\users\\' . $userId . '\images')) == false) {
-                mkdir(public_path('public\assets\images\data\users\\' . $userId  . '\images'));
+        
+        if ($request->hasFile('image')) {
+            //return response()->json(['data' => $request->image]);
+            $Validator = validator::make($request->all(),[
+                'image' => 'required|image|mimes:jpeg,jpg,png',
+            ],[
+                'required' => 'ممنوع ترك الحقل فارغاَ',
+                'image'=>'لابد ان تكون صورة ',
+                'mimes' => 'لا بد ان يكون نوع الملف jpeg او jpg أو png'
+            ]);
+            if($Validator->fails()) {
+                return response()->json(['errors' => $Validator->errors()]);
             }
-            $file_path = public_path('public\assets\images\data\users\\' . $userId . '\images');
-            $old_file = $file_path . '\\' . Auth::user()->image;
+            $adminId = Auth::guard('admin')->user()->id;
+            $file = $request->file('image');
+            if (is_dir(public_path('assets/images/data/admins/' . $adminId )) == false) {
+                mkdir(public_path('assets/images/data/admins/' . $adminId ));
+            }
+            $file_path = public_path('assets/images/data/admins/' . $adminId );
+            $old_file = $file_path . '/' . Auth::guard('admin')->user()->image;
             $file_name = str_replace([' ','#','&','=','?'],'-',$file->getClientOriginalName());
             $file->move($file_path, $file_name);
-            $user = User::find($userId);
-            $user->image = $file_name;
-            $user->save();
+            $admin = Admin::find($adminId);
+            $admin->image = $file_name;
+            $admin->save();
             if (file_exists($old_file)) {
                 File::delete($old_file);
             }
         }
-        */
+        
     }
 
     public function changePassword(Request $r) {

@@ -97,7 +97,7 @@
                                 </div>
                                 <div class="col-md-9">
                                     <div class="input-group file-browser">
-                                        <input type="text" class="form-control bg-transparent border-end-0 browse-file valid" placeholder="إرفع ألصورة" readonly="" aria-invalid="false"
+                                        <input type="text" name= "text" class="form-control bg-transparent border-end-0 browse-file valid" placeholder="إرفع ألصورة" readonly="" aria-invalid="false"
                                             @if (auth('user')->user()->image != null)
                                             value="{{auth('user')->user()->image}}"
                                             @else
@@ -220,22 +220,29 @@
 
             $('#form_image').submit((e) => {
                 e.preventDefault();
-                console.log($(':file').val());
-                axios.post('{{ route('user.image.update') }}',$(e.target).serialize())
+                var file = $(':file').get(0);
+                var image = new FormData();
+                image.append('image',file.files[0]);
+                console.log(image);
+                axios.post('{{ route('user.image.update') }}',image,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
                 .then((res) => {
                     var errors = res.data.errors;
 
                     if(errors) {
                         console.log(errors)
-                        if(errors.name){
-                            messageError('image',errors.image[0]);
+                        if(errors.image){
+                            messageError('text',errors.image[0]);
 
                         }
                     }else{
-                       // window.location.replace("{{ route("user.profile") }}");
+                       window.location.replace("{{ route("user.profile") }}");
                     
                     } 
-                }) 
+                })
             })
 
             $('#pass').submit((e) => {

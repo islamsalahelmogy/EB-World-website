@@ -92,6 +92,9 @@
 		<script src="{{asset('assets/plugins/jquery-bar-rating/jquery.barrating.js')}}"></script>
 		<script src="{{asset('assets/plugins/jquery-bar-rating/js/rating.js')}}"></script>
 
+		<!-- file uploader -->
+		<script src="{{asset('assets/js/file-upload.js')}}"></script>
+
 		<!--Owl Carousel js -->
 		<script src="{{asset('assets/plugins/owl-carousel/owl.carousel.js')}}"></script>
 
