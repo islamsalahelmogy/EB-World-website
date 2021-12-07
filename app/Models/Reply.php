@@ -28,6 +28,6 @@ class Reply extends Model
 
     public function Inquiry()
     {
-        return $this->belongsTo('App\Models\Inquiry');
+        return $this->belongsTo('App\Models\Inquiry','inquire_id');
     }
 }

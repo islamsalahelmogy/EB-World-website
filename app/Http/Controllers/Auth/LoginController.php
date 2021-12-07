@@ -74,7 +74,7 @@ class LoginController extends Controller
 
             return redirect()->route('home');
         } else {
-            return response()->json(['errors' => ['invalid_admin' => ['الإيميل غير موجود']]]);
+            return response()->json(['errors' => ['invalid_admin' => ['تأكد من كتابة بيانات صحيحة']]]);
 
         }
         //return back()->withInput($request->only('email'));
@@ -110,7 +110,7 @@ class LoginController extends Controller
 
             return redirect()->route('home');
         } else {
-            return response()->json(['errors' => ['invalid_user' => ['الإيميل غير موجود']]]);
+            return response()->json(['errors' => ['invalid_user' => ['تأكد من كتابة بيانات صحيحة']]]);
         }
         //return back()->withInput($request->only('email'));
     }

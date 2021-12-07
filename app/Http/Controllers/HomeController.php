@@ -8,6 +8,7 @@ use App\Models\Inquiry;
 use App\Models\Level;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -21,7 +22,7 @@ class HomeController extends Controller
 
     /* inquire page */
     public function show_inquires() {
-        $inquiries = Inquiry::all();
+        $inquiries = Inquiry::latest()->get();
         return view('app.inquires',compact('inquiries')); 
     }
 
@@ -46,7 +47,10 @@ class HomeController extends Controller
     public function show_doctor(Request $r) {
         if(is_numeric($r->id)) {
             $doctor = Doctor::find($r->id);
-            return view('app.doctor',compact('doctor')); 
+            if($doctor != null)
+                return view('app.doctor',compact('doctor'));
+            else 
+                return redirect()->back();
         } else {
             return redirect()->route('error');
         }
@@ -57,7 +61,10 @@ class HomeController extends Controller
         if(is_numeric($r->id)) {
             $department = Department::find($r->id);
             $levels = Level::all();
-            return view('app.department',compact('department','levels')); 
+            if($department != null)
+                return view('app.department',compact('department','levels')); 
+            else 
+                return redirect()->back();
         } else {
             return redirect()->route('error');
         }
@@ -67,7 +74,10 @@ class HomeController extends Controller
     public function show_subject(Request $r) {
         if(is_numeric($r->id)) {
             $subject = Subject::find($r->id);
-            return view('app.subject',compact('subject')); 
+            if($subject != null)
+                return view('app.subject',compact('subject')); 
+            else 
+                return redirect()->back();
         } else {
             return redirect()->route('error');
         }

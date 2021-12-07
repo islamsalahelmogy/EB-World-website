@@ -24,7 +24,7 @@
         <nav class="horizontalMenu clearfix d-md-flex">
             <ul class="horizontalMenu-list">
                 <li aria-haspopup="true" ><a class="@if(Request::is('home/*') || Request::is('/')) active @endif" href="{{route('home')}}">الصفحة الرئيسية</a></li>
-                <li aria-haspopup="true"><a class="@if(Request::is('inquires')) active @endif" href="{{route('inquires')}}">الإستفسارات</a></li>
+                <li aria-haspopup="true"><a class="@if(Request::is('inquiries')) active @endif" href="{{route('inquiries')}}">الإستفسارات</a></li>
                 <li aria-haspopup="true" class="d-none"><a class="@if(Request::is('about_us')) active @endif" href="about.html">من نحن</a></li>
                 @unless(Auth::guard('admin')->check() || Auth::guard('user')->check())
                         <li aria-haspopup="true" class="p-0 mt-1">

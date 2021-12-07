@@ -3,84 +3,101 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inquiry;
-use App\Http\Requests\StoreInquiryRequest;
-use App\Http\Requests\UpdateInquiryRequest;
+use App\Models\Reply;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class InquiryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    
+    public function store(Request $r)
+    {
+        if(Auth::guard('admin')->check() || Auth::guard('user')->check()) {
+            if(Auth::guard('admin')->check()) {
+                $type = 'admin';
+                $id = Auth::guard('admin')->user()->id;
+            } else {
+                $type = 'user';
+                $id = Auth::guard('user')->user()->id;
+            }
+            $Validator = Validator::make($r->all(),[
+                'text' => 'required'
+            ],[
+                'required' => 'ممنوع ترك الحقل فارغاَ',
+            ]);
+
+            if ($Validator->fails()) {
+                return response()->json(['errors' => [$Validator->errors()]]);
+            }
+
+            $content = nl2br($r->text);
+            $inquiry = new Inquiry();
+            $inquiry->type = $type;
+            if($type == 'admin')
+                $inquiry->admin_id = $id;
+            else
+                $inquiry->user_id = $id;
+            $inquiry->text = $content;
+            $inquiry->save();
+            $inquiries = Inquiry::where('id',$inquiry->id)->get();
+            $view = view('common.inquiries',compact('inquiries'))->render();
+
+            return response()->json(['html' => $view]);
+
+        } else {
+            return redirect()->route('error');
+        }
+        
+
+    }
+
+    
+    public function show(Request $r)
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+   
+    public function update(Request $r)
     {
-        //
+        if(Auth::guard('admin')->check() || Auth::guard('user')->check()) { 
+            if(is_numeric($r->id)) {
+                $Validator = Validator::make($r->all(),[
+                    'text' => 'required'
+                ],[
+                    'required' => 'ممنوع ترك الحقل فارغاَ',
+                ]);
+    
+                if ($Validator->fails()) {
+                    return response()->json(['errors' => [$Validator->errors()]]);
+                }
+
+                $inquiry = Inquiry::find($r->id);
+                $content = nl2br($r->text);
+                $inquiry->text = $content;
+                $inquiry->save();
+                return response()->json(['text' => $inquiry->text]);
+            }
+        }
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreInquiryRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreInquiryRequest $request)
+    
+    public function destroy(Request $r)
     {
-        //
-    }
+        if(Auth::guard('admin')->check() || Auth::guard('user')->check()) { 
+            if(is_numeric($r->id)) {
+                $inquiry = Inquiry::find($r->id);
+                foreach($inquiry->replies as $r) {
+                    $reply = Reply::find($r->id);
+                    $reply->delete();
+                }
+                $inquiry->delete();
+                return response()->json(['inquiry_id' => $inquiry->id]);
+            }
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Inquiry  $inquiry
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Inquiry $inquiry)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Inquiry  $inquiry
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Inquiry $inquiry)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateInquiryRequest  $request
-     * @param  \App\Models\Inquiry  $inquiry
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateInquiryRequest $request, Inquiry $inquiry)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Inquiry  $inquiry
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Inquiry $inquiry)
-    {
-        //
     }
 }

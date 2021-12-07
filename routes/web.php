@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/','HomeController@index')->name('home');
-Route::get('inquires','HomeController@show_inquires')->name('inquires');
 Route::get('home/all/departments','HomeController@show_alldepartments')->name('alldepartments');
 Route::get('home/all/subjects','HomeController@show_allsubjects')->name('allsubjects');
 Route::get('home/all/doctors','HomeController@show_alldoctors')->name('alldoctors');
@@ -23,8 +22,16 @@ Route::get('home/department','HomeController@show_department')->name('department
 Route::get('home/subject','HomeController@show_subject')->name('subject');
 Route::get('home/search','SearchController@search')->name('search');
 
+// for inquiries 
+Route::get('inquiries','HomeController@show_inquires')->name('inquiries');
+Route::post('inquiries/create_inquiry','InquiryController@store')->name('create_inquiry');
+Route::post('inquiries/update_inquiry','InquiryController@update')->name('update_inquiry');
+Route::post('inquiries/delete_inquiry','InquiryController@destroy')->name('delete_inquiry');
 
-
+// for replies 
+Route::post('inquiries/replies/create_reply','ReplyController@store')->name('create_reply');
+Route::post('inquiries/replies/update_reply','ReplyController@update')->name('update_reply');
+Route::post('inquiries/replies/delete_reply','ReplyController@destroy')->name('delete_reply');
 
 // for login and register
 Route::get('login','Auth\LoginController@showLogin')->name('show_login');
@@ -46,10 +53,9 @@ Route::get('reset_password','Auth\LoginController@showResetPassword')->name('sho
 Route::post('change_password','Auth\LoginController@changePassword')->name('change_password');
 
 
-
-
 // for get message error 404
 Route::get('error','HomeController@getError')->name('error');
+
 
 Route::group(['middleware' => 'auth:user'], function () { 
     // for auth user 

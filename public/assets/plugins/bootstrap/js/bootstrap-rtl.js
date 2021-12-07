@@ -5023,4 +5023,3 @@
   return index_umd;
 
 })));
-//# sourceMappingURL=bootstrap.js.map

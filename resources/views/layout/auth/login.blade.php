@@ -136,7 +136,7 @@
                         }
                         if(errors.invalid_user){
                             $(e.target).find('input[type="password"]').val('');
-                            $('#user_login').prepend(
+                            $('#login_user').prepend(
                                 '<span class="invalid-feedback d-block px-2 invalid form-group" role="alert">'+
                                         '<strong>'+errors.invalid_user[0]+'</strong>'+
                                 '</span>'
@@ -169,7 +169,7 @@
                         }
                         if(errors.invalid_admin){
                             $(e.target).find('input[type="password"]').val('');
-                            $('#admin_login').prepend(
+                            $('#login_admin').prepend(
                                 '<span class="invalid-feedback d-block px-2 invalid form-group" role="alert">'+
                                         '<strong>'+errors.invalid_admin[0]+'</strong>'+
                                 '</span>'
