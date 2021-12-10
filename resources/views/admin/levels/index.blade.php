@@ -46,8 +46,10 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="تعديل"><i class="fe fe-edit-2 fs-16"></i></a>
-                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="حذف"><i class="fe fe-trash fs-16"></i></a>
+                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="تعديل" href="{{ route('admin.levels.edit',['id'=>$lv->id]) }}"><i class="fe fe-edit-2 fs-16"></i></a>
+                                    @if ($lv->subjects->count() == 0)
+                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="حذف"href="{{ route('admin.levels.delete',['id'=>$lv->id]) }}"><i class="fe fe-trash fs-16"></i></a>
+                                    @endif
                                     {{-- <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="عرض"><i class="fe fe-eye fs-16"></i></a> --}}
                                 </td>
                             </tr>
@@ -65,15 +67,15 @@
                                     <h3 class="card-title">إضافة مستوى جديد</h3>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form id="create_level">
                                         <div class="form-group">
                                             <label class="form-label" for="exampleInputEmail1">الإسم</label>
-                                            <input type="text" class="form-control" id="exampleInputname"  placeholder="الإسم">
+                                            <input type="text" class="form-control" name="name" id="exampleInputname"  placeholder="الإسم">
                                         </div>
                                         
                                         <div class="form-group mb-0">
                                             <div class="checkbox checkbox-secondary">
-                                                <button type="submit" class="btn btn-primary ">أضف</button>
+                                                <input type="submit" class="btn btn-primary " value="أضف">
                                             </div>
                                         </div>
                                     </form>
@@ -88,3 +90,49 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(() => {
+
+            $('input').on('focus',(e) => {
+                var input = $(e.target)
+                if(input.hasClass('is-invalid')) {
+                    console.log(input);
+                    input.removeClass('is-invalid');
+                    $('#'+input.attr('name')).remove();
+                }
+                if($('span.invalid').length) {
+                    $('span.invalid').remove();
+                }
+            })
+
+            function messageError(errorName,message) {
+                $('input[name='+errorName+']').addClass('is-invalid');
+                    $('input[name='+errorName+']').parent().append(
+                        '<span id='+errorName+' class="invalid-feedback d-block px-2" role="alert">'+
+                                '<strong>'+message+'</strong>'+
+                        '</span>'
+                );
+            }
+            //Level Create
+            $('#create_level').submit((e) => {
+                e.preventDefault();
+                axios.post('{{ route('admin.levels.store') }}',$(e.target).serialize())
+                .then((res) => {
+                    var errors = res.data.errors;
+
+                    if(errors) {
+                        console.log(errors)
+                        if(errors.name){
+                            messageError('name',errors.name[0]);
+                        }
+                    }
+                    else{
+                            window.location.replace("{{ route("admin.levels") }}");
+                        }
+                })
+            })
+        })
+    </script>
+@endpush
