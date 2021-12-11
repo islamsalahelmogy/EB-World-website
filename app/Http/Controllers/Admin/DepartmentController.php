@@ -157,6 +157,9 @@ class DepartmentController extends Controller
     public function destroy($id)
     {
         $department=Department::find($id);
+        if (is_dir(public_path('assets/images/data/departments/' . $department->id )) == true){
+        File::DeleteDirectory(public_path('assets/images/data/departments/' . $department->id ));
+        }
         $department->delete();
         return Redirect()->route('admin.departments');
     }
