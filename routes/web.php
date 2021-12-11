@@ -77,7 +77,9 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::post('admin/update/image','Admin\ProfileController@updateImage')->name('admin.image.update');
     Route::post('admin/update/pass','Admin\ProfileController@changePassword')->name('admin.pass.update');
 
-    //for dashboard
+    //------------------------------------Admin routes ------------------------------------------
+
+
     Route::get('admin/dashboard','Admin\DashboardController@index')->name('admin.dashboard');
     Route::get('admin/admins','Admin\AdminController@index')->name('admin.admins');
     //Route::get('admin/admins/show','Admin\AdminController@show')->name('admin.admins.show');
@@ -87,14 +89,28 @@ Route::group(['middleware' => 'auth:admin'], function () {
     //Route::get('admin/doctors/show','Admin\DoctorController@show')->name('admin.doctors.show');
     Route::get('admin/doctors/edit','Admin\DoctorController@edit')->name('admin.doctors.edit');
 
-    Route::get('admin/departments','Admin\DepartmentController@index')->name('admin.departments');
+
+
+    //------------------------------------Department routes ------------------------------------------
+
     //Route::get('admin/departments/show','Admin\DepartmentController@show')->name('admin.departments.show');
-    Route::get('admin/departments/edit','Admin\DepartmentController@edit')->name('admin.departments.edit');
+    Route::get('admin/departments','Admin\DepartmentController@index')->name('admin.departments');
+    Route::post('/admin/departments/store', 'Admin\DepartmentController@store')->name('admin.departments.store');
+    Route::get('admin/departments/edit/{id}','Admin\DepartmentController@edit')->name('admin.departments.edit');
+    Route::post('admin/departments/updatebasic','Admin\DepartmentController@updateBasic')->name('admin.departments.updatebasic');
+    Route::post('admin/departments/updateimage','Admin\DepartmentController@updateImage')->name('admin.departments.updateimage');
+    Route::get('admin/departments/delete/{id}','Admin\DepartmentController@destroy')->name('admin.departments.delete');
+
+
+//------------------------------------Subject routes ------------------------------------------
 
     Route::get('admin/subjects','Admin\SubjectController@index')->name('admin.subjects');
     //Route::get('admin/subjects/show','Admin\SubjectController@show')->name('admin.subjects.show');
     Route::get('admin/subjects/edit','Admin\SubjectController@edit')->name('admin.subjects.edit');
+    
 
+
+//------------------------------------Level routes ------------------------------------------
     Route::get('admin/levels','Admin\LevelController@index')->name('admin.levels');
     //Route::get('admin/levels/show','Admin\LevelController@show')->name('admin.levels.show');
     Route::get('admin/levels/edit/{id}','Admin\LevelController@edit')->name('admin.levels.edit');

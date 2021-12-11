@@ -51,8 +51,10 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="تعديل"><i class="fe fe-edit-2 fs-16"></i></a>
-                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="حذف"><i class="fe fe-trash fs-16"></i></a>
+                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="تعديل" href="{{ route('admin.departments.edit',['id'=>$d->id]) }}"><i class="fe fe-edit-2 fs-16"></i></a>
+                                    @if ($d->subjects->count() == 0)
+                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="حذف" href="{{ route('admin.departments.delete',['id'=>$d->id]) }}"><i class="fe fe-trash fs-16"></i></a>
+                                    @endif
                                     {{-- <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="عرض"><i class="fe fe-eye fs-16"></i></a> --}}
                                 </td>
                             </tr>
@@ -68,29 +70,54 @@
                                     <h3 class="card-title">إضافة تخصص جديد</h3>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form id="create_department">
                                         <div class="form-group">
                                             <label class="form-label" for="exampleInputEmail1">الإسم</label>
-                                            <input type="text" class="form-control" id="exampleInputname"  placeholder="الإسم">
+                                            <input type="text" class="form-control" name="name"  placeholder="الإسم">
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-form-label">الوصف</label>
-                                            <textarea class="form-control" name="example-textarea-input" rows="4" placeholder="اكتب كل ما تريد عن التخصص"></textarea>
+                                            <label class="col-form-label" for="exampleInputEmail1">الوصف</label>
+                                            <textarea class="form-control" name="description" rows="4" placeholder="اكتب كل ما تريد عن التخصص"></textarea>
                                         </div>
-                                        
-                                        <div class="form-group">
+
+                                        {{-- <div class="form-group">
                                             <div class="form-label">صورة التخصص</div>
                                             <div class="control-group form-group">
                                                 <div class="input-group file-browser">
                                                     <input type="text" class="form-control border-end-0 browse-file bg-transparent" placeholder="صورة التخصص" readonly="">
                                                     <label class="input-group-btn">
-                                                       <span class="btn btn-primary br-bs-0 br-ts-0">
-                                                        إرفع <input type="file" style="display: none;">
-                                                      </span>
-                                                   </label>
+                                                    <span class="btn btn-primary br-bs-0 br-ts-0">
+                                                        إرفع <input type="file" style="display: none;" name="cover">
+                                                    </span>
+                                                    </label>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
+                                        
+                                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2 d-flex align-items-center" >
+                                    <label class="form-label mb-0"> صورة التخصص :</label>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="input-group file-browser">
+                                        <input type="text" name= "text" class="form-control bg-transparent border-end-0 browse-file valid" placeholder="إرفع ألصورة" readonly="" aria-invalid="false"
+                                            @if (auth('admin')->user()->cover != null)
+                                            value="{{auth('admin')->user()->image}}"
+                                            @else                                             
+                                                    value="default.jpg"
+                                            @endif
+                                        >
+                                        <label class="input-group-btn">
+                                            <span class="btn btn-primary br-ts-0 br-bs-0">إرفع <input type="file" name="file" style="display: none;">
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                                         <div class="form-group mb-0">
                                             <div class="checkbox checkbox-secondary">
                                                 <button type="submit" class="btn btn-primary ">أضف</button>
@@ -100,7 +127,6 @@
                                 </div>
                             </div>
                         </div>
-                       
                     </div>
                 </div>
             </div>
@@ -108,3 +134,71 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(() => {
+
+            $('input').on('focus',(e) => {
+                var input = $(e.target)
+                if(input.hasClass('is-invalid')) {
+                    console.log(input);
+                    input.removeClass('is-invalid');
+                    $('#'+input.attr('name')).remove();
+                }
+                if($('span.invalid').length) {
+                    $('span.invalid').remove();
+                }
+            })
+
+            function messageError(errorName,message) {
+                $('input[name='+errorName+']').addClass('is-invalid');
+                    $('input[name='+errorName+']').parent().append(
+                        '<span id='+errorName+' class="invalid-feedback d-block px-2" role="alert">'+
+                                '<strong>'+message+'</strong>'+
+                        '</span>'
+                );
+            }
+            //department Create
+            $('#create_department').submit((e) => {
+                e.preventDefault();
+                var file = $(':file').get(0);
+                var form = new FormData();
+                form.append('cover',file.files[0]);
+                var obj=$(e.target).serializeArray();
+               // console.log(obj);
+                for(var key in obj)
+                {
+                     form.append(obj[key].name,obj[key].value);
+                }
+                //console.log(form,file.files[0]);
+               // console.log(JSON.parse($(e.target).serialize()));
+                axios.post('{{ route('admin.departments.store') }}',form,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data; boundary=${form._boundary}'
+                    }
+                })
+                .then((res) => {
+                    console.log(res.data);
+                    var errors = res.data.errors;
+
+                    if(errors) {
+                        console.log(errors)
+                        if(errors.name){
+                            messageError('name',errors.name[0]);
+                        }
+                        if(errors.description){
+                            messageError('description',errors.description[0]);
+                        }
+                        if(errors.cover){
+                            messageError('cover',errors.cover[0]);
+                        }
+                    }
+                    else{
+                        window.location.replace("{{ route("admin.departments") }}");
+                        }
+                })
+            })
+        })
+    </script>
+@endpush
