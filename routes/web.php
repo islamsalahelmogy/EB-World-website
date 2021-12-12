@@ -83,9 +83,15 @@ Route::group(['middleware' => 'auth:admin'], function () {
     //Route::get('admin/admins/show','Admin\AdminController@show')->name('admin.admins.show');
     Route::get('admin/admins/edit','Admin\AdminController@edit')->name('admin.admins.edit');
 
-    Route::get('admin/doctors','Admin\DoctorController@index')->name('admin.doctors');
+    //------------------------------------Doctor routes ------------------------------------------
+
     //Route::get('admin/doctors/show','Admin\DoctorController@show')->name('admin.doctors.show');
-    Route::get('admin/doctors/edit','Admin\DoctorController@edit')->name('admin.doctors.edit');
+    Route::get('admin/doctors','Admin\DoctorController@index')->name('admin.doctors');
+    Route::post('/admin/doctors/store', 'Admin\DoctorController@store')->name('admin.doctors.store');
+    Route::get('admin/doctors/edit/{id}','Admin\DoctorController@edit')->name('admin.doctors.edit');
+    Route::post('admin/doctors/updatebasic','Admin\DoctorController@updateBasic')->name('admin.doctors.updatebasic');
+    Route::post('admin/doctors/updateimage','Admin\DoctorController@updateImage')->name('admin.doctors.updateimage');
+    Route::get('admin/doctors/delete/{id}','Admin\DoctorController@destroy')->name('admin.doctors.delete');
 
     Route::get('admin/departments','Admin\DepartmentController@index')->name('admin.departments');
     //Route::get('admin/departments/show','Admin\DepartmentController@show')->name('admin.departments.show');
