@@ -122,10 +122,10 @@ class DepartmentController extends Controller
         if($validator->fails()) {
             return response()->json(['errors' => $validator->errors()]);
         }  
-            $level=Department::find($request->id);
-            $level->name = $request->name;
-            $level->description = $request->description;
-            $level->save();
+            $department=Department::find($request->id);
+            $department->name = $request->name;
+            $department->description = $request->description;
+            $department->save();
     }
 
     public function updateImage(Request $request)
