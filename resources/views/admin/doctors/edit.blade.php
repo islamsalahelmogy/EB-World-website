@@ -49,9 +49,10 @@
                                             </div>
                         
                                         </div>
+                                        
                                         <div class="form-group  select2-lg">
                                             <label class="form-label" for="options">التخصص</label>
-											<select name="department_id" id="options"  class="form-control form-select select2">
+											<select name="department_id" id="options"  class="form-control form-select select2" @if($doctor->subjects->count()>0) disabled  @endif>
 												@foreach ($departments as $dep)
                                                     <option  @if($dep->id == $doctor->department_id) selected @endif value="{{$dep->id}}" >{{$dep->name}}</option>
                                                 @endforeach
