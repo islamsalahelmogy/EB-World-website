@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateSubjectRequest;
 use App\Models\Department;
 use App\Models\Doctor;
 use App\Models\Level;
+use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
@@ -36,6 +37,17 @@ class SubjectController extends Controller
     {
         //
     }
+    
+    public function deptResult(Request $request)
+    {
+        $doctors=Department::find($request->id)->doctors;
+        $subjects=Department::find($request->id)->subjects;
+        $type="doctors";
+        $doctors_view=view('admin.subjects.comon',compact('type','doctors'))->render();
+        $type="subjects";
+        $subjects_view=view('admin.subjects.comon',compact('type','subjects'))->render();
+        return response()->json(["subjects_html"=>$subjects_view,"doctors_html"=>$doctors_view]);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -43,9 +55,9 @@ class SubjectController extends Controller
      * @param  \App\Http\Requests\StoreSubjectRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSubjectRequest $request)
+    public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
