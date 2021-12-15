@@ -100,6 +100,8 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('admin/getdepresult','Admin\SubjectController@deptResult')->name('admin.getDeptResult');
     Route::post('admin/subjects/updatebasic','Admin\SubjectController@updateBasic')->name('admin.subjects.updatebasic');
     Route::post('admin/subjects/updateimage','Admin\SubjectController@updateImage')->name('admin.subjects.updateimage');
+    Route::post('admin/subjects/updateavanced','Admin\SubjectController@updateAdvanced')->name('admin.subjects.updateadvanced');
+
     Route::get('admin/subjects/delete/{id}','Admin\SubjectController@destroy')->name('admin.subjects.delete');
 
     Route::get('admin/levels','Admin\LevelController@index')->name('admin.levels');

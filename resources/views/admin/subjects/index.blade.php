@@ -51,8 +51,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="تعديل"><i class="fe fe-edit-2 fs-16"></i></a>
-                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="حذف"><i class="fe fe-trash fs-16"></i></a>
+                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="تعديل" href="{{ route('admin.subjects.edit',['id'=>$s->id]) }}"><i class="fe fe-edit-2 fs-16"></i></a>
+                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="حذف"href="{{ route('admin.subjects.delete',['id'=>$s->id]) }}"><i class="fe fe-trash fs-16"></i></a>
                                     {{-- <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="عرض"><i class="fe fe-eye fs-16"></i></a> --}}
                                 </td>
                             </tr>
@@ -75,13 +75,13 @@
                                             <label class="form-label" for="exampleInputEmail1">الإسم</label>
                                             <input type="text" name="name" class="form-control" id="exampleInputname"  placeholder="الإسم">
                                         </div>
-                                        <div class="form-group">
+                                        {{-- <div class="form-group">
                                             <label class="form-label" for="code">كود المادة</label>
                                             <input type="text" name="code" class="form-control" id="code"  placeholder="كود المادة">
-                                        </div>
+                                        </div> --}}
                                         <div class="form-group">
                                             <label class="col-form-label">الوصف</label>
-                                            <textarea class="form-control" name="description" name="example-textarea-input" rows="4" placeholder="اكتب كل ما تريد عن المادة"></textarea>
+                                            <textarea id="description" class="form-control" name="description" name="example-textarea-input" rows="4" placeholder="اكتب كل ما تريد عن المادة"></textarea>
                                         </div>
 
                                         <div class="form-group  select2-lg">
@@ -196,6 +196,13 @@
                 }
             })
 
+             $('textarea[name=description]').on('click',(e) => {
+                if( $('textarea[name=description]').hasClass('is-invalid')) {
+                    $('textarea[name=description]').removeClass('is-invalid');
+                    $('span.invalid-feedback#description').remove();
+                }
+            })
+
             //subject Create
 
             $('#create_subject').submit((e) => {
@@ -225,11 +232,13 @@
                         if(errors.name){
                             messageError('name',errors.name[0]);
                         }
-                        if(errors.desciption){
-                            messageError('desciption',errors.desciption[0]);
-                        }
-                        if(errors.code){
-                            messageError('code',errors.code[0]);
+                        if(errors.description){
+                           $('#description').addClass('is-invalid');
+                                $('#description').parent().append(
+                                    '<span id="description" class="invalid-feedback d-block px-2" role="alert">'+
+                                            '<strong>'+errors.description[0]+'</strong>'+
+                                    '</span>'
+                            );
                         }
                         if(errors.cover){
                             messageError('cover',errors.cover[0]);
@@ -245,7 +254,7 @@
                         }
                     }
                     else{
-                      //  window.location.replace("{{ route("admin.subjects") }}");
+                        window.location.replace("{{ route("admin.subjects") }}");
                         }
                 })
             })

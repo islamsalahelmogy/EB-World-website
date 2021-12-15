@@ -24,7 +24,7 @@
                                     <div class="item-card7-imgs">
                                         <a href="{{route('subject',['id'=>$s->id])}}"></a>
                                         @if ($s->cover != null)
-                                            <img src="{{asset('assets/images/data/subjects/'.$s->id.'/'.$s->cover)}}" alt="img" class="cover-image br-7 border">
+                                            <img src="{{asset('assets/images/data/subjects/'.$s->id.'/'.$s->cover)}}" alt="img" class="cover-image br-7 border"style="height:186px;width:312px">
                                         @else
                                             <img src="{{asset('assets/images/data/subjects/default.jpg')}}" alt="img" class="cover-image br-7 border">
                                         @endif
@@ -58,7 +58,7 @@
                                 <div class="item-card7-imgs">
                                     <a href="{{route('subject',['id'=>$s->id])}}"></a>
                                     @if ($s->cover != null)
-                                        <img src="{{asset('assets/images/data/subjects/'.$s->id.'/'.$s->cover)}}" alt="img" class="cover-image br-7 border">
+                                        <img src="{{asset('assets/images/data/subjects/'.$s->id.'/'.$s->cover)}}" alt="img" class="cover-image br-7 border" >
                                     @else
                                         <img src="{{asset('assets/images/data/subjects/default.jpg')}}" alt="img" class="cover-image br-7 border">
                                     @endif
