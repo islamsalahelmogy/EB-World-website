@@ -145,8 +145,8 @@ class DoctorController extends Controller
     public function updateBasic(Request $request)
     {
         $validator = validator::make($request->all(),[
-            'name' => ['required', 'string','unique:doctors,name'],
-            'email'   => 'required|email|unique:doctors,email',
+            'name' => ['required', 'string'],
+            'email'   => 'required|email',
             'gender' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'numeric', 'digits:8'],
             'department_id' => ['required', 'string', 'max:255'],
