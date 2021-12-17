@@ -101,7 +101,10 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     Route::get('admin/levels','Admin\LevelController@index')->name('admin.levels');
     //Route::get('admin/levels/show','Admin\LevelController@show')->name('admin.levels.show');
-    Route::get('admin/levels/edit','Admin\LevelController@edit')->name('admin.levels.edit');
+    Route::get('admin/levels/edit/{id}','Admin\LevelController@edit')->name('admin.levels.edit');
+    Route::post('/admin/levels/store', 'Admin\LevelController@store')->name('admin.levels.store');
+    Route::post('admin/level/update','Admin\LevelController@update')->name('admin.levels.update');
+    Route::get('admin/levels/delete/{id}','Admin\LevelController@destroy')->name('admin.levels.delete');
 
 
 });

@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Level;
 use App\Http\Requests\StoreLevelRequest;
 use App\Http\Requests\UpdateLevelRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
+
 
 class LevelController extends Controller
 {
@@ -37,9 +41,22 @@ class LevelController extends Controller
      * @param  \App\Http\Requests\StoreLevelRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreLevelRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validator = validator::make($request->all(),[
+            'name' => ['required', 'string','unique:levels,name'],
+        ],[
+            'required' => 'ممنوع ترك الحقل فارغاَ',
+            'string' => 'يجب الحقل ان يحتوى على رموز وارقام وحروف', 
+            'unique' => 'هذا المستوي مكرر فى الموقع',
+
+        ]);
+        if($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        }  
+            $level=new Level();
+            $level->name = $request->name;
+            $level->save();
     }
 
     /**
@@ -59,9 +76,10 @@ class LevelController extends Controller
      * @param  \App\Models\Level  $level
      * @return \Illuminate\Http\Response
      */
-    public function edit(Level $level)
+    public function edit($id)
     {
-        //
+        $level=Level::find($id);
+        return view('admin.levels.edit',compact('level'));
     }
 
     /**
@@ -71,9 +89,23 @@ class LevelController extends Controller
      * @param  \App\Models\Level  $level
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateLevelRequest $request, Level $level)
+    public function update( Request $request)
     {
-        //
+        //$admin=Admin::find(Auth::guard('admin')->user()->id); 
+        $validator = validator::make($request->all(),[
+            'name' => ['required', 'string','unique:levels,name'],
+        ],[
+            'required' => 'ممنوع ترك الحقل فارغاَ',
+            'string' => 'يجب الحقل ان يحتوى على رموز وارقام وحروف', 
+            'unique' => 'هذا المستوي مكرر فى الموقع',
+
+        ]);
+        if($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        }  
+            $level=Level::find($request->id);
+            $level->name = $request->name;
+            $level->save();
     }
 
     /**
@@ -82,8 +114,10 @@ class LevelController extends Controller
      * @param  \App\Models\Level  $level
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Level $level)
+    public function destroy($id)
     {
-        //
+        $level=Level::find($id);
+        $level->delete();
+        return Redirect()->route('admin.levels');
     }
 }
