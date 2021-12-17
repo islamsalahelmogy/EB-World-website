@@ -96,7 +96,7 @@ class UserController extends Controller
             return response()->json(['errors' => $validator->errors()]);
         }
 
-            $user= Auth::user()->get;
+            $user= Auth::guard('user')->user()->get;
             $user->password = Hash::make($r->new_password);
             $user->save();
         // return redirect()->route('user.profile');
