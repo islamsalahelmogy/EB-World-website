@@ -82,10 +82,16 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::post('admin/update/pass','Admin\ProfileController@changePassword')->name('admin.pass.update');
 
     //for dashboard
+    //------------------------------------Admin routes ------------------------------------------
+    //Route::get('admin/admins/show','Admin\AdminController@show')->name('admin.admins.show');
     Route::get('admin/dashboard','Admin\DashboardController@index')->name('admin.dashboard');
     Route::get('admin/admins','Admin\AdminController@index')->name('admin.admins');
-    //Route::get('admin/admins/show','Admin\AdminController@show')->name('admin.admins.show');
-    Route::get('admin/admins/edit','Admin\AdminController@edit')->name('admin.admins.edit');
+    Route::post('/admin/admins/store', 'Admin\AdminController@store')->name('admin.admins.store');
+    Route::get('admin/admins/edit/{id}','Admin\AdminController@edit')->name('admin.admins.edit');
+    Route::post('admin/admins/updatebasic','Admin\AdminController@updateBasicAdmin')->name('admin.admins.updatebasic');
+    Route::post('admin/admins/updateimage','Admin\AdminController@updateImageAdmin')->name('admin.admins.updateimage');
+    Route::post('admin/admins/updatepass','Admin\AdminController@updatePassAdmin')->name('admin.admins.updatepass');
+    Route::get('admin/admins/delete/{id}','Admin\AdminController@destroy')->name('admin.admins.delete');
 
     Route::get('admin/doctors','Admin\DoctorController@index')->name('admin.doctors');
     //Route::get('admin/doctors/show','Admin\DoctorController@show')->name('admin.doctors.show');
