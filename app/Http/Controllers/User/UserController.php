@@ -30,7 +30,7 @@ class UserController extends Controller
     {
             $validator = validator::make($request->all(),[
                 'name' => ['required', 'string', 'max:15'],
-                'email'   => 'required|email|unique:users,email',
+                'email'   => 'required|email',     //|unique:users,email
 
             ],[
                 'required' => 'ممنوع ترك الحقل فارغاَ',
