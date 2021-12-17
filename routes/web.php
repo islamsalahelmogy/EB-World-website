@@ -21,12 +21,16 @@ Route::get('home/doctor','HomeController@show_doctor')->name('doctor');
 Route::get('home/department','HomeController@show_department')->name('department');
 Route::get('home/subject','HomeController@show_subject')->name('subject');
 Route::get('home/search','SearchController@search')->name('search');
+Route::post('readAllNotification','HomeController@readAllNotification')->name('readAllNotification');
+
 
 // for inquiries 
 Route::get('inquiries','HomeController@show_inquires')->name('inquiries');
 Route::post('inquiries/create_inquiry','InquiryController@store')->name('create_inquiry');
 Route::post('inquiries/update_inquiry','InquiryController@update')->name('update_inquiry');
 Route::post('inquiries/delete_inquiry','InquiryController@destroy')->name('delete_inquiry');
+Route::get('inquiries/show_inquiry','InquiryController@show')->name('show_inquiry');
+
 
 // for replies 
 Route::post('inquiries/replies/create_reply','ReplyController@store')->name('create_reply');

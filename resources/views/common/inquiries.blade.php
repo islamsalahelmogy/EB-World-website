@@ -15,7 +15,7 @@
                                 @if ($inquiry->user->image != null)
                                     <img class="media-object brround avatar-lg" alt="64x64" src="{{asset('assets/images/data/users/'.$inquiry->user->id.'/'.$inquiry->user->image)}}">
                                 @else
-                                    @if ($inquiry->user->gender == 'ذكر')
+                                    @if ($inquiry->user->gender == "ذكر")
                                         <img class="media-object brround avatar-lg" alt="64x64" src="{{asset('assets/images/data/users/male.jpg')}}">
                                     @else
                                         <img class="media-object brround avatar-lg" alt="64x64" src="{{asset('assets/images/data/users/female.jpg')}}">
@@ -100,6 +100,10 @@
 
 @push('js')
     <script>
+            $('body').on('click','.inq-replies',(e) => {
+                let inq_id = $(e.currentTarget).attr('id').match(/\d/g).join("");
+                $('#rs-'+inq_id).toggle();
+            })
             //del inquiry
             $('body').on('click','.delete_inquiry',(e) => {
                 e.preventDefault();
@@ -107,7 +111,12 @@
                 var inquiry_id = id.match(/\d/g).join("");
                 axios.post('{{route('delete_inquiry')}}',{'id': inquiry_id})
                 .then((res) => {
-                    $('.inquiry#'+inquiry_id).remove();
+                    if(window.location.href.includes('show_inquiry')) {
+                        window.location.replace("{{ route("inquiries") }}");
+                    } else {
+                        $('.inquiry#'+inquiry_id).remove();
+                    }
+                   
                 })
             })
 

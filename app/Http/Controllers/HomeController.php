@@ -9,7 +9,7 @@ use App\Models\Level;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Carbon;
 class HomeController extends Controller
 {
     /* home page */
@@ -87,6 +87,27 @@ class HomeController extends Controller
 
     public function getError() {
         abort(404);
+    }
+
+
+    public function readAllNotification () {
+        if(Auth::guard('admin')->check()) {
+            foreach(Auth::guard('admin')->user()->notifications as $notification) {
+                if($notification->read_at == null) {
+                    $notification->read_at = Carbon::now();
+                    $notification->save();
+                }  
+            }
+        }else if (Auth::guard('user')->check()){
+            foreach(Auth::guard('user')->user()->notifications as $notification) {
+                if($notification->read_at == null) {
+                    $notification->read_at = Carbon::now();
+                    $notification->save();
+                }  
+            }
+        } 
+        
+        return response()->json(['messages' => 'success']);
     }
 
    
