@@ -37,7 +37,7 @@
                                         <div class="col-md-9">
                                             <div class="form-controls-stacked d-md-flex">
                                                 <label class="custom-control custom-radio me-4">
-                                                    <input type="radio" class="custom-control-input" name="gender" value="ّذكر" checked>
+                                                    <input type="radio" class="custom-control-input" name="gender" value="ذكر" checked>
                                                     <span class="custom-control-label">ذكر</span>
                                                 </label>
                                                 <label class="custom-control custom-radio">

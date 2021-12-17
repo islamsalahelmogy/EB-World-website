@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\InquiryNotification;
 use App\Models\Inquiry;
 use App\Models\Reply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
+use App\Models\Notification;
+use App\Models\Admin;
+use Illuminate\Support\Carbon;
 class InquiryController extends Controller
 {
 
@@ -41,9 +44,35 @@ class InquiryController extends Controller
                 $inquiry->user_id = $id;
             $inquiry->text = $content;
             $inquiry->save();
+
+            if($type == 'user') {
+                $admins = Admin::all();
+                foreach($admins as $admin) {
+                    $notify = new Notification();
+                    $notify->auth_type = 'admin';
+                    $notify->admin_id = $admin->id;
+                    $notify->type = 'Inquiry';
+                    $array = [
+                        'user' => Auth::guard('user')->user(),
+                        'Inquiry' => $inquiry
+                    ];
+                    $notify->data = json_encode($array);
+                    $notify->save();
+            
+                    $data = [
+                        'n_id' => $notify->id,
+                        'admin_id' => $admin->id,
+                        'inquiry_id' => $inquiry->id,
+                        'type' => 'Inquiry',
+                        'user' => Auth::guard('user')->user(),
+                    ];
+                    broadcast(new InquiryNotification($data))->toOthers();
+                }
+            }
+            
             $inquiries = Inquiry::where('id',$inquiry->id)->get();
             $view = view('common.inquiries',compact('inquiries'))->render();
-
+            
             return response()->json(['html' => $view]);
 
         } else {
@@ -56,7 +85,16 @@ class InquiryController extends Controller
     
     public function show(Request $r)
     {
-        //
+        if($r->n_id != null) {
+            $notify = Notification::find($r->n_id);
+
+            if($notify != null && $notify->read_at == null) {
+                $notify->read_at = Carbon::now();
+                $notify->save();
+            }
+        }
+        $inquiries = Inquiry::where('id',$r->inquiry_id)->get();
+        return view('app.showinquiry',compact('inquiries'));
     }
 
    
@@ -93,6 +131,14 @@ class InquiryController extends Controller
                 foreach($inquiry->replies as $r) {
                     $reply = Reply::find($r->id);
                     $reply->delete();
+                }
+                $notify = Notification::all();
+                foreach($notify as $n) {
+                    if($n->type == "Inquiry") { 
+                        if(json_decode($n->data)->Inquiry->id == $inquiry->id)
+                            $n->delete();
+                    }
+                   
                 }
                 $inquiry->delete();
                 return response()->json(['inquiry_id' => $inquiry->id]);

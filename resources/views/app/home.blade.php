@@ -169,7 +169,7 @@
                                     <span class="ms-3"><i class="fe fe-calendar me-1 float-start mt-1"></i>{{$inq->created_at->diffForHumans()}}</span>
                                 </div>
                                 <p class="line-clamp">{{$inq->text}}</p>
-                                <a class="btn btn-primary btn-sm py-2 px-4" href="javascript:void(0)">للمزيد</a>
+                                <a class="btn btn-primary btn-sm py-2 px-4" href="{{route('show_inquiry',['inquiry_id'=>$inq->id])}}">للمزيد</a>
                             </div>
                         </div>
                     </div>
