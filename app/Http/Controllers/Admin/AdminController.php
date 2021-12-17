@@ -31,6 +31,14 @@ class AdminController extends Controller
         return view('admin.admins.index',compact('admins'));
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+>>>>>>> eb471ce5f7a9198b985b1a973cd5672164ef3aa0
 
     /**
      * Store a newly created resource in storage.
@@ -80,16 +88,6 @@ class AdminController extends Controller
             }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Admin $admin)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -136,7 +134,7 @@ class AdminController extends Controller
     {
         $validator = validator::make($request->all(),[
             'name' => ['required', 'string'],
-            'email'   => 'required|email',
+            'email'   => 'required|email|unique:admins,email,'.$request->id
         ],[
             'required' => 'ممنوع ترك الحقل فارغاَ',
             'string' => 'يجب الحقل ان يحتوى على رموز وارقام وحروف', 
