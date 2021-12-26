@@ -55,8 +55,10 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="تعديل"><i class="fe fe-edit-2 fs-16"></i></a>
-                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="حذف"><i class="fe fe-trash fs-16"></i></a>
+                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="تعديل" href="{{ route('admin.doctors.edit',['id'=>$d->id]) }}"><i class="fe fe-edit-2 fs-16"></i></a>
+                                    @if ($d->subjects->count() == 0)
+                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="حذف" href="{{ route('admin.doctors.delete',['id'=>$d->id]) }}"><i class="fe fe-trash fs-16"></i></a>
+                                    @endif
                                     {{-- <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="عرض"><i class="fe fe-eye fs-16"></i></a> --}}
                                 </td>
                             </tr>
@@ -74,21 +76,20 @@
                                     <h3 class="card-title">إضافة عضو هيئة تدريس جديد</h3>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form id="create_doctor">
                                         <div class="form-group">
                                             <label class="form-label" for="exampleInputEmail1">الإسم</label>
-                                            <input type="text" class="form-control" id="exampleInputname"  placeholder="الإسم">
+                                            <input type="text" class="form-control" name="name" id="exampleInputname"  placeholder="الإسم">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label" for="exampleInputEmail1">الإيميل</label>
-                                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="الإيميل">
+                                            <input type="email" class="form-control" name="email" id="exampleInputEmail2" placeholder="الإيميل">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label" for="exampleInputPassword1">الموبايل</label>
-                                            <input type="Number" class="form-control" id="exampleInputnumber" placeholder="الموبايل">
+                                            <input type="text" class="form-control" name="phone" id="exampleInputnumber" placeholder="الموبايل">
                                         </div>
                                         <div class="form-group ">
-                                           
                                             <label class="form-label">الجنس</label>
                                         
                                             <div class="form-controls-stacked d-md-flex">
@@ -105,10 +106,10 @@
                                         </div>
                                         <div class="form-group  select2-lg">
                                             <label class="form-label" for="options">التخصص</label>
-											<select name="options" id="options" class="form-control form-select select2">
+											<select name="department_id" id="options"  class="form-control form-select select2">
 												<option value="0" selected="">إختر التخصص</option>
 												@foreach ($departments as $d)
-                                                    <option value="{{$d->id}}" >{{$d->name}}</option>
+                                                    <option  value="{{$d->id}}" >{{$d->name}}</option>
                                                 @endforeach
 											</select>
 										</div>
@@ -119,7 +120,7 @@
                                                     <input type="text" class="form-control border-end-0 browse-file bg-transparent" placeholder="الصورة الشخصية" readonly="">
                                                     <label class="input-group-btn">
                                                        <span class="btn btn-primary br-bs-0 br-ts-0">
-                                                        إرفع <input type="file" style="display: none;">
+                                                        إرفع <input type="file" name="image" style="display: none;">
                                                       </span>
                                                    </label>
                                                 </div>
@@ -142,3 +143,81 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(() => {
+
+            $('input').on('focus',(e) => {
+                var input = $(e.target)
+                if(input.hasClass('is-invalid')) {
+                    console.log(input);
+                    input.removeClass('is-invalid');
+                    $('#'+input.attr('name')).remove();
+                }
+                if($('span.invalid').length) {
+                    $('span.invalid').remove();
+                }
+            })
+
+            function messageError(errorName,message) {
+                $('input[name='+errorName+']').addClass('is-invalid');
+                    $('input[name='+errorName+']').parent().append(
+                        '<span id='+errorName+' class="invalid-feedback d-block px-2" role="alert">'+
+                                '<strong>'+message+'</strong>'+
+                        '</span>'
+                );
+            }
+            //department Create
+            $('#create_doctor').submit((e) => {
+                e.preventDefault();
+                var file = $(':file').get(0);
+                var form = new FormData();
+                form.append('image',file.files[0]);
+                var obj=$(e.target).serializeArray();
+               // console.log(obj);
+                for(var key in obj)
+                {
+                    form.append(obj[key].name,obj[key].value);
+                }
+                //console.log(form,file.files[0]);
+               // console.log(JSON.parse($(e.target).serialize()));
+                axios.post('{{ route('admin.doctors.store') }}',form,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data; boundary=${form._boundary}'
+                    }
+                })
+                .then((res) => {
+                    console.log(res.data);
+                    var errors = res.data.errors;
+
+                    if(errors) {
+                        console.log(errors)
+                        if(errors.name){
+                            messageError('name',errors.name[0]);
+                        }
+                        if(errors.email){
+                            messageError('email',errors.email[0]);
+                        }
+                        if(errors.image){
+                            messageError('image',errors.image[0]);
+                        }
+                        if(errors.gender){
+                            messageError('gender',errors.gender[0]);
+                        }
+                        if(errors.department_id){
+                            messageError('department_id',errors.department_id[0]);
+                        }
+                        if(errors.phone){
+                            messageError('phone',errors.phone[0]);
+                        }
+                        
+                    }
+                    else{
+                        window.location.replace("{{ route("admin.doctors") }}");
+                        }
+                })
+            })
+        })
+    </script>
+@endpush

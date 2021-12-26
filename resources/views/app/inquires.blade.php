@@ -48,11 +48,7 @@
 @push('js')
     <script>
         $(document).ready(() => {
-            $('body').on('click','.inq-replies',(e) => {
-                let inq_id = $(e.target).attr('id').substr(4);
-                $('#rs-'+inq_id).toggle();
-            })
-
+            
 
             $('textarea[name=text]').on('click',(e) => {
                 if( $('textarea[name=text]').hasClass('is-invalid')) {
