@@ -21,12 +21,16 @@ Route::get('home/doctor','HomeController@show_doctor')->name('doctor');
 Route::get('home/department','HomeController@show_department')->name('department');
 Route::get('home/subject','HomeController@show_subject')->name('subject');
 Route::get('home/search','SearchController@search')->name('search');
+Route::post('readAllNotification','HomeController@readAllNotification')->name('readAllNotification');
+
 
 // for inquiries 
 Route::get('inquiries','HomeController@show_inquires')->name('inquiries');
 Route::post('inquiries/create_inquiry','InquiryController@store')->name('create_inquiry');
 Route::post('inquiries/update_inquiry','InquiryController@update')->name('update_inquiry');
 Route::post('inquiries/delete_inquiry','InquiryController@destroy')->name('delete_inquiry');
+Route::get('inquiries/show_inquiry','InquiryController@show')->name('show_inquiry');
+
 
 // for replies 
 Route::post('inquiries/replies/create_reply','ReplyController@store')->name('create_reply');
@@ -78,10 +82,16 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::post('admin/update/pass','Admin\ProfileController@changePassword')->name('admin.pass.update');
 
     //for dashboard
+    //------------------------------------Admin routes ------------------------------------------
+    //Route::get('admin/admins/show','Admin\AdminController@show')->name('admin.admins.show');
     Route::get('admin/dashboard','Admin\DashboardController@index')->name('admin.dashboard');
     Route::get('admin/admins','Admin\AdminController@index')->name('admin.admins');
-    //Route::get('admin/admins/show','Admin\AdminController@show')->name('admin.admins.show');
-    Route::get('admin/admins/edit','Admin\AdminController@edit')->name('admin.admins.edit');
+    Route::post('/admin/admins/store', 'Admin\AdminController@store')->name('admin.admins.store');
+    Route::get('admin/admins/edit/{id}','Admin\AdminController@edit')->name('admin.admins.edit');
+    Route::post('admin/admins/updatebasic','Admin\AdminController@updateBasicAdmin')->name('admin.admins.updatebasic');
+    Route::post('admin/admins/updateimage','Admin\AdminController@updateImageAdmin')->name('admin.admins.updateimage');
+    Route::post('admin/admins/updatepass','Admin\AdminController@updatePassAdmin')->name('admin.admins.updatepass');
+    Route::get('admin/admins/delete/{id}','Admin\AdminController@destroy')->name('admin.admins.delete');
 
     //------------------------------------Doctor routes ------------------------------------------
 
@@ -93,14 +103,28 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::post('admin/doctors/updateimage','Admin\DoctorController@updateImage')->name('admin.doctors.updateimage');
     Route::get('admin/doctors/delete/{id}','Admin\DoctorController@destroy')->name('admin.doctors.delete');
 
-    Route::get('admin/departments','Admin\DepartmentController@index')->name('admin.departments');
+
+
+    //------------------------------------Department routes ------------------------------------------
+
     //Route::get('admin/departments/show','Admin\DepartmentController@show')->name('admin.departments.show');
-    Route::get('admin/departments/edit','Admin\DepartmentController@edit')->name('admin.departments.edit');
+    Route::get('admin/departments','Admin\DepartmentController@index')->name('admin.departments');
+    Route::post('/admin/departments/store', 'Admin\DepartmentController@store')->name('admin.departments.store');
+    Route::get('admin/departments/edit/{id}','Admin\DepartmentController@edit')->name('admin.departments.edit');
+    Route::post('admin/departments/updatebasic','Admin\DepartmentController@updateBasic')->name('admin.departments.updatebasic');
+    Route::post('admin/departments/updateimage','Admin\DepartmentController@updateImage')->name('admin.departments.updateimage');
+    Route::get('admin/departments/delete/{id}','Admin\DepartmentController@destroy')->name('admin.departments.delete');
+
+
+//------------------------------------Subject routes ------------------------------------------
 
     Route::get('admin/subjects','Admin\SubjectController@index')->name('admin.subjects');
     //Route::get('admin/subjects/show','Admin\SubjectController@show')->name('admin.subjects.show');
     Route::get('admin/subjects/edit','Admin\SubjectController@edit')->name('admin.subjects.edit');
+    
 
+
+//------------------------------------Level routes ------------------------------------------
     Route::get('admin/levels','Admin\LevelController@index')->name('admin.levels');
     //Route::get('admin/levels/show','Admin\LevelController@show')->name('admin.levels.show');
     Route::get('admin/levels/edit/{id}','Admin\LevelController@edit')->name('admin.levels.edit');

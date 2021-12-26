@@ -6,9 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
+use App\Models\Inquiry;
+use App\Models\Notification;
+use App\Models\Reply;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -27,63 +31,127 @@ class AdminController extends Controller
         return view('admin.admins.index',compact('admins'));
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+>>>>>>> eb471ce5f7a9198b985b1a973cd5672164ef3aa0
 
-    public function updateBasic(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreAdminRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
-            $validator = validator::make($request->all(),[
-                'name' => ['required', 'string', 'max:15'],
-                'email'   => 'required|email|unique:users,email',
-
-            ],[
-                'required' => 'ممنوع ترك الحقل فارغاَ',
-                'string' => 'يجب الحقل ان يحتوى على رموز وارقام وحروف', 
-            ]);
-            if($validator->fails()) {
-                return response()->json(['errors' => $validator->errors()]);
-            }  
-                $user=User::find(Auth::guard('user')->user()->id); 
-                $user->name = $request->name;
-                $user->email = $request->email;
-
-                $user->level = $request->level != '' ? $request->level :null;
-                $user->department = $request->department != '' && $request->department!='0' ?  $request->department :null;
-                $user->save();
-    }
-
-    public function updateImage(Request $request)
-    {
-        dd($request->all());
-        if ($request->hasFile('image')) {
-        $Validator = validator::make($request->all(),[
-            'image' => 'required','image','mimes:jpeg,png,jpg,svg','max:2048',
+        $validator = validator::make($request->all(),[
+            'name' => ['required', 'string'],
+            'email'   => 'required|email|unique:admins,email',
+            'image' => 'required|image|mimes:jpeg,jpg,png',
+            'password' => ['required', 'string', 'min:8'],
+            'confirm_password' => ['required', 'string', 'min:8','same:password']
         ],[
             'required' => 'ممنوع ترك الحقل فارغاَ',
-            'mimetypes' => 'لا بد ان يكون نوع الملف mp4 او mkv'
+            'string' => 'يجب الحقل ان يحتوى على رموز وارقام وحروف', 
+            'image'=>'لابد ان تكون صورة ',
+            'mimes' => 'لا بد ان يكون نوع الملف jpeg او jpg أو png',
+            'unique' => 'هذا الايميل مكرر فى الموقع',
+            'same'=> 'كلمة السر غير مطابقة '
         ]);
-        if($Validator->fails()){
-            return Redirect::back()->withErrors($Validator)->withInput($request->all());
-        }
+        if($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        } 
+            $admin=new Admin();
+            $admin->name = $request->name;
+            $admin->email = $request->email;
+            $admin->password = Hash::make($request->password);
+            $admin->save();
 
-            $userId = Auth::user()->id;
+            $adminId = $admin->id;
             $file = $request->file('image');
-            if (is_dir(public_path('public\assets\images\data\users\\' . $userId . '\images')) == false) {
-                mkdir(public_path('public\assets\images\data\users\\' . $userId  . '\images'));
+            if (is_dir(public_path('assets/images/data/admins/' . $adminId )) == false) {
+                mkdir(public_path('assets/images/data/admins/' . $adminId ));
             }
-            $file_path = public_path('public\assets\images\data\users\\' . $userId . '\images');
-            $old_file = $file_path . '\\' . Auth::user()->image;
+            $file_path = public_path('assets/images/data/admins/' . $adminId );
+            $old_file = $file_path . '/' . $admin->image;
             $file_name = str_replace([' ','#','&','=','?'],'-',$file->getClientOriginalName());
             $file->move($file_path, $file_name);
-            $user = User::find($userId);
-            $user->image = $file_name;
-            $user->save();
+            
+            $admin->image = $file_name;
+            $admin->save();
             if (file_exists($old_file)) {
                 File::delete($old_file);
             }
+    }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Admin  $admin
+     * @return \Illuminate\Http\Response
+     */
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\UpdateAdminRequest  $request
+     * @param  \App\Models\Admin  $admin
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $admin=Admin::find($id);
+        return view('admin.admins.edit',compact('admin'));
+    }
+
+    
+    public function updateImageAdmin(Request $request)
+    {
+        $admin=Admin::find($request->id);
+        $adminId = $admin->id;
+        $file = $request->file('image');
+        if (is_dir(public_path('assets/images/data/admins/' . $adminId )) == false) {
+            mkdir(public_path('assets/images/data/admins/' . $adminId ));
+        }
+        $file_path = public_path('assets/images/data/admins/' . $adminId );
+        $old_file = $file_path . '/' . $admin->image;
+        $file_name = str_replace([' ','#','&','=','?'],'-',$file->getClientOriginalName());
+        $file->move($file_path, $file_name);
+        
+        $admin->image = $file_name;
+        $admin->save();
+        if (file_exists($old_file)) {
+            File::delete($old_file);
         }
     }
 
-    public function changePassword(Request $r) {
-        $validator = Validator::make($r->all(),[
+    public function updateBasicAdmin(Request $request)
+    {
+        $validator = validator::make($request->all(),[
+            'name' => ['required', 'string'],
+            'email'   => 'required|email|unique:admins,email,'.$request->id
+        ],[
+            'required' => 'ممنوع ترك الحقل فارغاَ',
+            'string' => 'يجب الحقل ان يحتوى على رموز وارقام وحروف', 
+            'unique' => 'هذا الايميل مكرر فى الموقع',
+        ]);
+        if($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        }  
+            $admin=Admin::find($request->id);
+            $admin->name = $request->name;
+            $admin->email = $request->email;
+            $admin->save();
+    }
+
+    public function updatePassAdmin(Request $request) 
+    {
+        $validator = Validator::make($request->all(),[
             'new_password' => ['required', 'string', 'min:8'],
             'confirm_password' => ['required', 'string', 'min:8','same:new_password']
         ],[
@@ -98,75 +166,36 @@ class AdminController extends Controller
             return response()->json(['errors' => $validator->errors()]);
         }
 
-            $user= Auth::user()->get;
-            $user->password = Hash::make($r->new_password);
-            $user->save();
-        // return redirect()->route('user.profile');
+        $admin=Admin::find($request->id);
+        $admin->password = Hash::make($request->new_password);
+        $admin->save();
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreAdminRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreAdminRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateAdminRequest  $request
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateAdminRequest $request, Admin $admin)
-    {
-        //
-    }
-
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Admin $admin)
+    public function destroy($id)
     {
-        //
+        $admin=Admin::find($id);
+        $replies = Reply::where('admin_id',$id)->get();
+        $notifications = Notification::where('admin_id',$id)->get();
+        foreach($notifications as $n)
+            $n->delete();
+        foreach($replies as $r) {
+            $r->delete();
+        }
+        $inquiries = Inquiry::where('admin_id',$id)->get();
+        foreach($inquiries as $inq) {
+            foreach($inq->replies as $r)
+                $r->delete();
+            $inq->delete();
+        }
+        if (is_dir(public_path('assets/images/data/admins/' . $admin->id )) == true){
+            File::DeleteDirectory(public_path('assets/images/data/admins/' . $admin->id ));
+        }
+        $admin->delete();
+        return Redirect()->route('admin.admins');
     }
 }
