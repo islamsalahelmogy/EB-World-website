@@ -31,14 +31,6 @@ class AdminController extends Controller
         return view('admin.admins.index',compact('admins'));
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
->>>>>>> eb471ce5f7a9198b985b1a973cd5672164ef3aa0
 
     /**
      * Store a newly created resource in storage.
