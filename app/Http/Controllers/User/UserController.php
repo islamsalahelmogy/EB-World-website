@@ -30,8 +30,7 @@ class UserController extends Controller
     {
             $validator = validator::make($request->all(),[
                 'name' => ['required', 'string', 'max:15'],
-                'email'   => 'required|email|unique:users,email',
-
+                'email'   => 'required|email|unique:users,email,'.$request->id
             ],[
                 'required' => 'ممنوع ترك الحقل فارغاَ',
                 'string' => 'يجب الحقل ان يحتوى على رموز وارقام وحروف', 
@@ -96,10 +95,9 @@ class UserController extends Controller
             return response()->json(['errors' => $validator->errors()]);
         }
 
-            $user= Auth::user()->get;
+            $user= Auth::guard('user')->user()->get;
             $user->password = Hash::make($r->new_password);
             $user->save();
-        // return redirect()->route('user.profile');
     }
 
 

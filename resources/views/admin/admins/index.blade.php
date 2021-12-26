@@ -51,8 +51,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="تعديل"><i class="fe fe-edit-2 fs-16"></i></a>
-                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="حذف"><i class="fe fe-trash fs-16"></i></a>
+                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="تعديل" href="{{ route('admin.admins.edit',['id'=>$d->id]) }}"><i class="fe fe-edit-2 fs-16"></i></a>
+                                    <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="حذف"href="{{ route('admin.admins.delete',['id'=>$d->id]) }}"><i class="fe fe-trash fs-16"></i></a>
                                     {{-- <a class="btn btn-outline-light btn-sm waves-effect waves-light" data-bs-toggle="tooltip" data-bs-original-title="عرض"><i class="fe fe-eye fs-16"></i></a> --}}
                                 </td>
                             </tr>
@@ -70,22 +70,22 @@
                                     <h3 class="card-title">إضافة مسئول جديد</h3>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form id="create_admin">
                                         <div class="form-group">
                                             <label class="form-label" for="exampleInputEmail1">الإسم</label>
-                                            <input type="text" class="form-control" id="exampleInputname"  placeholder="الإسم">
+                                            <input type="text" name="name" class="form-control" id="exampleInputname"  placeholder="الإسم">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label" for="exampleInputEmail1">الإيميل</label>
-                                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="الإيميل">
+                                            <input type="email" name="email" class="form-control" id="exampleInputEmail2" placeholder="الإيميل">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label" for="exampleInputPassword1">كلمة السر</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="كلمة السر">
+                                            <input type="password" name="password" class="form-control" id="exampleInputPassword2" placeholder="كلمة السر">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label" for="exampleInputPassword1">أعد كلمة السر</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="أعد كلمة السر">
+                                            <input type="password" name="confirm_password" class="form-control" id="exampleInputPassword2" placeholder="أعد كلمة السر">
                                         </div>
                                         <div class="form-group">
                                             <div class="form-label">الصورة الشخصية</div>
@@ -117,3 +117,75 @@
     </div>
 </div>
 @endsection
+@push('js')
+    <script>
+        $(document).ready(() => {
+
+            $('input').on('focus',(e) => {
+                var input = $(e.target)
+                if(input.hasClass('is-invalid')) {
+                    console.log(input);
+                    input.removeClass('is-invalid');
+                    $('#'+input.attr('name')).remove();
+                }
+                if($('span.invalid').length) {
+                    $('span.invalid').remove();
+                }
+            })
+
+            function messageError(errorName,message) {
+                $('input[name='+errorName+']').addClass('is-invalid');
+                    $('input[name='+errorName+']').parent().append(
+                        '<span id='+errorName+' class="invalid-feedback d-block px-2" role="alert">'+
+                                '<strong>'+message+'</strong>'+
+                        '</span>'
+                );
+            }
+            //Admin Create
+            $('#create_admin').submit((e) => {
+                e.preventDefault();
+                var file = $(':file').get(0);
+                var form = new FormData();
+                form.append('image',file.files[0]);
+                var obj=$(e.target).serializeArray();
+               // console.log(obj);
+                for(var key in obj)
+                {
+                    form.append(obj[key].name,obj[key].value);
+                }
+                axios.post('{{ route('admin.admins.store') }}',form,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data; boundary=${form._boundary}'
+                    }
+                })
+                .then((res) => {
+                    console.log(res.data);
+                    var errors = res.data.errors;
+
+                    if(errors) {
+                        console.log(errors)
+                        if(errors.name){
+                            messageError('name',errors.name[0]);
+                        }
+                        if(errors.email){
+                            messageError('email',errors.email[0]);
+                        }
+                        if(errors.image){
+                            messageError('image',errors.image[0]);
+                        }
+                        if(errors.password){
+                            messageError('password',errors.password[0]);
+                        }
+                        if(errors.confirm_password){
+                            messageError('confirm_password',errors.confirm_password[0])
+                        }
+                
+                    }
+                    else{
+                        window.location.replace("{{ route("admin.admins") }}");
+                        }
+                })
+            })
+        })
+    </script>
+@endpush

@@ -26,7 +26,7 @@ class ProfileController extends Controller
     {
             $validator = validator::make($request->all(),[
                 'name' => ['required', 'string', 'max:15'],
-                'email'   => 'required|email|unique:users,email',
+                'email'   => 'required|email|unique:admins,email,'.Auth::guard('admin')->user()->id
 
             ],[
                 'required' => 'ممنوع ترك الحقل فارغاَ',

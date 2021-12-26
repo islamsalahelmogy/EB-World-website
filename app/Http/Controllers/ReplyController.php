@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CommentNotification;
 use App\Models\Reply;
 use App\Models\Inquiry;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use App\Models\Notification;
 class ReplyController extends Controller
 {
     public function store(Request $r)
@@ -41,6 +42,36 @@ class ReplyController extends Controller
             $reply->inquire_id = $r->id;
             $reply->save();
 
+            $notify = new Notification();
+            $authtype = $reply->Inquiry->type;
+            $notify->auth_type = $authtype;
+            if($authtype == 'admin') {
+                $owner_id = $reply->Inquiry->admin_id;
+                $notify->admin_id = $reply->Inquiry->admin_id;
+            }
+            else {
+                $owner_id = $reply->Inquiry->user_id;
+                $notify->user_id = $reply->Inquiry->user_id;
+            }
+
+            $notify->type = 'Comment';
+            $array = [
+                'user' => $type == 'user' ? Auth::guard('user')->user() : Auth::guard('admin')->user(),
+                'Reply' => $reply,
+            ];
+            $notify->data = json_encode($array);
+            $notify->save();
+    
+            $data = [
+                'n_id' => $notify->id,
+                'owner_id' => $owner_id,
+                'auth_type' => $authtype,
+                'inquiry_id' => $r->id,
+                'type' => 'Comment',
+                'user' => $type == 'user' ? Auth::guard('user')->user() : Auth::guard('admin')->user(),
+            ];
+            broadcast(new CommentNotification($data))->toOthers();
+            
             $reply = Reply::where('id',$reply->id)->first();
             $count = Inquiry::find($r->id)->replies->count();
             $view = view('common.replies',compact('reply'))->render();
@@ -54,11 +85,6 @@ class ReplyController extends Controller
 
     }
 
-    
-    public function show(Request $r)
-    {
-        //
-    }
 
    
     public function update(Request $r)
@@ -92,6 +118,13 @@ class ReplyController extends Controller
             if(is_numeric($r->id)) {
                 $reply = Reply::find($r->id);
                 $inquiry_id = $reply->Inquiry->id;
+                $notify = Notification::all();
+                foreach($notify as $n) {
+                    if($n->type == "Comment") {
+                        if(json_decode($n->data)->Reply->id == $reply->id)
+                            $n->delete();
+                    } 
+                }
                 $reply->delete();
                 $count = Inquiry::find($inquiry_id)->replies->count();
                 return response()->json(['inquiry_id' => $inquiry_id,'count' => $count]);
