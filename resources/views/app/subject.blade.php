@@ -22,7 +22,7 @@
                             <li class="mb-0">
                                 <a class="class-video p-0" href="javascript:void(0)">
                                     @if ($subject->cover != null)
-                                        <img src="{{asset('assets/images/data/subjects/'.$subject->id.'/'.$subject->cover)}}" alt="img" class="img-responsive  border br-7">
+                                        <img src="{{asset('assets/images/data/subjects/'.$subject->id.'/'.$subject->cover)}}" alt="img" class="img-responsive  border br-7" style="height:432.48px;width:728px">
                                     @else
                                         <img src="{{asset('assets/images/data/subjects/default.jpg')}}" alt="img" class="img-responsive  border br-7">
                                     @endif
