@@ -104,6 +104,16 @@ class AdminController extends Controller
     
     public function updateImageAdmin(Request $request)
     {
+        $Validator = validator::make($request->all(),[
+            'image' => 'required|image|mimes:jpeg,jpg,png',
+        ],[
+            'required' => 'ممنوع ترك الحقل فارغاَ',
+            'image'=>'لابد ان تكون صورة ',
+            'mimes' => 'لا بد ان يكون نوع الملف jpeg او jpg أو png'
+        ]);
+        if($Validator->fails()) {
+            return response()->json(['errors' => $Validator->errors()]);
+        }
         $admin=Admin::find($request->id);
         $adminId = $admin->id;
         $file = $request->file('image');

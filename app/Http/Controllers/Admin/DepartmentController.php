@@ -130,6 +130,16 @@ class DepartmentController extends Controller
 
     public function updateImage(Request $request)
     {
+        $validator = validator::make($request->all(),[
+            'cover' => 'required|image|mimes:jpeg,jpg,png',
+        ],[
+            'required' => 'ممنوع ترك الحقل فارغاَ',
+            'image'=>'لابد ان تكون صورة ',
+            'mimes' => 'لا بد ان يكون نوع الملف jpeg او jpg أو png'
+        ]);
+        if($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        } 
         $department=Department::find($request->id);
         $departmenId = $department->id;
             $file = $request->file('cover');

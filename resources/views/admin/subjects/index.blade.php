@@ -75,10 +75,7 @@
                                             <label class="form-label" for="exampleInputEmail1">الإسم</label>
                                             <input type="text" name="name" class="form-control" id="exampleInputname"  placeholder="الإسم">
                                         </div>
-                                        {{-- <div class="form-group">
-                                            <label class="form-label" for="code">كود المادة</label>
-                                            <input type="text" name="code" class="form-control" id="code"  placeholder="كود المادة">
-                                        </div> --}}
+
                                         <div class="form-group">
                                             <label class="col-form-label">الوصف</label>
                                             <textarea id="description" class="form-control" name="description" name="example-textarea-input" rows="4" placeholder="اكتب كل ما تريد عن المادة"></textarea>
@@ -120,7 +117,7 @@
                                             <div class="form-label">صورة المادة</div>
                                             <div class="control-group form-group">
                                                 <div class="input-group file-browser">
-                                                    <input type="text" class="form-control border-end-0 browse-file bg-transparent" placeholder="صورة المادة" readonly="">
+                                                    <input type="text" name="text" class="form-control border-end-0 browse-file bg-transparent" placeholder="صورة المادة" readonly="">
                                                     <label class="input-group-btn">
                                                        <span class="btn btn-primary br-bs-0 br-ts-0">
                                                         إرفع <input name="cover" type="file" style="display: none;">
@@ -241,17 +238,30 @@
                             );
                         }
                         if(errors.cover){
-                            messageError('cover',errors.cover[0]);
+                            messageError('text',errors.cover[0]);
                         }
                         if(errors.doctor_id){
-                            messageError('doctor_id',errors.doctor_id[0]);
-                        }
+                            $('select[name=doctor_id]').addClass('is-invalid');
+                            $('select[name=doctor_id]').parent().append(
+                                '<span id=doctor_id class="invalid-feedback d-block px-2" role="alert">'+
+                                        '<strong>'+errors.doctor_id[0]+'</strong>'+
+                                '</span>'
+                            );                         }
                         if(errors.department_id){
-                            messageError('department_id',errors.department_id[0]);
+                            $('select[name=department_id]').addClass('is-invalid');
+                            $('select[name=department_id]').parent().append(
+                                '<span id=department_id class="invalid-feedback d-block px-2" role="alert">'+
+                                        '<strong>'+errors.department_id[0]+'</strong>'+
+                                '</span>'
+                            );                         
                         }
                         if(errors.level_id){
-                            messageError('level_id',errors.level_id[0]);
-                        }
+                            $('select[name=level_id]').addClass('is-invalid');
+                            $('select[name=level_id]').parent().append(
+                                '<span id=level_id class="invalid-feedback d-block px-2" role="alert">'+
+                                        '<strong>'+errors.level_id[0]+'</strong>'+
+                                '</span>'
+                            );                         }
                     }
                     else{
                         window.location.replace("{{ route("admin.subjects") }}");

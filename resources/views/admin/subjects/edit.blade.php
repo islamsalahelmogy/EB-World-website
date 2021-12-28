@@ -178,8 +178,12 @@
                             );
                         }
                         if(errors.level_id){
-                            messageError('level_id',errors.level_id[0]);
-                        }
+                            $('select[name=level_id]').addClass('is-invalid');
+                            $('select[name=level_id]').parent().append(
+                                '<span id=level_id class="invalid-feedback d-block px-2" role="alert">'+
+                                        '<strong>'+errors.level_id[0]+'</strong>'+
+                                '</span>'
+                            );                          }
                     }
                     else{
                             window.location.replace("{{ route("admin.subjects") }}");
@@ -209,7 +213,7 @@
                     if(errors) {
                         console.log(errors)
                         if(errors.cover){
-                            messageError('cover',errors.cover[0]);
+                            messageError('text',errors.cover[0]);
 
                         }
                     }else{
@@ -231,8 +235,13 @@
                         }
                         
                         if(errors.department_id){
-                            messageError('department_id',errors.department_id[0]);
-                        }
+                            $('select[name=department_id]').addClass('is-invalid');
+                            $('select[name=department_id]').parent().append(
+                                '<span id=department_id class="invalid-feedback d-block px-2" role="alert">'+
+                                        '<strong>'+errors.department_id[0]+'</strong>'+
+                                '</span>'
+                            );                        
+                         }
                     }
                     else{
                             window.location.replace("{{ route("admin.subjects") }}");

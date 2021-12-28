@@ -117,7 +117,7 @@
                                             <div class="form-label">الصورة الشخصية</div>
                                             <div class="control-group form-group">
                                                 <div class="input-group file-browser">
-                                                    <input type="text" class="form-control border-end-0 browse-file bg-transparent" placeholder="الصورة الشخصية" readonly="">
+                                                    <input type="text" name="text" class="form-control border-end-0 browse-file bg-transparent" placeholder="الصورة الشخصية" readonly="">
                                                     <label class="input-group-btn">
                                                        <span class="btn btn-primary br-bs-0 br-ts-0">
                                                         إرفع <input type="file" name="image" style="display: none;">
@@ -200,13 +200,18 @@
                             messageError('email',errors.email[0]);
                         }
                         if(errors.image){
-                            messageError('image',errors.image[0]);
+                            messageError('text',errors.image[0]);
                         }
                         if(errors.gender){
                             messageError('gender',errors.gender[0]);
                         }
                         if(errors.department_id){
-                            messageError('department_id',errors.department_id[0]);
+                            $('select[name=department_id]').addClass('is-invalid');
+                            $('select[name=department_id]').parent().append(
+                                '<span id=department_id class="invalid-feedback d-block px-2" role="alert">'+
+                                        '<strong>'+errors.department_id[0]+'</strong>'+
+                                '</span>'
+                            );                       
                         }
                         if(errors.phone){
                             messageError('phone',errors.phone[0]);

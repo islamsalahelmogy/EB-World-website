@@ -175,7 +175,7 @@
                     if(errors) {
                         console.log(errors)
                         if(errors.image){
-                            messageError('image',errors.image[0]);
+                            messageError('text',errors.image[0]);
 
                         }
                     }else{

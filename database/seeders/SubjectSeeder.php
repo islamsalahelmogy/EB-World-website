@@ -136,7 +136,7 @@ class SubjectSeeder extends Seeder
         ]);
 
         
-        //Department 4  قسم الحاسبات  
+        //Department 4  قسم الحاسب الالى  
         
         
         DB::table('subjects')->insert([
@@ -172,36 +172,36 @@ class SubjectSeeder extends Seeder
         ]);
 
 
-                //Department 5 قسم التاريخ   
+                //Department 5 قسم اللغة العربية   
         
         
         DB::table('subjects')->insert([
-            'name' => 'تاريخ العرب القديم ',
-            'code' => 'HS'.Str::random(10),
+            'name' => 'قواعد النحو  ',
+            'code' => 'AR'.Str::random(10),
             'doctor_id' => Doctor::where('department_id',5)->get()->random()->id,
             'department_id' => '5',
             'level_id' => '3',
         ]);
     
         DB::table('subjects')->insert([
-            'name' => 'تاريخ اوروبا ',
-            'code' => 'HS'.Str::random(10),
+            'name' => 'القصص والروايات',
+            'code' => 'AR'.Str::random(10),
             'doctor_id' => Doctor::where('department_id',5)->get()->random()->id,
             'department_id' => '5',
             'level_id' => '2',
         ]);
     
         DB::table('subjects')->insert([
-            'name' => ' تاريخ العراق الحديث',
-            'code' => 'HS'.Str::random(10),
+            'name' => 'التعبير والبلاغة',
+            'code' => 'AR'.Str::random(10),
             'doctor_id' => Doctor::where('department_id',5)->get()->random()->id,
             'department_id' => '5',
             'level_id' => '1',
         ]);
     
         DB::table('subjects')->insert([
-            'name' => 'فلسفة التاريخ',
-            'code' => 'HS'.Str::random(10),
+            'name' => 'الادب الجاهلى وتاريخه',
+            'code' => 'AR'.Str::random(10),
             'doctor_id' => Doctor::where('department_id',5)->get()->random()->id,
             'department_id' => '5',
             'level_id' => '4',
