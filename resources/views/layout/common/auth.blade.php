@@ -141,7 +141,7 @@
 
     <script>
 
-        $('.mark-all').on('click',function() {
+        $('body').on('click','.mark-all',function() {
 			$('.notification-result a').css({'color' : '#5c5776' , 'background-color': 'transparent'});
 			$('.notify-count').text(0);
 			axios.post('{{route('readAllNotification')}}')
@@ -174,7 +174,7 @@
                                     </div>
                                 </a>
                             </div>
-                    `)
+                    `);
                 } else {
                     $('.notification-result').prepend(`
                         <a href="${url}" class="dropdown-item d-flex pb-3 align-items-center" style = "color:#1e2125;background-color: #e9ecef;">
@@ -185,7 +185,7 @@
                                 <strong>${user.name}</strong> أضاف استفسار جديد
                             </div>
                         </a>
-                    `)
+                    `);
                 }
                 $('.notify-count').text(count+1);
 
@@ -212,7 +212,7 @@
                                     </div>
                                 </a>
                             </div>
-                    `)
+                    `);
                 } else {
                     $('.notification-result').prepend(`
                         <a href="${url}" class="dropdown-item d-flex pb-3 align-items-center" style = "color:#1e2125;background-color: #e9ecef;">
@@ -223,7 +223,7 @@
                                 <strong>${user.name}</strong> أضاف رد جديد
                             </div>
                         </a>
-                    `)
+                    `);
                 }
                 $('.notify-count').text(count+1);
 

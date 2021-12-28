@@ -171,7 +171,7 @@
                             messageError('email',errors.email[0]);
                         }
                         if(errors.image){
-                            messageError('image',errors.image[0]);
+                            messageError('text',errors.image[0]);
                         }
                         if(errors.password){
                             messageError('password',errors.password[0]);

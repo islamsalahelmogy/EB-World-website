@@ -64,9 +64,9 @@ class SubjectController extends Controller
             'name' => ['required', 'string','max:255'],
             'description'   => 'required', 'string', 'max:255',
             'cover' => 'required|image|mimes:jpeg,jpg,png',
-            'doctor_id' => ['required', 'string', 'max:255'],
-            'department_id' => ['required', 'string', 'max:255'],
-            'level_id' => ['required', 'string', 'max:255'],
+            'doctor_id' => ['required', 'string', 'max:255','gt:0'],
+            'department_id' => ['required', 'string', 'max:255','gt:0'],
+            'level_id' => ['required', 'string', 'max:255','gt:0'],
         ],[
             'required' => 'ممنوع ترك الحقل فارغاَ',
             'string' => 'يجب الحقل ان يحتوى على رموز وارقام وحروف', 
@@ -74,6 +74,7 @@ class SubjectController extends Controller
             'mimes' => 'لا بد ان يكون نوع الملف jpeg او jpg أو png',
             'numeric' => 'يجب ان يحتوى الحقل على ارقام فقط',
             'phone.digits' => 'الرقم غير صحيح لابد ان يكون مكون من 8 خانات',
+            'gt'=>'ممنوع ترك الحقل فارغا',
             'max'=> 'لا يمكن ان يكون الحقل اكبر من 225 حرف',
             'min' => 'لابد ان يكون الحقل مكون على الاقل من 8 خانات',
         ]);
@@ -150,6 +151,17 @@ class SubjectController extends Controller
      */
     public function updateImage(Request $request)
     {
+        $validator = validator::make($request->all(),[
+            'cover' => 'required|image|mimes:jpeg,jpg,png',
+        ],[
+            'required' => 'ممنوع ترك الحقل فارغاَ',
+            'image'=>'لابد ان تكون صورة ',
+            'mimes' => 'لا بد ان يكون نوع الملف jpeg او jpg أو png',
+            
+        ]);
+        if($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        } 
         $subject=Subject::find($request->id);
         $subjectId = $subject->id;
             $file = $request->file('cover');
@@ -173,7 +185,7 @@ class SubjectController extends Controller
         $validator = validator::make($request->all(),[
             'name' => ['required', 'string','max:255'],
             'description'   => 'required', 'string', 'max:255',
-            'level_id' => ['required', 'string', 'max:255'],
+            'level_id' => ['required', 'string', 'max:255','gt:0'],
         ],[
             'required' => 'ممنوع ترك الحقل فارغاَ',
             'string' => 'يجب الحقل ان يحتوى على رموز وارقام وحروف', 
@@ -192,11 +204,12 @@ class SubjectController extends Controller
     public function updateAdvanced(Request $request)
     {
         $validator = validator::make($request->all(),[
-            'department_id'   => 'required', 'string', 'max:255',
-            'doctor_id' => ['required', 'string', 'max:255'],
+            'department_id'   => 'required', 'string', 'max:255','gt:0',
+            'doctor_id' => ['required', 'string', 'max:255','gt:0'],
         ],[
             'required' => 'ممنوع ترك الحقل فارغاَ',
             'string' => 'يجب الحقل ان يحتوى على رموز وارقام وحروف', 
+            'gt'=>'ممنوع ترك الحقل فارغا',
             'max'=> 'لا يمكن ان يكون الحقل اكبر من 225 حرف',
         ]);
         if($validator->fails()) {

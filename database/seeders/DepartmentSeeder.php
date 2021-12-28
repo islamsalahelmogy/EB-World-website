@@ -27,12 +27,12 @@ class DepartmentSeeder extends Seeder
             'description' =>' يهتم بالعلوم التطبيقيه وعلوم الطبيعة'
         ]);
         DB::table('departments')->insert([
-            'name' => 'قسم الحاسبات ',
+            'name' => 'قسم الحاسب الالى ',
             'description' =>'يهتم بعلوم الحاسب والبرمجة '
         ]);
         DB::table('departments')->insert([
-            'name' => 'قسم التاريخ',
-            'description' =>'يهتم  بالتاريخ '
+            'name' => 'قسم اللغة العربية',
+            'description' =>'يهتم  باللغة العربية '
         ]);
     }
 }

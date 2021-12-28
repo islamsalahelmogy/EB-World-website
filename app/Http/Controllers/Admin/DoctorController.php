@@ -44,13 +44,14 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
+
         $validator = validator::make($request->all(),[
             'name' => ['required', 'string','unique:doctors,name'],
             'email'   => 'required|email|unique:doctors,email',
             'image' => 'required|image|mimes:jpeg,jpg,png',
             'gender' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'numeric', 'digits:8'],
-            'department_id' => ['required', 'string', 'max:255'],
+            'department_id' => ['required', 'string', 'max:255','gt:0'],
         ],[
             'required' => 'ممنوع ترك الحقل فارغاَ',
             'string' => 'يجب الحقل ان يحتوى على رموز وارقام وحروف', 
@@ -60,6 +61,7 @@ class DoctorController extends Controller
             'numeric' => 'يجب ان يحتوى الحقل على ارقام فقط',
             'phone.digits' => 'الرقم غير صحيح لابد ان يكون مكون من 8 خانات',
             'max'=> 'لا يمكن ان يكون الحقل اكبر من 225 حرف',
+            'gt'=>'ممنوع ترك الحقل فارغا',
             'min' => 'لابد ان يكون الحقل مكون على الاقل من 8 خانات',
         ]);
         if($validator->fails()) {
@@ -124,6 +126,16 @@ class DoctorController extends Controller
 
     public function updateImage(Request $request)
     {
+        $Validator = validator::make($request->all(),[
+            'image' => 'required|image|mimes:jpeg,jpg,png',
+        ],[
+            'required' => 'ممنوع ترك الحقل فارغاَ',
+            'image'=>'لابد ان تكون صورة ',
+            'mimes' => 'لا بد ان يكون نوع الملف jpeg او jpg أو png'
+        ]);
+        if($Validator->fails()) {
+            return response()->json(['errors' => $Validator->errors()]);
+        }
         $doctor=Doctor::find($request->id);
         $doctorId = $doctor->id;
             $file = $request->file('image');
@@ -149,7 +161,7 @@ class DoctorController extends Controller
             'email'   => 'required|email|unique:doctors,email,'.$request->id ,
             'gender' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'numeric', 'digits:8'],
-            'department_id' => ['required', 'string', 'max:255'],
+            'department_id' => ['required', 'string', 'max:255','gt:0'],
         ],[
             'required' => 'ممنوع ترك الحقل فارغاَ',
             'string' => 'يجب الحقل ان يحتوى على رموز وارقام وحروف', 
@@ -159,6 +171,7 @@ class DoctorController extends Controller
             'numeric' => 'يجب ان يحتوى الحقل على ارقام فقط',
             'phone.digits' => 'الرقم غير صحيح لابد ان يكون مكون من 8 خانات',
             'max'=> 'لا يمكن ان يكون الحقل اكبر من 225 حرف',
+            'gt'=>'ممنوع ترك الحقل فارغا',
             'min' => 'لابد ان يكون الحقل مكون على الاقل من 8 خانات',
 
         ]);

@@ -80,11 +80,11 @@
                                             <textarea class="form-control" name="description" rows="4" placeholder="اكتب كل ما تريد عن التخصص"></textarea>
                                         </div>
 
-                                        {{-- <div class="form-group">
+                                        <div class="form-group">
                                             <div class="form-label">صورة التخصص</div>
                                             <div class="control-group form-group">
                                                 <div class="input-group file-browser">
-                                                    <input type="text" class="form-control border-end-0 browse-file bg-transparent" placeholder="صورة التخصص" readonly="">
+                                                    <input type="text" name="text" class="form-control border-end-0 browse-file bg-transparent" placeholder="صورة التخصص" readonly="">
                                                     <label class="input-group-btn">
                                                     <span class="btn btn-primary br-bs-0 br-ts-0">
                                                         إرفع <input type="file" style="display: none;" name="cover">
@@ -92,30 +92,8 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                        </div> --}}
+                                        </div> 
                                         
-                                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-2 d-flex align-items-center" >
-                                    <label class="form-label mb-0"> صورة التخصص :</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <div class="input-group file-browser">
-                                        <input type="text" name= "text" class="form-control bg-transparent border-end-0 browse-file valid" placeholder="إرفع ألصورة" readonly="" aria-invalid="false"
-                                            @if (auth('admin')->user()->cover != null)
-                                            value="{{auth('admin')->user()->image}}"
-                                            @else                                             
-                                                    value="default.jpg"
-                                            @endif
-                                        >
-                                        <label class="input-group-btn">
-                                            <span class="btn btn-primary br-ts-0 br-bs-0">إرفع <input type="file" name="file" style="display: none;">
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
 
                                         <div class="form-group mb-0">
@@ -159,6 +137,12 @@
                         '</span>'
                 );
             }
+            $('body').on('click','textarea[name=description]',(e) => {
+                if( $('textarea[name=description]').hasClass('is-invalid')) {
+                    $('textarea[name=description]').removeClass('is-invalid');
+                    $('span.invalid-feedback#text').remove();
+                }
+            })
             //department Create
             $('#create_department').submit((e) => {
                 e.preventDefault();
@@ -171,8 +155,6 @@
                 {
                      form.append(obj[key].name,obj[key].value);
                 }
-                //console.log(form,file.files[0]);
-               // console.log(JSON.parse($(e.target).serialize()));
                 axios.post('{{ route('admin.departments.store') }}',form,{
                     headers: {
                         'Content-Type': 'multipart/form-data; boundary=${form._boundary}'
@@ -188,10 +170,15 @@
                             messageError('name',errors.name[0]);
                         }
                         if(errors.description){
-                            messageError('description',errors.description[0]);
+                            $('textarea[name=description]').addClass('is-invalid');
+                                $('textarea[name=description]').parent().append(
+                                    '<span id="text" class="invalid-feedback d-block px-2" role="alert">'+
+                                            '<strong>'+errors.description[0]+'</strong>'+
+                                    '</span>'
+                            );                        
                         }
                         if(errors.cover){
-                            messageError('cover',errors.cover[0]);
+                            messageError('text',errors.cover[0]);
                         }
                     }
                     else{
