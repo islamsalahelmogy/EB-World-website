@@ -122,7 +122,7 @@
                         '</span>'
                 );
             }
-            //Level Create
+
             $('#form_basic').submit((e) => {
                 e.preventDefault();
                 axios.post('{{ route('admin.doctors.updatebasic') }}',$(e.target).serialize())
@@ -159,7 +159,6 @@
                 var form = new FormData();
                 form.append('image',file.files[0]);
                 var obj=$(e.target).serializeArray();
-               // console.log(obj);
                 for(var key in obj)
                 {
                     form.append(obj[key].name,obj[key].value);

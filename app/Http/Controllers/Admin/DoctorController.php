@@ -50,7 +50,7 @@ class DoctorController extends Controller
             'email'   => 'required|email|unique:doctors,email',
             'image' => 'required|image|mimes:jpeg,jpg,png',
             'gender' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'numeric', 'digits:8'],
+            'phone' => ['required', 'numeric', 'digits:6'],
             'department_id' => ['required', 'string', 'max:255','gt:0'],
         ],[
             'required' => 'ممنوع ترك الحقل فارغاَ',
@@ -59,7 +59,7 @@ class DoctorController extends Controller
             'image'=>'لابد ان تكون صورة ',
             'mimes' => 'لا بد ان يكون نوع الملف jpeg او jpg أو png',
             'numeric' => 'يجب ان يحتوى الحقل على ارقام فقط',
-            'phone.digits' => 'الرقم غير صحيح لابد ان يكون مكون من 8 خانات',
+            'phone.digits' => 'الرقم غير صحيح لابد ان يكون مكون من 6 خانات',
             'max'=> 'لا يمكن ان يكون الحقل اكبر من 225 حرف',
             'gt'=>'ممنوع ترك الحقل فارغا',
             'min' => 'لابد ان يكون الحقل مكون على الاقل من 8 خانات',
@@ -160,8 +160,8 @@ class DoctorController extends Controller
             'name' => ['required', 'string'],
             'email'   => 'required|email|unique:doctors,email,'.$request->id ,
             'gender' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'numeric', 'digits:8'],
-            'department_id' => ['required', 'string', 'max:255','gt:0'],
+            'phone' => ['required', 'numeric', 'digits:6'],
+            'department_id' => $request->department_id ? ['required', 'string', 'max:255','gt:0'] : ''
         ],[
             'required' => 'ممنوع ترك الحقل فارغاَ',
             'string' => 'يجب الحقل ان يحتوى على رموز وارقام وحروف', 
@@ -169,7 +169,7 @@ class DoctorController extends Controller
             'image'=>'لابد ان تكون صورة ',
             'mimes' => 'لا بد ان يكون نوع الملف jpeg او jpg أو png',
             'numeric' => 'يجب ان يحتوى الحقل على ارقام فقط',
-            'phone.digits' => 'الرقم غير صحيح لابد ان يكون مكون من 8 خانات',
+            'phone.digits' => 'الرقم غير صحيح لابد ان يكون مكون من 6 خانات',
             'max'=> 'لا يمكن ان يكون الحقل اكبر من 225 حرف',
             'gt'=>'ممنوع ترك الحقل فارغا',
             'min' => 'لابد ان يكون الحقل مكون على الاقل من 8 خانات',
@@ -183,7 +183,8 @@ class DoctorController extends Controller
             $doctor->email = $request->email;
             $doctor->gender = $request->gender;
             $doctor->phone = $request->phone;
-            $doctor->department_id = $request->department_id;
+            if($request->department_id != null)
+                $doctor->department_id = $request->department_id;
             $doctor->save();
     }
 

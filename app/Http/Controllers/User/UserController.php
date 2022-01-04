@@ -95,7 +95,8 @@ class UserController extends Controller
             return response()->json(['errors' => $validator->errors()]);
         }
 
-            $user= Auth::guard('user')->user()->get;
+            $user_id= Auth::guard('user')->user()->id;
+            $user= User::find($user_id);
             $user->password = Hash::make($r->new_password);
             $user->save();
     }
