@@ -126,7 +126,7 @@
                                 <a href="{{route('doctor',['id'=>$doc->id])}}">
                                     <div class="card overflow-hidden">
                                         @if ($doc->image != null)
-                                                <img src="{{asset('assets/images/data/doctors/'.$doc->id.'/'.$d->image)}}" alt="img" class="w-100">
+                                                <img src="{{asset('assets/images/data/doctors/'.$doc->id.'/'.$doc->image)}}" alt="img" class="w-100">
                                         @else
                                             @if ($doc->gender == 'انثى')
                                                 <img src="{{asset('assets/images/data/doctors/female.jpg')}}" alt="img" class="w-100">
