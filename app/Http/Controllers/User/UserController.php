@@ -30,7 +30,7 @@ class UserController extends Controller
     {
             $validator = validator::make($request->all(),[
                 'name' => ['required', 'string', 'max:15'],
-                'email'   => 'required|email|unique:users,email,'.$request->id
+                'email'   => 'required|email|unique:users,email,'.Auth::guard('user')->user()->id
             ],[
                 'required' => 'ممنوع ترك الحقل فارغاَ',
                 'string' => 'يجب الحقل ان يحتوى على رموز وارقام وحروف', 

@@ -111,7 +111,7 @@ class DepartmentController extends Controller
     public function updateBasic(Request $request)
     {
         $validator = validator::make($request->all(),[
-            'name' => ['required', 'string','unique:departments,name'],
+            'name' => ['required', 'string','unique:departments,name,'.$request->id],
             'description' => ['required']
         ],[
             'required' => 'ممنوع ترك الحقل فارغاَ',
